@@ -1,23 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Messages from './Messages';
-import App from './App';
+import { Router, Route, Link, browserHistory } from 'react-router';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
-window.messages = ReactDOM.render(
-    <Messages />,
-    document.getElementById('messages')
-)
+window.STORE_API = '/api'
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+class App extends Component {
+    constructor() {
+        super();
+        this.messages = (<Messages ref="msgs" />);
+    }
 
-var cart = document.getElementById('cart')
-if (typeof(cart) !== 'undefined' && cart !== null) {
-    // exists.
+    componentDidMount() {
+        this.refs.msgs.add('App initialized. Welcome!', 'success')
+    }
+
+    render() {
+        return this.messages;
+    }
 }
+
+ReactDOM.render((
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+    </Route>
+  </Router>
+), document.getElementById('root'))
 

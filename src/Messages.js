@@ -81,8 +81,9 @@ class Messages extends Component {
     constructor() {
         super();
         this.state = {
-            messages: window.initialMessages
+            messages: []
         };
+        this.shown = []
     }
 
     add(content, category='info') {
@@ -93,15 +94,20 @@ class Messages extends Component {
     }
 
     render() {
-        const msgs = this.state.messages.map((msg, i) => (
-            <Message content={msg.content}
-                     category={msg.category}
-                     key={i}
-                     delayCount={i + 1}/>
-        ));
+        for (var i = 0; i < this.state.messages.length; i++) {
+            if (i >= this.shown.length) {
+                var msg = this.state.messages[i];
+                this.shown.push((
+                    <Message content={msg.content}
+                             category={msg.category}
+                             key={i}
+                             delayCount={i + 1} />
+                ));
+            }
+        }
         return (
             <div className="flashes" role="alert">
-                    {msgs}
+                    {this.shown}
             </div>
         );
     }
