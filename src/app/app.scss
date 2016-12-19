@@ -1,0 +1,22 @@
+
+/* $family-serif: "Georgia", serif;
+$family-primary: $family-serif;*/
+
+@import "~bulma/bulma.sass";
+
+#root {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+#app {
+    padding: 40px;
+}
+
+body {
+    background: transparent;
+    font-size: 18px;
+}
+
+
+

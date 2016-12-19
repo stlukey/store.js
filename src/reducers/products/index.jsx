@@ -1,0 +1,12 @@
+import {combineReducers} from 'redux';
+
+import categories from './categories';
+import latest from './latest';
+import popular from './popular';
+
+export default combineReducers({
+    categories,
+    latest,
+    popular
+})
+

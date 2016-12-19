@@ -1,0 +1,25 @@
+.latestProducts {
+    position: relative;
+    height: 300px;
+    .latestProduct {
+        position: relative;
+    }
+    img {
+        float: left;
+        height: 300px;
+    }
+    .latestProductDetails {
+        float: right;
+        display: inline;
+    }
+
+}
+.is-300x300 {
+    width: 300px;
+    height: 300px;
+}
+
+a.no-dec {
+    color: #4a4a4a; /* blue colors for links too */
+    text-decoration: inherit; 
+}

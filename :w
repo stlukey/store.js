@@ -1,0 +1,41 @@
+import React, {Component} from 'react';
+
+
+const _makeCompoent = (type, Element) => (props) => {
+    Element = (typeof Element !== 'undefined') ? Element : div;
+    return (
+        <Element className={type + ...props.classNames}>
+            {props.children}
+        </Element>
+)};
+
+export const Container = _make_Component('container');
+const _Columns = _makeComponent('columns');
+
+export const Columns = (props) => (
+    <_Columns {...props}>
+        {props.children.map((item, index) => (
+            <div className={"column", ...item}>
+                {item.props.children}
+            </div>
+        ))}
+    </_Columns>
+);
+
+export const Title = _makeComponent('title', h1);
+export const Label = _makeComponent('label', label);
+export const Button = _makeComonent('button', button);
+
+const _pControl = _makeComponent('control', p);
+export const Input = (props) => (
+    <_pControl>
+        <input>{props.children}</input>
+    </_pControl>
+);
+
+export const ControlButton = (props) => (
+    <_pControl>
+    <Button {...props}>{props.children}</Button>
+    </_pControl>
+);
+
