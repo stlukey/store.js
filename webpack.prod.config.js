@@ -7,7 +7,8 @@ var BUILD_DIR = path.resolve(__dirname, 'build');
 var PUBLIC_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
 
-var ENV = 'production';
+const ENV = 'production';
+const API_URL = 'https://maryamsingredientsapi.herokusapp.com';
 
 process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
