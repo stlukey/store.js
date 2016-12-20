@@ -1,0 +1,37 @@
+.Dropdown-root,
+.Dropdown-control,
+.Dropdown-placeholder {
+    display: inline;
+}
+
+
+.Dropdown-placeholder,
+.Dropdown-option {
+    cursor: pointer;
+}
+
+.Dropdown-option {
+    /* display: list-item;
+    list-style-type: square;
+    */
+}
+
+.Dropdown-option:before {
+    content: "                        ";
+    display: inline;
+    white-space: pre;
+}
+
+.Dropdown-menu {
+    margin-top: 10px;
+}
+
+.Dropdown-placeholder:after {
+    content:"▼";    
+    padding: 12px 8px;
+    text-align: center;
+    width: 10%;
+    height: 100%;      
+    pointer-events: none;
+    box-sizing: border-box;   
+}
