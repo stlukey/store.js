@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import Slider from 'react-slick';
 import Slick from 'slick-carousel/slick/slick.scss';
 import SlickTheme  from 'slick-carousel/slick/slick-theme.scss';
+import {Link} from 'react-router';
 
 import {
     Panel, Container, Columns, Title
@@ -31,18 +32,18 @@ const latestProductsSettings = {
 
 const latestProduct = (product, index) => (
     <div className="latestProduct" key={index}>
-        <a className="no-dec" href="#">
+        <Link className="no-dec" to={"/products/" + product._id.$oid}>
             <Columns>
                 <div className="image">
                     <img className="is-half"
-                         src={STORE_API + product.images[0]} />
+                         src={API_URL + product.images[0]} />
                 </div>
                 <div className="content">
                     <Title>{product.name}</Title>
                     <p>{product.description}</p>
                 </div>
             </Columns>
-        </a>
+        </Link>
     </div>
 );
 
@@ -57,15 +58,15 @@ const latestProducts = (products) => (
 const popularProduct = (product, index) => (
     <div className="is-3" key={index}>
         <Panel>
-            <a className="no-dec" href="#">
+            <Link className="no-dec" to={"/products/" + product._id.$oid}>
                 <p className="is-marginless">
                     <img className="is-128x128"
-                         src={STORE_API + product.images[0]} />
+                         src={API_URL + product.images[0]} />
                 </p>
                 <div className="panel-block">
                     {product.name}
                 </div>
-            </a>
+            </Link>
         </Panel>
     </div>
 );
@@ -103,14 +104,15 @@ export default class Home extends Component {
     }
 
     render() {
-        if(this.props.latestError) return alert(this.props.latest);
-        if(this.props.popularError) return alert(this.props.popular);
+        if(this.props.latestError) alert(this.props.latestError);
+        if(this.props.popularError) alert(this.props.popularError);
 
         var latest = !this.props.latestFetched
             ? (<Loading/>) : latestProducts(this.props.latest.data);
 
         var popular = !this.props.popularFetched
             ? (<Loading/>) : popularProducts(this.props.popular.data);
+        window.pops = this.props.popular;
 
         return (
             <div>

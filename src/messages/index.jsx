@@ -54,6 +54,7 @@ class Messages extends Component {
     }
 
     render() {
+        var j = 0;
         for (var i = 0; i < this.props.messages.length; i++) {
             if (i >= this.shown.length) {
                 var msg = this.props.messages[i];
@@ -61,7 +62,7 @@ class Messages extends Component {
                     <Message content={msg.content}
                              category={msg.category}
                              key={i}
-                             delayCount={i + 1} />
+                             delayCount={++j} />
                 ));
             }
         }

@@ -4,6 +4,8 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 
+const API_URL = JSON.stringify('http://localhost:5000');
+
 var BUILD_DIR = path.resolve(__dirname, 'build');
 var PUBLIC_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
@@ -12,15 +14,6 @@ var ENV = 'development';
 
 process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
-
-const API_HOST = 'http://localhost:5000';
-const API_PATH = '/api';
-
-const REWRITE_RE = '^' + API_PATH;
-var API_PATH_REWRITE = {};
-API_PATH_REWRITE[REWRITE_RE] = '';
-
-const API_PATH_RE = API_PATH + '/*';
 
 var config = {
     entry: [
@@ -32,7 +25,7 @@ var config = {
     ],
     output: {
         path: BUILD_DIR,
-        publicPath: '/',
+        publicPath: '/build',
         filename: 'bundle.js'
     },
     debug: true,
@@ -73,25 +66,19 @@ var config = {
     },
     postcss:  [ autoprefixer({ browsers: ['last 2 versions'] }) ],
     plugins: [
-        new HtmlWebpackPlugin({
+        /* new HtmlWebpackPlugin({
             inject: true,
             template: PUBLIC_DIR + '/index.html',
-        }),
+        }),*/
         new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
-            API: API_PATH
+            API_URL
         })
     ],
     devServer: {
-        proxy: {
-            '/api/*': {
-                target: API_HOST,
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api': ''
-                },
-                logLevel: 'debug'
-            }
+        port: 3000,
+        historyApiFallback: {
+            index: 'index.html'
         }
     }
 };

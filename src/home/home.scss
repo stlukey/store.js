@@ -23,3 +23,9 @@ a.no-dec {
     color: #4a4a4a; /* blue colors for links too */
     text-decoration: inherit; 
 }
+
+@media (max-width: 768px) {
+    .latestProducts {
+        margin-bottom: 200px !important;
+    }
+}

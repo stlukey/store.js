@@ -16,7 +16,7 @@ const _makeComponent = (type, Element) => (props) => {
 )};
 
 const _Columns = _makeComponent('columns');
-const _pControl = _makeComponent('control', _p);
+export const pControl = _makeComponent('control', _p);
 const _Column = _makeComponent('column');
 
 export const Container = _makeComponent('container');
@@ -28,7 +28,6 @@ export const Button = _makeComponent('button', _button);
 export const Columns = (props) => {
     var children = (props.children.constructor === Array ?
             props.children : [props.children]);
-    console.log(children);
     return (
     <_Columns {...props}>
         {children.map((item, index) => (
@@ -39,14 +38,14 @@ export const Columns = (props) => {
 )};
 
 export const Input = (props) => (
-    <_pControl>
-        <input {...props} />
-    </_pControl>
+    <pControl>
+        <input {...props}/>
+    </pControl>
 );
 
 export const ControlButton = (props) => (
-    <_pControl>
+    <pControl>
         <Button {...props}/>
-    </_pControl>
+    </pControl>
 );
 

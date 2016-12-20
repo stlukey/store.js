@@ -1,24 +1,33 @@
 import axios from "axios";
 
 export function fetchLatest() {
+    const url = `${API_URL}/products/latest`;
     return {
         type: "FETCH_LATEST_PRODUCTS",
-        payload: axios.get(STORE_API + '/products/latest')
+        payload: axios.get(url)
     };
 }
 
 export function fetchPopular() {
+    const url = `${API_URL}/products/popular`;
     return {
         type: "FETCH_POPULAR_PRODUCTS",
-        payload: axios.get(STORE_API + '/products/popular')
+        payload: axios.get(url)
     };
 }
 
 export function fetchCategories() {
+    const url = `${API_URL}/categories`;
     return {
         type: "FETCH_CATEGORIES",
-        payload: axios.get(STORE_API + '/categories')
+        payload: axios.get(url)
     };
 }
 
-
+export function fetchProduct(product_id) {
+    const url = `${API_URL}/products/${product_id}`;
+    return {
+        type: "FETCH_PRODUCT",
+        payload: axios.get(url)
+    };
+}

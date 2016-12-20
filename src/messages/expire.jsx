@@ -8,16 +8,11 @@ class Expire extends Component {
         super();
         this.state = {visible: true};
     }
-    componentWillReceiveProps(nextProps) {
-        // reset the timer if children are changed
-        if (nextProps.children !== this.props.children) {
-          this.setTimer();
-          this.setState({visible: true});
-    }
-    }
+
     componentDidMount() {
       this.setTimer();
     }
+    
     setTimer() {
         // clear any existing timer
         this._timer = null ? clearTimeout(this._timer) : null;
