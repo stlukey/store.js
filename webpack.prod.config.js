@@ -8,7 +8,8 @@ var PUBLIC_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
 
 const ENV = 'production';
-const API_URL = 'https://maryamsingredientsapi.herokusapp.com';
+const _API_URL = 'https://maryamsingredientsapi.herokusapp.com';
+const API_URL = JSON.stringify(_API_URL);
 
 process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
