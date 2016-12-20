@@ -21,7 +21,7 @@ const Footer = (props) => (
 @connect()
 class App extends Component {
     componentDidMount() {
-        this.props.dispatch(addMessage('App initialized. Welcome!', 'success'));
+        console.log("Application mounted.");
     }
 
     render() {

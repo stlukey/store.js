@@ -5,6 +5,8 @@ import moment from 'moment';
 import Loading from '../app/loading';
 import {fetchProduct} from './actions';
 
+import {values} from './index';
+
 const ProductDetails = (product) => (
 <div>
  <div className="section product-header">
@@ -13,7 +15,7 @@ const ProductDetails = (product) => (
         <div className="column">
           <span className="title is-3">{product.name}</span>
           <span className="title is-3 has-text-muted">&nbsp;|&nbsp;</span>
-          <span className="title is-4 has-text-muted">{product.categories[1].join(', ')}</span>
+          <span className="title is-4 has-text-muted">{values(product.categories).join(', ')}</span>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ const _label = (props) => (<label {...props}/>);
 const _button = (props) => (<button {...props}/>);
 const _p = (props) => (<p {...props}/>);
 const _div = (props) => (<div {...props}/>);
+const _span = (props) => (<span {...props}/>);
 
 const _makeComponent = (type, Element) => (props) => {
     Element = typeof Element !== 'undefined' ? Element : _div;
@@ -22,8 +23,10 @@ const _Column = _makeComponent('column');
 export const Container = _makeComponent('container');
 export const Panel = _makeComponent('panel');
 export const Title = _makeComponent('title', _h1);
+export const TitleSpan = _makeComponent('title', _span);
 export const Label = _makeComponent('label', _label);
 export const Button = _makeComponent('button', _button);
+export const Section = _makeComponent('section', _div);
 
 export const Columns = (props) => {
     var children = (props.children.constructor === Array ?
