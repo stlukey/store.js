@@ -9,7 +9,7 @@ function App() {
     const buildPath = express.static(path.join(__dirname, './build'))
 
     app.use('/build', buildPath)
-    app.get('/', function (_, res) { res.sendFile(indexPath) })
+    app.get('/*', function (_, res) { res.sendFile(indexPath) })
 
     return app
 }

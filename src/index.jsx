@@ -12,17 +12,20 @@ import Home from './home';
 import Login from './token/login';
 import Logout from './token/logout';
 
+const routes = (
+    <Route path="/" component={App}>
+        <IndexRoute component={Home} />
+        <Route path="/products/:productId" component={ProductPage}/>
+        <Route path="login" component={Login} />
+        <Route path="logout" component={Logout} />
+    </Route>
+);
 
-export default class Root extends Component {
+class Root extends Component {
     render() {
         return (
             <Router history={browserHistory}>
-                <Route path="/" component={App}>
-                    <IndexRoute component={Home} />
-                    <Route path="/products/:productId" component={ProductPage}/>
-                    <Route path="login" component={Login} />
-                    <Route path="logout" component={Logout} />
-                </Route>
+               {routes} 
             </Router>
         );
     }
