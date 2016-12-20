@@ -1,5 +1,6 @@
 {
   "name": "store",
+  "main": "server.js",
   "proxy": "http://localhost:5000/",
   "version": "0.1.0",
   "private": true,
@@ -49,7 +50,7 @@
     "style-loader": "^0.13.1"
   },
   "scripts": {
-    "start": "webpack-dev-server --content-base ./public --port 3000 --hot",
+    "test": "webpack-dev-server --content-base ./public --port 3000 --hot",
     "build": "webpack",
     "postinstall": "./node_modules/webpack/bin/webpack.js --config webpack.prod.config.js"
   }
