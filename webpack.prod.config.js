@@ -11,6 +11,7 @@ var ENV = 'production';
 
 process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
+const NODE_ENV = ENV;
 
 var config = {
     entry: [
@@ -65,6 +66,9 @@ var config = {
                 warnings: false
             }
         }),
+        new webpack.DefinePlugin({
+            API_URL, NODE_ENV
+        })
     ],
 };
 
