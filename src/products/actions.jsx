@@ -8,6 +8,15 @@ export function fetchLatest() {
     };
 }
 
+export function fetchAll() {
+    const url = `${API_URL}/products`;
+    return {
+        type: "FETCH_ALL_PRODUCTS",
+        payload: axios.get(url)
+    };
+}
+
+
 export function fetchPopular() {
     const url = `${API_URL}/products/popular`;
     return {

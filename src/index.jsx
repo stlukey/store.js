@@ -4,18 +4,21 @@ import {Provider} from 'react-redux';
 import {
     Router, Route, browserHistory, IndexRoute
 } from 'react-router';
-import ProductPage from './products/view';
 
 import store from './store';
+
 import App from './app';
 import Home from './home';
 import Login from './token/login';
 import Logout from './token/logout';
+import ProductsPage from './products';
+import ProductPage from './products/view';
 
 const routes = (
     <Route path="/" component={App}>
         <IndexRoute component={Home} />
-        <Route path="/products/:productId" component={ProductPage}/>
+        <Route path="products" component={ProductsPage} />
+        <Route path="products/:productId" component={ProductPage}/>
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />
     </Route>

@@ -65,7 +65,7 @@ class NavBar extends Component {
                 <NavToggle />
 
                 <div className="nav-right nav-menu">
-                    <NavItem to='#'>Products</NavItem>
+                    <NavItem to='/products'>Products</NavItem>
                     <NavItem to='#'>About</NavItem>
                     <NavItem to='#'>Contact</NavItem>
                 </div>
