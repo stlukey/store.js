@@ -24,7 +24,7 @@ const NavItem = (props) => (
 )
 
 const LoggedIn = [
-        <NavItem to='#' key={1}>
+        <NavItem to='/cart' key={1}>
             Basket{' '}
             <Icon>shopping_basket</Icon>
         </NavItem>,

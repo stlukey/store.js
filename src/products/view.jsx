@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import Loading from '../app/loading';
 import {fetchProduct} from './actions';
+import {BuyNowButton, AddToCartButton} from '../cart';
 
 import {values} from './index';
 
@@ -38,8 +39,8 @@ const ProductDetails = (product) => (
           <p>{product.description}</p>
           <br/>
           <p className="control">
-            <a className="button is-default">Buy now</a> {" "}
-            <a className="button is-primary">Add to cart</a>
+            <BuyNowButton productId={product._id.$oid} />
+            <AddToCartButton productId={product._id.$oid} />
           </p>
           <br />
           <table className="table">

@@ -4,6 +4,7 @@ import products from './products';
 import messages from './messages';
 import token from './token';
 import pages from './pages';
+import cart from './cart';
 
 import { reducer as form } from 'redux-form';
 
@@ -12,6 +13,7 @@ export default combineReducers({
     messages,
     form,
     token,
-    pages
+    pages,
+    cart
 })
 

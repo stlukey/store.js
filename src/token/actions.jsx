@@ -5,6 +5,10 @@ var deleteCookie = (name) => {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
 
+const AXIOS_CONFIG = {
+    withCredentials: true
+};
+
 export function fetchToken(credentials) {
     const {email, password} = credentials;
     const data = {
@@ -14,7 +18,7 @@ export function fetchToken(credentials) {
     const url = `${API_URL}/token/${email}`;
 
     return (dispatch) => {
-        axios.post(url, JSON.stringify(data))
+        axios.post(url, JSON.stringify(data), AXIOS_CONFIG)
              .then((response) => {
                 dispatch(() => {
                     return new Promise( (resolve, reject) => {

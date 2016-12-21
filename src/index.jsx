@@ -14,6 +14,7 @@ import Logout from './token/logout';
 import ProductsPage from './products';
 import ProductPage from './products/view';
 import {ContactPage, AboutPage} from './pages';
+import Cart from './cart';
 
 const routes = (
     <Route path="/" component={App}>
@@ -24,6 +25,8 @@ const routes = (
         
         <Route path="contact" component={ContactPage} />
         <Route path="about" component={AboutPage} />
+
+        <Route path="cart" component={Cart} />
 
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />
