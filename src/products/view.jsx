@@ -39,7 +39,7 @@ const ProductDetails = (product) => (
           <p>{product.description}</p>
           <br/>
           <p className="control">
-            <BuyNowButton productId={product._id.$oid} />
+            <BuyNowButton productId={product._id.$oid} />&nbsp;
             <AddToCartButton productId={product._id.$oid} />
           </p>
           <br />
