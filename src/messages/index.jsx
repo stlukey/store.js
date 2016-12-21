@@ -33,7 +33,7 @@ class Message extends Component {
                     transitionLeaveTimeout={1000}
                 >
                     <div className={classes}>
-                        <Icon type="exclamation-circle" size="large" />
+                        <Icon>error</Icon>
                         {" "}{this.props.content}
                     </div>
                 </ReactCSSTransitionGroup>

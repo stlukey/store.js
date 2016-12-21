@@ -21,6 +21,7 @@ var config = {
         'webpack-dev-server/client?http://localhost:3000',
         'webpack/hot/only-dev-server',
         //'react-hot-loader/patch',
+        "webpack-material-design-icons",
         APP_DIR + '/index.jsx'
     ],
     output: {
@@ -62,6 +63,7 @@ var config = {
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/octet-stream"},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
         {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
+        { test: /(\.css$)/, loaders: ['style-loader', 'css-loader', 'postcss-loader'] },,
         ]
     },
     postcss:  [ autoprefixer({ browsers: ['last 2 versions'] }) ],

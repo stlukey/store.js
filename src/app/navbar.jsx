@@ -23,17 +23,25 @@ const NavItem = (props) => (
     </Link>
 )
 
-const LoggedIn = (
-    <NavItem to='/logout'>
-        Log out
-        <Icon type='sign-in' />
-    </NavItem>
-);
+const LoggedIn = [
+        <NavItem to='#' key={1}>
+            Basket{' '}
+            <Icon>shopping_basket</Icon>
+        </NavItem>,
+        <NavItem to='#' key={2}>
+            My Account{' '}
+            <Icon>account_circle</Icon>
+        </NavItem>,
+        <NavItem to='/logout' key={3}>
+            Log out{' '}
+            <Icon>input</Icon>
+        </NavItem>
+];
 
 const LoggedOut = (
     <NavItem to='/login'>
-        Log in
-        <Icon type='sign-in' />
+        Log in{' '}
+        <Icon>account_box</Icon>
     </NavItem>
 );
 
