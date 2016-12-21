@@ -3,7 +3,8 @@ const DEFAULT_STATE = {
     fetching: false,
     fetched: false,
     error: null,
-    valid: null
+    valid: null,
+    created: false
 };
 
 export default function reducer(state=DEFAULT_STATE, action){
@@ -40,6 +41,25 @@ export default function reducer(state=DEFAULT_STATE, action){
 
         case "LOGOUT_TOKEN":
             return {...DEFAULT_STATE};
+
+
+        case "CREATE_TOKEN_PENDING":
+            return {
+                ...state,
+                fetching: true,
+                fetched: false,
+                valid: null
+            };
+
+        case "CREATE_TOKEN_REJECTED":
+            return {...state, fetching:false, error:action.payload,
+                    fetched:false}
+
+        case "CREATE_TOKEN_FULFILLED":
+            return {
+                ...DEFAULT_STATE,
+                created: true
+            };
 
         default:
             return {...state};

@@ -38,12 +38,15 @@ const LoggedIn = [
         </NavItem>
 ];
 
-const LoggedOut = (
-    <NavItem to='/login'>
+const LoggedOut = [
+    <NavItem to='/login' key={0}>
         Log in{' '}
         <Icon>account_box</Icon>
+    </NavItem>,
+    <NavItem to='/signup' key={1}>
+        or Sign Up
     </NavItem>
-);
+];
 
 /* TODO: Make stateful with is-active nav items */
 @connect((store) => {

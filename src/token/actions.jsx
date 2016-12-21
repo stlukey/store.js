@@ -67,3 +67,13 @@ export function removeToken(dispatch) {
         ));
     });
 }
+
+export function createToken(data) {
+    const url = `${API_URL}/user`;
+
+    return {
+        type: "CREATE_TOKEN",
+        payload: axios.post(url, data)
+    };
+}
+

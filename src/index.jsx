@@ -9,8 +9,11 @@ import store from './store';
 
 import App from './app';
 import Home from './home';
+
 import Login from './token/login';
 import Logout from './token/logout';
+import Signup from './token/signup';
+
 import ProductsPage from './products';
 import ProductPage from './products/view';
 import {ContactPage, AboutPage} from './pages';
@@ -32,6 +35,7 @@ const routes = (
 
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />
+        <Route path="signup" component={Signup} />
     </Route>
 );
 
