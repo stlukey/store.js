@@ -15,6 +15,7 @@ import ProductsPage from './products';
 import ProductPage from './products/view';
 import {ContactPage, AboutPage} from './pages';
 import Cart from './cart';
+import Account from './account';
 
 const routes = (
     <Route path="/" component={App}>
@@ -27,6 +28,7 @@ const routes = (
         <Route path="about" component={AboutPage} />
 
         <Route path="cart" component={Cart} />
+        <Route path="account" component={Account} />
 
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />

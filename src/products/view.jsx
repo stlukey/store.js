@@ -69,7 +69,11 @@ const ProductDetails = (product) => (
         <p className="menu-label">Recipes</p>
         <ul className="menu-list">
             {product.recipes.map((recipe, index) => (
-                <li key={index}><a href={recipe.url}>{recipe.name}</a></li>
+                <li key={index}>
+                  <a href={recipe.url} target="_blank">
+                    {recipe.name}
+                  </a>
+                </li>
             ))}
         </ul>
       </div>

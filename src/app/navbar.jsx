@@ -28,7 +28,7 @@ const LoggedIn = [
             Basket{' '}
             <Icon>shopping_basket</Icon>
         </NavItem>,
-        <NavItem to='#' key={2}>
+        <NavItem to='/account' key={2}>
             My Account{' '}
             <Icon>account_circle</Icon>
         </NavItem>,

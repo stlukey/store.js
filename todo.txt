@@ -1,0 +1,12 @@
+Add rEact router transitions
+add link for categories
+Make Account page
+add category links to individual product pages
+add reviews to api
+add reviews to indevidual product pages
+make login persistant
+Remove Jquery from navbar
+open recipes in new tab
+Add signup page
+Add email confirmation to signups in api
+Make quantity changable in basket
