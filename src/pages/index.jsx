@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux';
 
 import Loading from '../app/loading';
-import {Container} from '../app/bulma';
+import {Section, Container} from '../app/bulma';
 
 import fetchPage from './actions';
 
@@ -13,7 +13,7 @@ import fetchPage from './actions';
 })
 export default class CMSPage extends Component {
     componentDidMount() {
-        this.props.dispatch(fetchPage(this.props.route.path))
+        this.props.dispatch(fetchPage(this.props.pageId))
     }
 
     render() {
@@ -22,12 +22,15 @@ export default class CMSPage extends Component {
         if(!this.props.page.fetched)
             return (<Loading />);
 
-        const page_html = this.props.page.page.data.content;
+        const page_html = {
+            __html: this.props.page.page.data.content
+        };
 
         return (
-            <Container>
-                {page_html}
-            </Container>
+            <Section className="content" dangerouslySetInnerHTML={page_html} />
         );
     }
 }
+
+export const ContactPage = () => (<CMSPage pageId="contact" />);
+export const AboutPage = () => (<CMSPage pageId="about" />);
