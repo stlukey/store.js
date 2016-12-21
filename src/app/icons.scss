@@ -34,4 +34,7 @@
 
     /* Support for IE. */
     font-feature-settings: 'liga';
+
+    /* Support for mobiles */
+    text-rendering: optimizeLegibility;
   }
