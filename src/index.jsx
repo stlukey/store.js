@@ -13,12 +13,18 @@ import Login from './token/login';
 import Logout from './token/logout';
 import ProductsPage from './products';
 import ProductPage from './products/view';
+import CMSPage from './pages';
 
 const routes = (
     <Route path="/" component={App}>
         <IndexRoute component={Home} />
+
         <Route path="products" component={ProductsPage} />
         <Route path="products/:productId" component={ProductPage}/>
+        
+        <Route path="contact" component={CMSPage} />
+        <Route path="about" component={CMSPage} />
+
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />
     </Route>

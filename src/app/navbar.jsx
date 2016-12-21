@@ -66,8 +66,8 @@ class NavBar extends Component {
 
                 <div className="nav-right nav-menu">
                     <NavItem to='/products'>Products</NavItem>
-                    <NavItem to='#'>About</NavItem>
-                    <NavItem to='#'>Contact</NavItem>
+                    <NavItem to='/about'>About</NavItem>
+                    <NavItem to='/contact'>Contact</NavItem>
                 </div>
                 {userLinks}
             </nav>
