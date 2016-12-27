@@ -6,7 +6,6 @@ add reviews to api
 add reviews to indevidual product pages
 make login persistant
 Remove Jquery from navbar
-open recipes in new tab
-Add signup page
 Add email confirmation to signups in api
 Make quantity changable in basket
+dont show proceed to checkout if basket is empty

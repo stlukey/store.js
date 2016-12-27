@@ -1,14 +1,35 @@
 var webpack = require('webpack');
 var path = require('path');
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 var autoprefixer = require('autoprefixer');
+var combineLoaders = require('webpack-combine-loaders');
 
-const API_URL = JSON.stringify('http://localhost:5000');
+const API_URL = JSON.stringify('http://127.0.0.1:5000');
+const ADMIN_API_URL = JSON.stringify('http://127.0.0.1:5000/admin');
 
 var BUILD_DIR = path.resolve(__dirname, 'build');
 var PUBLIC_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
+var ADMIN_DIR = path.resolve(__dirname, 'admin')
+
+var babelSettings = {
+    // @remove-on-eject-begin
+    babelrc: false,
+    presets: ['es2015', 'react', 'stage-2', 'react-hmre'],
+    plugins: ['transform-decorators-legacy'],
+    // @remove-on-eject-end
+    cacheDirectory: false
+};
+
+var jsxLoaders = combineLoaders([
+  {
+    loader: 'react-hot',
+  },
+  {
+    loader: 'babel-loader',
+    query: babelSettings,
+  },
+]);
 
 var ENV = 'development';
 
@@ -16,37 +37,34 @@ process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
 
 var config = {
-    entry: [
-        'babel-polyfill',
-        'webpack-dev-server/client?http://localhost:3000',
-        'webpack/hot/only-dev-server',
-        //'react-hot-loader/patch',
-        "webpack-material-design-icons",
-        APP_DIR + '/index.jsx'
-    ],
+    context: __dirname,
+    entry: {
+        bundle: [
+            'webpack-dev-server/client?http://localhost:3000',
+            'webpack/hot/only-dev-server',
+            APP_DIR + '/index.jsx'
+        ] ,
+        admin: [
+            'webpack-dev-server/client?http://localhost:3000',
+            'webpack/hot/only-dev-server',
+            ADMIN_DIR + '/index.jsx'
+        ]
+    },
     output: {
         path: BUILD_DIR,
         publicPath: '/build',
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
-    debug: true,
-    devtool: 'cheap-module-eval-source-map',
+    debug: false, ///true,
+    devtool: false, //'source-map',
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
     module: {
         loaders: [ {
             test: /\.(js|jsx)$/,
-            include: APP_DIR,
-            loader: 'babel-loader',
-            query: {
-                // @remove-on-eject-begin
-                babelrc: false,
-                presets: ['es2015', 'react', 'stage-2'],
-                plugins: ['transform-decorators-legacy'],
-                // @remove-on-eject-end
-                cacheDirectory: false
-            }
+            include: [APP_DIR, ADMIN_DIR],
+            loader: jsxLoaders
         }, {
             test: /\.scss$|\.sass$/,
             loaders: [
@@ -66,23 +84,28 @@ var config = {
         { test: /(\.css$)/, loaders: ['style-loader', 'css-loader', 'postcss-loader'] },,
         ]
     },
-    postcss:  [ autoprefixer({ browsers: ['last 2 versions'] }) ],
+    // postcss:  [ autoprefixer({ browsers: ['last 2 versions'] }) ],
     plugins: [
         /* new HtmlWebpackPlugin({
             inject: true,
             template: PUBLIC_DIR + '/index.html',
         }),*/
-        new webpack.HotModuleReplacementPlugin(),
+        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
-            API_URL
+            API_URL, ADMIN_API_URL
         })
     ],
+    cache: true,
     devServer: {
         port: 3000,
         historyApiFallback: {
-            index: 'index.html'
+            index: 'index.html',
+            rewrites: [
+                { from: '/admin', to: '/admin.html' },
+            ],
         }
-    }
+    },
+
 };
 
 module.exports = config;

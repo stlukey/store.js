@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+$black: #0a0a0a;
+$grey-darker: #363636;
+$grey-dark: #4a4a4a;
+$grey: #7a7a7a;
+$grey-light: #b5b5b5;
+$grey-lighter: #dbdbdb;
+$white: #fff;
+$blue: #3273dc;
+$green: #23d160;
+$orange: #ff470f;
+$purple: #b86bff;
+$red: #ff3860;
+$turquoise: #00d1b2;
+$yellow: #ffdd57;
+
+
+#root {
+  max-width: none;
+}
+
+#app {
+  padding: 0;
+}
+
+.menu > .title {
+  color: $white;
+}
+
+.menu > .nav-item:hover {
+  color: $white;
+}
+
+.aside .menu .nav-item {
+  display: block;
+  padding: 10px 0;
+}
+
+.nav-item {
+  margin-left: 20px;
+}
+
+.admin-panel {
+  padding: 50px;
+}
+
+.aside {
+  border-radius: 10px;
+  padding: 20px;
+  background-color: $grey-darker;
+  color: $white;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  //background-color: #d7cec7;
+}
+
+.section {
+  border-radius: 10px;
+  color: black;
+}
+
+.admin-pane .title {
+  color: $grey-dark;
+}
+.container {
+  //color: #ffffff;
+}

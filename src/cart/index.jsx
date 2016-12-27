@@ -28,6 +28,9 @@ class _BuyNowButton extends Component {
     }
 
     handleClick() {
+        if(this.props.preview)
+            return null;
+        
         if(!this.props.token.valid)
             return this.props.dispatch(newMessage(
                 "You must log in first.",
@@ -69,6 +72,9 @@ export class AddToCartButton extends Component {
     }
 
     handleClick() {
+        if(this.props.preview)
+            return null;
+        
         if(!this.props.token.valid)
             return this.props.dispatch(newMessage(
                 "You must log in first.",

@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
 import moment from 'moment';
 
-import Loading from '../app/loading';
-import {fetchProduct} from './actions';
 import {BuyNowButton, AddToCartButton} from '../cart';
-
+import LoadProduct from './load';
 import {values} from './index';
 
-const ProductDetails = (product) => (
+const ProductDetails = (product, preview=false) => (
 <div>
  <div className="section product-header">
     <div className="container">
@@ -39,17 +36,17 @@ const ProductDetails = (product) => (
           <p>{product.description}</p>
           <br/>
           <p className="control">
-            <BuyNowButton productId={product._id.$oid} />&nbsp;
-            <AddToCartButton productId={product._id.$oid} />
+            <BuyNowButton productId={product._id.$oid} preview={preview}/>&nbsp;
+            <AddToCartButton productId={product._id.$oid} preview={preview}/>
           </p>
           <br />
           <table className="table">
             <tbody>
               <tr>
                 <td className="has-text-right">
-                  <strong>Added</strong>
+                  <strong>Added</strong>&nbsp;
                 </td>
-                <td> {moment(product.datetime).fromNow()}</td>
+                <td>{moment(product.datetime).fromNow()}</td>
               </tr>
             </tbody>
           </table>
@@ -82,23 +79,16 @@ const ProductDetails = (product) => (
 </div>
 );
 
-@connect((state) => {
-    return {
-        product: state.products.product
-    }
-})
-export default class ProductPage extends Component {
-    componentDidMount() {
-        const id = this.props.params.productId;
-        this.props.dispatch(fetchProduct(id))
-    }
+const ProductPage = (props) => {
+  var onLoad = (productData) =>
+      ProductDetails(productData, props.preview);
 
-    render() {
-        if(this.props.product.error)
-            return alert(this.props.product.error);
-        if(!this.props.product.fetched)
-            return <Loading />;
-
-        return ProductDetails(this.props.product.data.data);
-    }
+  return <LoadProduct productId={props.params.productId}
+                      onLoad={onLoad} />;
 }
+
+ProductPage.defaultProps = {
+  preview: false
+}
+
+export default ProductPage;

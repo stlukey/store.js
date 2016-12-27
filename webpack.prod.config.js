@@ -10,20 +10,27 @@ var APP_DIR = path.resolve(__dirname, 'src');
 const ENV = 'production';
 const _API_URL = 'https://maryamsingredientsapi.herokuapp.com';
 const API_URL = JSON.stringify(_API_URL);
+var ADMIN_DIR = path.resolve(__dirname, 'admin')
 
 process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
 const NODE_ENV = ENV;
 
 var config = {
-    entry: [
-        'babel-polyfill',
-        APP_DIR + '/index.jsx'
-    ],
+    entry: {
+        bundle: [
+            'babel-polyfill',
+            APP_DIR + '/index.jsx'
+        ],
+        admin: [
+            'babel-polyfill',
+            ADMIN_DIR + '/index.jsx'
+        ]
+    },
     output: {
         path: BUILD_DIR,
-        publicPath: '/build/',
-        filename: 'bundle.js'
+        publicPath: '/build',
+        filename: '[name].js'
     },
     resolve: {
         extensions: ['', '.js', '.jsx']

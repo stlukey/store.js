@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export function fetchLatest() {
     const url = `${API_URL}/products/latest`;

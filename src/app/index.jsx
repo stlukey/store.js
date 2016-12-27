@@ -8,18 +8,23 @@ import 'font-awesome/scss/font-awesome.scss';
 import NavBar from './navbar';
 import Messages from '../messages';
 
-import addMessage from '../messages/actions';
-
-const Footer = (props) => (
+export const Footer = (props) => (
     <footer>
-        <p>Copyright &copy; Maryams Ingredient's 2016</p>
+    <center>
+        <p>Copyright &copy; Maryam&#39;s Ingredients 2016</p>
         <p>Developed by Luke Southam &lt;luke@devthe.com&gt;</p>
+        </center>
     </footer>
 );
 
 
-@connect()
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.navBar = props.navBar !== undefined ?
+                      props.navBar : NavBar;
+    }
+
     componentDidMount() {
         console.log("Application mounted.");
     }
@@ -27,10 +32,10 @@ class App extends Component {
     render() {
         return (
             <div>
-                <NavBar />
+                <this.navBar />
                 <div id="app">
                     <Messages />
-                        { this.props.children }
+                    {this.props.children}
                 </div>
                 <Footer />
             </div>

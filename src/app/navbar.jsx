@@ -70,7 +70,7 @@ class NavBar extends Component {
         return (
             <nav className='nav has-shadow' id='top'>
                 <div className='nav-left'>
-                    <NavItem to='/'>Maryams Ingredients</NavItem>
+                    <NavItem to='/'>Maryam&#39;s Ingredients</NavItem>
                 </div>
 
                 <NavToggle />
