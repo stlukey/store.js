@@ -55,8 +55,8 @@ var config = {
         publicPath: '/build',
         filename: '[name].js'
     },
-    debug: false, ///true,
-    devtool: false, //'source-map',
+    debug: true,
+    devtool: 'source-map',
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
