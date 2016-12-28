@@ -23,6 +23,8 @@ import ProductsPage from './products';
 import ProductView from './products/view';
 import ProductEdit from './products/edit';
 
+window.API = ADMIN_API_URL;
+
 // Opt-in to Webpack hot module replacement
 if (module.hot) module.hot.accept()
 

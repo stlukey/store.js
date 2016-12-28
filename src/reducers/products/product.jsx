@@ -2,6 +2,8 @@ export default function reducer(state={
     data: {},
     fetching: false,
     fetched: false,
+    saving: false,
+    saved: false,
     error: null
 }, action){
     switch(action.type) {
@@ -18,6 +20,21 @@ export default function reducer(state={
                 fetched: true,
                 data: action.payload
             };
+
+        case "SAVE_PRODUCT_PENDING":
+            return {...state, saving:true, saved:false};
+
+        case "SAVE_PRODUCT_REJECTED":
+            return {...state, saving:false, error:action.payload, saved:false}
+
+        case "SAVE_PRODUCT_FULFILLED":
+            return {
+                ...state,
+                saving: false,
+                saved: true,
+                data: action.payload
+            };
+
         default:
             return {...state};
     }

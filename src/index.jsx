@@ -20,6 +20,8 @@ import {ContactPage, AboutPage} from './pages';
 import Cart from './cart';
 import Account from './account';
 
+window.API = API_URL;
+
 const routes = (
     <Route path="/" component={App}>
         <IndexRoute component={Home} />

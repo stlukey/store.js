@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function fetchLatest() {
-    const url = `${API_URL}/products/latest`;
+    const url = `${window.API}/products/latest`;
     return {
         type: "FETCH_LATEST_PRODUCTS",
         payload: axios.get(url)
@@ -9,7 +9,7 @@ export function fetchLatest() {
 }
 
 export function fetchAll() {
-    const url = `${API_URL}/products`;
+    const url = `${window.API}/products`;
     return {
         type: "FETCH_ALL_PRODUCTS",
         payload: axios.get(url)
@@ -18,7 +18,7 @@ export function fetchAll() {
 
 
 export function fetchPopular() {
-    const url = `${API_URL}/products/popular`;
+    const url = `${window.API}/products/popular`;
     return {
         type: "FETCH_POPULAR_PRODUCTS",
         payload: axios.get(url)
@@ -26,7 +26,7 @@ export function fetchPopular() {
 }
 
 export function fetchCategories() {
-    const url = `${API_URL}/categories`;
+    const url = `${window.API}/categories`;
     return {
         type: "FETCH_CATEGORIES",
         payload: axios.get(url)
@@ -34,7 +34,7 @@ export function fetchCategories() {
 }
 
 export function fetchProduct(product_id) {
-    const url = `${API_URL}/products/${product_id}`;
+    const url = `${window.API}/products/${product_id}`;
     return {
         type: "FETCH_PRODUCT",
         payload: axios.get(url)
