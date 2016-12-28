@@ -30,9 +30,6 @@ const ProductDetails = (product, preview=false) => (
           <div className="title is-2">{product.name}</div>
           <p className="title is-3 has-text-muted">£{product.cost}</p>
           <hr />
-          <br />
-          <br/>
-          <br/>
           <p>{product.description}</p>
           <br/>
           <p className="control">
