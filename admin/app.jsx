@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Link} from 'react-router';
+import AppEnlight from 'appenlight-client';
 
 import {
     Container
@@ -51,7 +52,19 @@ const SideBar = (props) => (
     </aside>
 );
 
-const AdminApp = (props) => (
+class AdminApp extends Component {
+    componentDidMount() {
+        if(APPENLIGHT_API_KEY) {
+            AppEnlight.init({
+                apiKey: APPENLIGHT_API_KEY,
+                windowOnError: 1
+            });
+        }
+        console.log("Application mounted.");
+    }
+
+    render() {
+        return (
     <div>
         <NavBar />
         <div id="app">
@@ -59,12 +72,13 @@ const AdminApp = (props) => (
                 <SideBar />
                 <Container className="column is-10 admin-panel">
                     <Messages />
-                    {props.children}
+                    {this.props.children}
                 </Container>
             </div>
         </div>
         <Footer />
     </div>
-);
+    );}
+}
 
 export default AdminApp;

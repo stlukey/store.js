@@ -8,6 +8,8 @@ import 'font-awesome/scss/font-awesome.scss';
 import NavBar from './navbar';
 import Messages from '../messages';
 
+import AppEnlight from 'appenlight-client';
+
 export const Footer = (props) => (
     <footer>
     <center>
@@ -26,6 +28,12 @@ class App extends Component {
     }
 
     componentDidMount() {
+        if(APPENLIGHT_API_KEY) {
+            AppEnlight.init({
+                apiKey: APPENLIGHT_API_KEY,
+                windowOnError: 1
+            });
+        }
         console.log("Application mounted.");
     }
 

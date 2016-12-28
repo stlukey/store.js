@@ -12,6 +12,8 @@ var PUBLIC_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
 var ADMIN_DIR = path.resolve(__dirname, 'admin')
 
+const APPENLIGHT_API_KEY = null;
+
 var babelSettings = {
     // @remove-on-eject-begin
     babelrc: false,
@@ -92,7 +94,8 @@ var config = {
         }),*/
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
-            API_URL, ADMIN_API_URL
+            API_URL, ADMIN_API_URL,
+            APPENLIGHT_API_KEY
         })
     ],
     cache: true,

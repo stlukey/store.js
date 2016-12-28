@@ -16,6 +16,11 @@ process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
 const NODE_ENV = ENV;
 
+const ADMIN_API_URL = JSON.stringify('http://127.0.0.1:5000/admin');
+
+const APP_ENLIGHT_API_KEY =
+    JSON.stringify('2f78d4a6f30349679a5ebace72fe7301');
+
 var config = {
     entry: {
         bundle: [
@@ -76,7 +81,9 @@ var config = {
             }
         }),
         new webpack.DefinePlugin({
-            API_URL, NODE_ENV
+            API_URL, NODE_ENV,
+            APPENLIGHT_API_KEY,
+            ADMIN_API_URL
         })
     ],
 };
