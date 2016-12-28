@@ -36,7 +36,9 @@ const latestProduct = (product, index) => (
             <Columns>
                 <div className="image">
                     <img className="is-half"
-                         src={`${API_URL}/products/${product._id.$oid}/1.jpg`} />
+                         src={`${API_URL}${product.images[
+                            1 % product.images.length
+                         ]}`} />
                 </div>
                 <div className="content">
                     <Title>{product.name}</Title>

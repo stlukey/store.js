@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link, withRouter} from 'react-router';
+import {withRouter} from 'react-router';
 
 import {
     Title,
@@ -17,12 +17,12 @@ class ProductRow extends Component {
     constructor(props) {
         super(props);
 
-        this.goToProduct = this.goToProduct.bind(this);
+        this.goToProductEdit = this.goToProductEdit.bind(this);
     }
 
-    goToProduct() {
+    goToProductEdit() {
         const productId = this.props.product._id.$oid;
-        this.props.router.push(`/products/${productId}`);
+        this.props.router.push(`/products/${productId}/edit`);
     }
 
     render() {
@@ -47,7 +47,7 @@ class ProductRow extends Component {
         );
 
         return (
-            <tr onClick={this.goToProduct} className="product-row">
+            <tr onClick={this.goToProductEdit} className="product-row">
                 {columns}
             </tr>
         );

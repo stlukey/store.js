@@ -11,11 +11,23 @@ export function fetchAll() {
 
 export const saveProduct = (productId, data) => (dispatch) => {
     const url = `${window.API}/products/${productId}`;
-    console.log(data);
     return dispatch({
         type: "SAVE_PRODUCT",
         payload: axios.put(url, data)
     }).then(dispatch(
         newMessage("Product updated.")
+    ));
+}
+
+export const uploadImage = (productId, image, index) => (dispatch) => {
+    const url = `${window.API}/products/${productId}/${index}`;
+    var data = new FormData();
+    data.append('file', image);
+
+    return dispatch({
+        type: "UPLOAD_PRODUCT_IMAGE",
+        payload: axios.put(url, data)
+    }).then(dispatch(
+        newMessage("Image upload complete.")
     ));
 }

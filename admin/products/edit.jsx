@@ -1,16 +1,9 @@
 import React, {Component} from 'react';
-import ProductPage from '../../src/products/view';
 import {Link} from 'react-router';
-import {
-    reduxForm,
-    Feild
-} from 'redux-form';
-import FileInput from 'react-file-input';
 
 import {
     Title,
     Section,
-    pCommmand,
     ControlButton,
     Button
 } from '../../src/app/bulma';
@@ -19,10 +12,13 @@ import LoadProduct, {
     LoadCategories
 } from '../../src/products/load';
 
-import {saveProduct} from './actions';
+import {saveProduct, uploadImage} from './actions';
+import newMessage from '../../src/messages/actions';
 
 
 import ProductEditCategories from './edit_categories';
+import ProductEditImages from './edit_images';
+
 import './edit.scss';
 
 const linkState = (obj, key) => (e) => {
@@ -49,7 +45,9 @@ class ProductEditDetailsForm extends Component {
             <div>
                 <Title>Details</Title>
                 <div className="input-row">
-                    <label htmlFor="name">Name:&nbsp;&nbsp;</label>
+                    <label htmlFor="name">
+                        Name:&nbsp;&nbsp;
+                    </label>
                     <input name="name"
                            type="text"
                            defaultValue={this.props.data.name}
@@ -57,7 +55,9 @@ class ProductEditDetailsForm extends Component {
                 </div>
 
                 <div className="input-row">
-                    <label htmlFor="price">Price (£):&nbsp;&nbsp;</label>
+                    <label htmlFor="price">
+                        Price (£):&nbsp;&nbsp;
+                    </label>
                     <input name="price"
                            type="number"
                            onChange={linkState(this, 'cost')}
@@ -66,11 +66,13 @@ class ProductEditDetailsForm extends Component {
 
 
                 <div className="input-row">
-                    <label htmlFor="description">Description:&nbsp;&nbsp;</label>
+                    <label htmlFor="description">
+                        Description:&nbsp;&nbsp;
+                    </label>
                     <textarea name="description"
-                           type="text"
-                           onChange={linkState(this, 'description')}
-                           defaultValue={this.props.data.description}/>
+                        type="text"
+                        onChange={linkState(this, 'description')}
+                        defaultValue={this.props.data.description}/>
                 </div>
 
                 <Button className="is-primary" onClick={this.save}>
@@ -80,57 +82,6 @@ class ProductEditDetailsForm extends Component {
         );
     }
 }
-
-
-
-class ProductEditImages extends Component {
-    handleChange(event) {
-        console.log('Selected file:', event.target.files[0]);
-    }
-
-    render() {
-
-        const homeImage = this.props.data.images.length ? (
-            <form className="input-row">
-                <label htmlFor="home-image">Home Image:&nbsp;&nbsp;</label>
-                <input className="image-input"
-                       name="home-image"
-                       type="file"
-                       onChange={this.handleChange}
-                       accept=".jpg"/>
-                <ControlButton className="is-primary" type="submit">
-                Save
-                </ControlButton>
-            </form>
-        ) : (
-            <form className="input-row">
-                <label htmlFor="home-image">Home Image:&nbsp;&nbsp;</label>
-                <span>You must upload a main image first.</span>
-            </form>
-        );
-
-        return (
-            <div>
-
-            <Title>Images</Title>
-            <form className="input-row">
-                <label htmlFor="main-image">Main Image:&nbsp;&nbsp;</label>
-                <input className="image-input"
-                       name="main-image"
-                       type="file"
-                       onChange={this.handleChange}
-                       accept=".jpg"/>
-                <ControlButton className="is-primary" type="submit">
-                Save
-                </ControlButton>
-            </form>
-            {homeImage}
-            </div>
-        );
-    }
-}
-
-var columns = [{name: 'name'},{name: 'url'}];
 
 class ProductEditRecipes extends Component {
     render() {
@@ -147,15 +98,20 @@ class ProductEditRecipes extends Component {
 const ProductEditStock = (props) => (
     <div>
         <Title>Stock</Title>
-        <span className="is-2">Current Stock level: {props.data.stock}</span>
+        <span className="is-2">
+            Current Stock level: {props.data.stock}
+        </span>
         <pre className="stock-warning">
-                WARNING: Stock level is only updated on reload (orders may
-                         take place while on this page if product is active).
-                         If the product is active it is advised that you
-                         Increase/Decrease the stock level as opossed to setting it.
+            WARNING: Stock level is only updated on reload (orders
+                     may take place while on this page if product is
+                     active). If the product is active it is advised
+                     that you Increase/Decrease the stock level as
+                     opossed to setting it.
         </pre>
             <form className="input-row">
-                <label htmlFor="increase">Increase by:&nbsp;&nbsp;</label>
+                <label htmlFor="increase">
+                    Increase by:&nbsp;&nbsp;
+                </label>
                 <input name="increase"
                        type="number" />
                 <ControlButton className="is-primary" type="submit">
@@ -163,7 +119,9 @@ const ProductEditStock = (props) => (
                 </ControlButton>
             </form>
             <form className="input-row">
-                <label htmlFor="decrease">Decrease by:&nbsp;&nbsp;</label>
+                <label htmlFor="decrease">
+                    Decrease by:&nbsp;&nbsp;
+                </label>
                 <input name="decrease"
                        type="number" />
                 <ControlButton className="is-primary" type="submit">
@@ -201,7 +159,8 @@ class ProductEditViewControl extends Component {
         const active = this.props.data.active ? (
             <div>
                 <span className="input-row">
-                    This product is currently <b>active</b>. It can be viewed and ordered by customers.
+                    This product is currently <b>active</b>.
+                    It can be viewed and ordered by customers.
                 </span>
                 <br />
                 <Button className="is-primary"
@@ -210,7 +169,8 @@ class ProductEditViewControl extends Component {
         ) : (
             <div>
                 <span className="input-row">
-                    This product is currently <b>not active</b>. It is not visible to customers.
+                    This product is currently <b>not active</b>.
+                    It is not visible to customers.
                 </span>
                 <br />
                 <Button className="is-primary"
@@ -218,20 +178,32 @@ class ProductEditViewControl extends Component {
             </div>
         );
 
-        const productId = this.props.data._id.$oid;
-
         return (
             <div>
                 <Title>View</Title>
                 {active}
                 <br />
                 You can preview this product in the admin area&nbsp;
-                <Link to={`/products/${productId}`}>here</Link>. <br />
-                (<b>WARNING:</b> Make sure you save any changes!)
+                <PreviewLink product={this.props.data}>
+                    here
+                </PreviewLink> <br />
+                <SaveWarning />
             </div>
         );
     }
 }
+
+const PreviewLink = (props) => (
+    <Link to={`/products/${props.product._id.$oid}`}>
+        {props.children}
+    </Link>
+);
+
+const SaveWarning = (props) => (
+    <span>
+        <b>WARNING:</b> Make sure you save any changes!
+    </span>
+);
 
 const ProductEdit = (props) => {
     var onCategoriesLoad  = (productDetails, dispatch) => (categories) => (
@@ -242,7 +214,12 @@ const ProductEdit = (props) => {
 
     var onLoad = (productDetails, dispatch) => (
         <div>
-            <Title>Editing Product ({productDetails._id.$oid})</Title>
+            <Title>Editing Product (
+                <PreviewLink product={productDetails}>
+                    Preview
+                </PreviewLink>
+            )</Title>
+            <SaveWarning />
             <Section>
                 <ProductEditDetailsForm data={productDetails}
                                         dispatch={dispatch} />
