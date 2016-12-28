@@ -69,6 +69,7 @@ var config = {
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/octet-stream"},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
         {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
+        { test: /(\.css$)/, loaders: ['style-loader', 'css-loader', 'postcss-loader'] },,
         ]
     },
     postcss:  [ autoprefixer({ browsers: ['last 2 versions'] }) ],
