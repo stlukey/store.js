@@ -43,7 +43,7 @@ var config = {
     module: {
         loaders: [ {
             test: /\.(js|jsx)$/,
-            include: APP_DIR,
+            include: [APP_DIR, ADMIN_DIR],
             loader: 'babel-loader',
             query: {
                 // @remove-on-eject-begin
