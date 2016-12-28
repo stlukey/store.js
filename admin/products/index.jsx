@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+import classnames from 'classnames';
 
 import {
     Title,
@@ -9,7 +10,7 @@ import {
 import Loading from '../../src/app/loading';
 import Icon from '../../src/app/icon';
 
-import {fetchAll} from './actions';
+import {fetchAll, createProduct} from './actions';
 import './products.scss';
 
 
@@ -55,28 +56,116 @@ class ProductRow extends Component {
 }
 ProductRow = withRouter(ProductRow);
 
+const linkState = (obj, key) => (e) => {
+    var state = obj.state;
+    state[key] = e.target.value;
+    obj.setState(state)
+}
+
+@connect((store) => {
+    return {
+        product: store.products.product
+    }
+})
 class NewProductRow extends Component {
     constructor(props) {
         super(props);
+        this.activate = this.activate.bind(this);
+        this.create = this.create.bind(this);
+        this.goToProductEdit = this.goToProductEdit.bind(this);
+        
+        this.state = {
+            active: false,
+            name: null,
+            cost: null,
+            description: null
+        };
 
-        this.goToNewProduct = this.goToNewProduct.bind(this);
+        this.i = 0;
     }
 
-    goToNewProduct() {
-        const productId = this.props.product._id.$oid;
-        this.props.router.push(`/products/${productId}`);
+    activate = (value=true) => () => {
+        var state = this.state;
+        state.active = value;
+        this.setState(state);
     }
 
-    render = () => (
-        <tr className="product-row">
-            <td><Icon className="large-icon">add</Icon></td>
-            <td className="medium-icon">Add new product.</td>
-            <td></td>
+    goToProductEdit() {
+        const productId = this.props.product.data.data._id.$oid;
+        this.props.router.push(`/products/${productId}/edit`);
+    }
+
+    create() {
+        const data = {
+            name:this.state.name,
+            cost:this.state.cost,
+            description:this.state.description
+        };
+
+        this.props.dispatch(createProduct(data))
+                  .then(this.goToProductEdit);
+    }
+
+    render() {
+        var classes = classnames('modal', {'is-active': this.state.active});
+
+        return (
+        <tr className="product-row new-product-row">
+            <td onClick={this.activate()}><Icon className="large-icon">add</Icon></td>
+            <td className="medium-icon"
+                onClick={this.activate()}>Add new product.</td>
+            <td>
+                <div className={classes}>
+                  <div className="modal-background"></div>
+                  <div className="modal-card">
+                    <header className="modal-card-head">
+                      <p className="modal-card-title">New Product</p>
+                    </header>
+                    <section className="modal-card-body">
+                        <div className="input-row">
+                            <label htmlFor="name">
+                                Name:&nbsp;&nbsp;
+                            </label>
+                            <input name="name"
+                                   type="text"
+                                   onChange={linkState(this, 'name')}/>
+                        </div>
+
+                        <div className="input-row">
+                            <label htmlFor="price">
+                                Price (£):&nbsp;&nbsp;
+                            </label>
+                            <input name="price"
+                                   type="number"
+                                   onChange={linkState(this, 'cost')} />
+                        </div>
+
+
+                        <div className="input-row">
+                            <label htmlFor="description">
+                                Description:&nbsp;&nbsp;
+                            </label>
+                            <textarea name="description"
+                                type="text"
+                                onChange={linkState(this, 'description')} />
+                        </div>
+
+                    </section>
+                    <footer className="modal-card-foot">
+                      <a className="button is-primary"
+                         onClick={this.create}>Create</a>
+                      <a className="button"
+                         onClick={this.activate(false)}>Cancel</a>
+                    </footer>
+                  </div>
+                </div>
+            </td>
             <td></td>
             <td></td>
         </tr>
-    );
+    );}
 }
+
 NewProductRow = withRouter(NewProductRow);
 
 

@@ -44,6 +44,17 @@ export default function reducer(state={
                 data: action.payload
             };
 
+        case "CREATE_PRODUCT_PENDING":
+            return {...state, saving:true, saved:false};
+        case "CREATE_PRODUCT_REJECTED":
+            return {...state, saving:false, error:action.payload, saved:false}
+        case "CREATE_PRODUCT_FULFILLED":
+            return {
+                ...state,
+                saving: false,
+                saved: true,
+                data: action.payload
+            };
 
         default:
             return {...state};

@@ -19,6 +19,14 @@ export const saveProduct = (productId, data) => (dispatch) => {
     ));
 }
 
+export function createProduct(data) {
+    const url = `${window.API}/products`;
+    return {
+        type: "CREATE_PRODUCT",
+        payload: axios.post(url, data)
+    }
+}
+
 export const uploadImage = (productId, image, index) => (dispatch) => {
     const url = `${window.API}/products/${productId}/${index}`;
     var data = new FormData();
