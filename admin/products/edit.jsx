@@ -18,6 +18,7 @@ import newMessage from '../../src/messages/actions';
 
 import ProductEditCategories from './edit_categories';
 import ProductEditImages from './edit_images';
+import ProductEditRecipes from './edit_recipes';
 
 import './edit.scss';
 
@@ -83,23 +84,62 @@ class ProductEditDetailsForm extends Component {
     }
 }
 
-class ProductEditRecipes extends Component {
+class ProductEditStock extends Component {
+    constructor(props) {
+        super(props);
+
+        this.saveIncrease = this.saveIncrease.bind(this);
+        this.saveDecrease = this.saveDecrease.bind(this);
+        this.saveSet = this.saveSet.bind(this);
+        
+        this.state = {
+            'increase': 0,
+            'decrease': 0,
+            'set': props.data.stock
+        };
+    }
+
+    handleChange = (target) => (event) => {
+        var state = this.state;
+        state[target] = event.target.value;
+        this.setState(state);
+
+    }
+
+    saveIncrease(event) {
+        const productId = this.props.data._id.$oid;
+        const data = {stock: this.state.increase,
+                      $inc: true};
+
+        this.props.dispatch(saveProduct(productId,
+                                        data));
+    }
+
+    saveDecrease(event) {
+        const productId = this.props.data._id.$oid;
+        const data = {stock: -this.state.decrease,
+                      $inc: true};
+
+        this.props.dispatch(saveProduct(productId,
+                                        data));
+    }
+
+    saveSet(event) {
+        const productId = this.props.data._id.$oid;
+        const data = {stock: this.state.set};
+
+        console.log('saving');
+
+        this.props.dispatch(saveProduct(productId,
+                                        data));
+    }
+
     render() {
         return (
-            <div>
-                <Title>Recipes</Title>
-                <Button className="is-primary">Save</Button>
-            </div>
-        );
-    }
-}
-
-
-const ProductEditStock = (props) => (
     <div>
         <Title>Stock</Title>
         <span className="is-2">
-            Current Stock level: {props.data.stock}
+            Current Stock level: {this.props.data.stock}
         </span>
         <pre className="stock-warning">
             WARNING: Stock level is only updated on reload (orders
@@ -108,37 +148,44 @@ const ProductEditStock = (props) => (
                      that you Increase/Decrease the stock level as
                      opossed to setting it.
         </pre>
-            <form className="input-row">
+            <div className="input-row">
                 <label htmlFor="increase">
                     Increase by:&nbsp;&nbsp;
                 </label>
                 <input name="increase"
-                       type="number" />
-                <ControlButton className="is-primary" type="submit">
-                Save
-                </ControlButton>
-            </form>
-            <form className="input-row">
+                       type="number"
+                       onChange={this.handleChange('increase')} />
+                <Button className="is-primary" type="submit"
+                        onClick={this.saveIncrease}>
+                    Save
+                </Button>
+            </div>
+            <div className="input-row">
                 <label htmlFor="decrease">
                     Decrease by:&nbsp;&nbsp;
                 </label>
                 <input name="decrease"
-                       type="number" />
-                <ControlButton className="is-primary" type="submit">
+                       type="number"
+                       onChange={this.handleChange('decrease')} />
+                <Button className="is-primary" type="submit"
+                        onClick={this.saveDecrease}>
                 Save
-                </ControlButton>
-            </form>
-            <form className="input-row">
+                </Button>
+            </div>
+            <div className="input-row">
                 <label htmlFor="set-stock">Set:&nbsp;&nbsp;</label>
                 <input name="set-stock"
                        type="number"
-                       defaultValue={props.data.stock} />
-                <ControlButton className="is-primary" type="submit">
+                       onChange={this.handleChange('set')}
+                       defaultValue={this.props.data.stock} />
+                <Button className="is-primary" type="submit"
+                        onClick={this.saveSet}>
                 Save
-                </ControlButton>
-            </form>
+                </Button>
+            </div>
     </div>
-);
+    );}
+}
 
 class ProductEditViewControl extends Component {
     constructor(props) {
