@@ -41,7 +41,7 @@ const latestProduct = (product, index) => (
                          src={`${API_URL}${product.images[
                             1 % product.images.length
                          ]}`} />
-                    <Title clasName="latest-title">
+                    <Title className="latest-title">
                         <span className="latest-title-span">
                             <span className="background">
                                 {product.name}:
