@@ -36,12 +36,6 @@ class Dashboard extends Component {
     render() {
         return (
             <div>
-                <Title>
-                    Dashboard
-                </Title>
-                <Section>
-                    Todays sales: 23
-                </Section>
             </div>
         );
     }

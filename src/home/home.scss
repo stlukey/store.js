@@ -1,19 +1,8 @@
-.latestProducts {
-    position: relative;
+.latestProducts img{
+    postion: relative;
     height: 300px;
-    .latestProduct {
-        position: relative;
-    }
-    img {
-        float: left;
-        height: 300px;
-    }
-    .latestProductDetails {
-        float: right;
-        display: inline;
-    }
-
 }
+
 .is-300x300 {
     width: 300px;
     height: 300px;
@@ -28,4 +17,25 @@ a.no-dec {
     .latestProducts {
         margin-bottom: 200px !important;
     }
+}
+
+
+.latest-title-span {
+    position: absolute;
+    top: 200px; 
+    left: 15px; 
+    color: white; 
+    font: bold 28px/45px Helvetica, Sans-Serif; 
+    letter-spacing: -1px; 
+}
+
+span.background {
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    margin-left: 20px;
+}
+
+.spacer {
+   padding:0 5px;
 }

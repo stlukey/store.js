@@ -30,19 +30,27 @@ const latestProductsSettings = {
     className: 'latestProducts columns'
 };
 
+const Spacer = (props) => <span className="Spacer" />
+
 const latestProduct = (product, index) => (
     <div className="latestProduct" key={index}>
         <Link className="no-dec" to={"/products/" + product._id.$oid}>
             <Columns>
                 <div className="image">
-                    <img className="is-half"
+                    <img
                          src={`${API_URL}${product.images[
                             1 % product.images.length
                          ]}`} />
-                </div>
-                <div className="content">
-                    <Title>{product.name}</Title>
-                    <p>{product.description}</p>
+                    <Title clasName="latest-title">
+                        <span className="latest-title-span">
+                            <span className="background">
+                                {product.name}:
+                            </span> <Spacer /> <br /> <Spacer />
+                            <span className="background">
+                                  {product.description}
+                            </span>
+                        </span>
+                    </Title>
                 </div>
             </Columns>
         </Link>
