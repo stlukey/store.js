@@ -11,10 +11,11 @@ function App() {
     const buildPath = express.static(path.join(__dirname, './build'));
 
     if(production) {
-        app.use('/*', function(req, res, next){
-            if (req.header('x-forwarded-proto' !== 'https'))
-                return res.redirect("https://" + req.header('host') + req.url);
-            return next();
+        app.get('*',function(req,res,next){
+          if(req.headers['x-forwarded-proto']!='https')
+            res.redirect('https://mypreferreddomain.com'+req.url);
+          else
+            next();
         });
     }
 
