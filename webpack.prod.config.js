@@ -21,6 +21,9 @@ const ADMIN_API_URL = JSON.stringify('https://maryamsingredientsapi.herokuapp.co
 const APPENLIGHT_API_KEY =
     JSON.stringify('2f78d4a6f30349679a5ebace72fe7301');
 
+const GA_TRACKING_CODE =
+    JSON.stringify('UA-89576317-1');
+
 var config = {
     entry: {
         bundle: [
@@ -84,7 +87,8 @@ var config = {
         new webpack.DefinePlugin({
             API_URL, NODE_ENV,
             APPENLIGHT_API_KEY,
-            ADMIN_API_URL
+            ADMIN_API_URL,
+            GA_TRACKING_CODE
         })
     ],
 };

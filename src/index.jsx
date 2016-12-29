@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {
-    Router, Route, browserHistory, IndexRoute
+    Router, Route, IndexRoute
 } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 
 import store from './store';
 
@@ -19,6 +20,12 @@ import ProductPage from './products/view';
 import {ContactPage, AboutPage} from './pages';
 import Cart from './cart';
 import Account from './account';
+
+const history = createBrowserHistory();
+
+const unlisten = GA_TRACKING_CODE ? history.listen(location => {
+  ga('send', location);
+}) : null;
 
 window.API = API_URL;
 
@@ -44,7 +51,7 @@ const routes = (
 class Root extends Component {
     render() {
         return (
-            <Router history={browserHistory}>
+            <Router history={history}>
                {routes} 
             </Router>
         );

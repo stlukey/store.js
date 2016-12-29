@@ -13,6 +13,7 @@ var APP_DIR = path.resolve(__dirname, 'src');
 var ADMIN_DIR = path.resolve(__dirname, 'admin')
 
 const APPENLIGHT_API_KEY = null;
+const GA_TRACKING_CODE = null;
 
 var babelSettings = {
     // @remove-on-eject-begin
@@ -95,7 +96,7 @@ var config = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
             API_URL, ADMIN_API_URL,
-            APPENLIGHT_API_KEY
+            APPENLIGHT_API_KEY, GA_TRACKING_CODE
         })
     ],
     cache: true,
