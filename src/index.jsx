@@ -5,6 +5,7 @@ import {
     Router, Route, IndexRoute
 } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
+import ga from 'ga-react-router';
 
 import store from './store';
 
