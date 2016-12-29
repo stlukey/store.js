@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {Provider} from 'react-redux';
-import { createHistory } from 'history';
+import {createHistory} from 'history';
 import {
     Router, Route, IndexRoute,
     useRouterHistory,
@@ -23,6 +23,12 @@ import ProductsPage from './products';
 import ProductView from './products/view';
 import ProductEdit from './products/edit';
 
+import Pages from './pages';
+import ViewPage from './pages/view';
+import EditPage from './pages/edit';
+
+import Users from './users';
+
 window.API = ADMIN_API_URL;
 
 // Opt-in to Webpack hot module replacement
@@ -41,6 +47,7 @@ class Dashboard extends Component {
     }
 }
 
+const ComingSoon = props => <Title>Coming Soon.</Title>;
 
 const routes = (
     <Route path="/" component={AdminApp}>
@@ -49,6 +56,14 @@ const routes = (
         <Route path="products" component={ProductsPage} />
         <Route path="products/:productId" component={ProductView} />
         <Route path="products/:productId/edit" component={ProductEdit} />
+
+        <Route path="pages" component={Pages} />
+        <Route path="pages/:pageId" component={ViewPage} />
+        <Route path="pages/:pageId/edit" component={EditPage} />
+
+        <Route path="users" component={Users} />
+        <Route path="shipments" component={ComingSoon} />
+        <Route path="orders" component={ComingSoon} />
     </Route>
 );
 

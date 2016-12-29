@@ -14,11 +14,11 @@ import './admin.scss';
 var i = 0;
 const links = [
     <Link key={i++} to="/products" className="nav-item">Products</Link>,
-    <Link key={i++} to="#" className="nav-item">Pages</Link>,
-    <Link key={i++} to="#" className="nav-item">Users</Link>,
-    <Link key={i++} to="#" className="nav-item">Shipments</Link>,
-    <Link key={i++} to="#" className="nav-item">Orders</Link>,
-    <a key={i++} href="/" className="nav-item">Logout</a>,
+    <Link key={i++} to="/pages" className="nav-item">Pages</Link>,
+    <Link key={i++} to="/users" className="nav-item">Users</Link>,
+    <Link key={i++} to="/shipments" className="nav-item">Shipments</Link>,
+    <Link key={i++} to="/orders" className="nav-item">Orders</Link>,
+    <a key={i++} href="/" className="nav-item">Home</a>,
 ];
 
 const NavBar = (props) => (

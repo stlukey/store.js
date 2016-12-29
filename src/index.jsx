@@ -26,7 +26,8 @@ import Account from './account';
 const history = useRouterHistory(createHistory)();
 
 const unlisten = GA_TRACKING_CODE ? history.listen(location => {
-  ga('send', location);
+    console.log('Connected to GA with tracking code:', GA_TRACKING_CODE);
+    ga('send', location);
 }) : null;
 
 window.API = API_URL;
