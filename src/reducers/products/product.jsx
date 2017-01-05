@@ -56,6 +56,19 @@ export default function reducer(state={
                 data: action.payload
             };
 
+
+        case "SAVE_PARCEL_PENDING":
+            return {...state, saving:true, saved:false};
+        case "SAVE_PARCEL_REJECTED":
+            return {...state, saving:false, error:action.payload, saved:false}
+        case "SAVE_PARCEL_FULFILLED":
+            return {
+                ...state,
+                saving: false,
+                saved: true,
+                data: action.payload
+            };
+
         default:
             return {...state};
     }

@@ -19,6 +19,17 @@ export const saveProduct = (productId, data) => (dispatch) => {
     ));
 }
 
+export const saveParcel = (productId, data) => (dispatch) => {
+    const url = `${window.API}/parcel/${productId}`;
+    return dispatch({
+        type: "SAVE_PARCEL",
+        payload: axios.post(url, data)
+    }).then(dispatch(
+        newMessage("Parcel updated.")
+    ));
+}
+
+
 export function createProduct(data) {
     const url = `${window.API}/products`;
     return {

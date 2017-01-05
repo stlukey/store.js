@@ -12,7 +12,7 @@ import LoadProduct, {
     LoadCategories
 } from '../../src/products/load';
 
-import {saveProduct, uploadImage} from './actions';
+import {saveProduct, uploadImage, saveParcel} from './actions';
 import newMessage from '../../src/messages/actions';
 
 
@@ -78,6 +78,75 @@ class ProductEditDetailsForm extends Component {
 
                 <Button className="is-primary" onClick={this.save}>
                 Save
+                </Button>
+            </div>
+        );
+    }
+}
+
+class ProductEditParcel extends Component {
+    constructor(props) {
+        super(props);
+        this.save = this.save.bind(this);
+        this.state = {};
+    }
+
+    save() {
+        const productId = this.props.data._id.$oid;
+        this.props.dispatch(saveParcel(productId,
+                                        this.state));
+    }
+
+    render() {
+        const parcelId = this.props.data.parcel_id ? (
+            <span>
+                Current parcel ID: {this.props.data.parcel_id}
+            </span>
+        ) : <span />;
+
+        return (
+            <div>
+                <Title>Parcel Details</Title>
+                <div className="input-row">
+                    <label htmlFor="length">
+                        Length (inch):&nbsp;&nbsp;
+                    </label>
+                    <input name="length"
+                           type="number"
+                           onChange={linkState(this, 'length')}/>
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="width">
+                        Width (inch):&nbsp;&nbsp;
+                    </label>
+                    <input name="width"
+                           type="number"
+                           onChange={linkState(this, 'width')}/>
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="height">
+                        Height (inch):&nbsp;&nbsp;
+                    </label>
+                    <input name="height"
+                           type="number"
+                           onChange={linkState(this, 'height')}/>
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="weight">
+                        Weight (Oz):&nbsp;&nbsp;
+                    </label>
+                    <input name="weight"
+                           type="number"
+                           onChange={linkState(this, 'weight')}/>
+                </div>
+
+                {parcelId}
+
+                <Button className="is-primary" onClick={this.save}>
+                Generate new parcel
                 </Button>
             </div>
         );
@@ -203,6 +272,16 @@ class ProductEditViewControl extends Component {
     }
 
     render() {
+        const activate = this.props.data.parcel_id ? (
+            <Button className="is-primary"
+                        onClick={this.toggleView}>Activate</Button>
+        ) : (
+            <b>
+                You must generate a parcel id before activating
+                this product.
+            </b>
+        );
+
         const active = this.props.data.active ? (
             <div>
                 <span className="input-row">
@@ -220,8 +299,7 @@ class ProductEditViewControl extends Component {
                     It is not visible to customers.
                 </span>
                 <br />
-                <Button className="is-primary"
-                        onClick={this.toggleView}>Activate</Button>
+                {activate}
             </div>
         );
 
@@ -276,6 +354,9 @@ const ProductEdit = (props) => {
                 <hr />
                 <ProductEditImages dispatch={dispatch}
                                    data={productDetails}/>
+                <hr />
+                <ProductEditParcel dispatch={dispatch}
+                                   data={productDetails} />
                 <hr />
                 <ProductEditRecipes data={productDetails}
                                     dispatch={dispatch}/>
