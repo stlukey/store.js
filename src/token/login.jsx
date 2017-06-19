@@ -13,6 +13,32 @@ import {
 } from '../app/bulma';
 import Loading from '../app/loading';
 
+@connect((store) => {
+    return {
+        token: store.token
+    }
+})
+class _RequiresLogin extends Component {
+    render() {
+        if(!this.props.token.valid) {
+            this.props.dispatch(newMessage(
+                "You must log in to do that!",
+                'danger'
+            ));
+            this.props.router.push('/login');
+            return <span />;
+        }
+
+        return (
+            <span>
+                {this.props.children}
+            </span>
+        );
+    }
+}
+
+export var RequiresLogin = withRouter(_RequiresLogin);
+
 var LoginForm = (props) => (
     <Container>
         <Columns className="is-vcentered">

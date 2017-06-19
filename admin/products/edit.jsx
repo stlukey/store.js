@@ -84,7 +84,7 @@ class ProductEditDetailsForm extends Component {
     }
 }
 
-class ProductEditParcel extends Component {
+/** class ProductEditParcel extends Component {
     constructor(props) {
         super(props);
         this.save = this.save.bind(this);
@@ -151,7 +151,7 @@ class ProductEditParcel extends Component {
             </div>
         );
     }
-}
+} **/
 
 class ProductEditStock extends Component {
     constructor(props) {
@@ -272,15 +272,17 @@ class ProductEditViewControl extends Component {
     }
 
     render() {
-        const activate = this.props.data.parcel_id ? (
+        const activate = (
             <Button className="is-primary"
                         onClick={this.toggleView}>Activate</Button>
-        ) : (
+        );
+        /** this.props.data.parcel_id ? (
+        : (
             <b>
                 You must generate a parcel id before activating
                 this product.
             </b>
-        );
+        ); **/
 
         const active = this.props.data.active ? (
             <div>
@@ -355,9 +357,6 @@ const ProductEdit = (props) => {
                 <ProductEditImages dispatch={dispatch}
                                    data={productDetails}/>
                 <hr />
-                <ProductEditParcel dispatch={dispatch}
-                                   data={productDetails} />
-                <hr />
                 <ProductEditRecipes data={productDetails}
                                     dispatch={dispatch}/>
                 <hr />
@@ -374,4 +373,7 @@ const ProductEdit = (props) => {
                         onLoad={onLoad} />;
 };
 
+                /**<ProductEditParcel dispatch={dispatch}
+                                   data={productDetails} />
+                <hr />**/
 export default ProductEdit;

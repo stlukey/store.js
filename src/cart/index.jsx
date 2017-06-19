@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
+import {Link, withRouter} from 'react-router';
 
 import Loading from '../app/loading';
 
 import {
-    fetchCart, addToCart,
-    removeFromCart
+    fetchCart, fetchCartCost, addToCart,
+    removeFromCart, setItemQuantityInCart
 } from './actions';
 import {fetchAll} from '../products/actions';
 import newMessage from '../messages/actions';
+import {RequiresLogin} from '../token/login';
 import {Section, Title} from '../app/bulma';
 
 import './cart.scss';
@@ -99,52 +100,96 @@ export class AddToCartButton extends Component {
     }
 }
 
-
-@connect((store) => {
-    return {
-        token: store.token
-    }
-})
+@connect()
 class CartItem extends Component {
     constructor(props) {
         super(props)
-        this.handleClick = this.handleClick.bind(this);
+        
+        this.state = {editing: false, quantity: this.props.quantity}
+
+
+        this.editingToggle = this.editingToggle.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    handleClick() {
-        if(!this.props.token.valid)
-            return this.props.dispatch(newMessage(
-                "You must log in first.",
-                'danger'
-            ));
+    handleEditSave() {
+        this.props.dispatch(setItemQuantityInCart(
+            this.props.product._id.$oid,
+            this.state.quantity))
+          .then(() => {
+              this.props.dispatch(newMessage(
+                  "Basket updated.",
+                  "info"
+              ));
+              this.props.dispatch(fetchCart());
+              this.props.dispatch(fetchCartCost());
+          }).catch((e) => alert(e));
+    }
 
+    handleChange(event) {
+        this.setState({quantity: parseInt(event.target.value)});
+    }
+
+    editingToggle() {
+        if(this.state.editing)
+            this.handleEditSave();
+        this.setState({editing: !this.state.editing});
+    }
+
+    handleDelete() {
         this.props.dispatch(removeFromCart(this.props.product._id.$oid))
                   .then(() => {
                       this.props.dispatch(newMessage(
                           "Basket updated.",
                           "info"
-                      ))
+                      ));
+                      this.props.dispatch(fetchCart());
+                      this.props.dispatch(fetchCartCost());
                   });
     }
 
     render() {
-        var {product, quantity} = this.props;
+        var product = this.props.product;
+
+        var editLink = (
+            <a href='#' onClick={this.editingToggle}>
+                {this.state.editing ? 'done' : 'edit'}
+            </a>
+        );
+
+        var quantity = this.state.editing ? (
+            <td>
+                <input type="number" value={this.state.quantity}
+                       onChange={this.handleChange} /> {editLink}
+            </td>
+        ) : (
+            <td>
+                {this.state.quantity} ({editLink})
+            </td>
+        );
+
         return (
             <tr>
                 <td><figure className="image is-64x64">
                     <img src={`${API_URL}${product.images[0]}`} />
                 </figure></td>
-                <td>{product.name}</td>
+                <td>
+                    <Link to={"/products/" + product._id.$oid}>
+                        {product.name}
+                    </Link>
+                </td>
                 <td>£{product.cost}</td>
                 <td>X</td>
-                <td>{quantity}</td>
+                {quantity}
                 <td>
-                    <a href='#' onClick={this.handleClick}>Delete</a>
+                    <a href='#' onClick={this.handleDelete}>Delete</a>
                 </td>        
             </tr>
         )    
     }
 }
+
 
 const findProduct = (item, products) => {
     for(var i in products) {
@@ -155,47 +200,6 @@ const findProduct = (item, products) => {
     console.log(`ERROR: product with id '${item}' not found.`)
 }
 
-const makeCart = (cartItems, products) => {
-    var cart = [];
-    var i = 0;
-    var total = 0;
-    for(var item in cartItems){
-        var product = findProduct(item, products);
-        total += product.cost * cartItems[item];
-        cart.push(<CartItem product={product}
-                            quantity={cartItems[item]}
-                            key={i++} />);
-    }
-
-    return [
-        <table className="table" key={0}>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th></th>
-                    <th>Quantity</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {cart}
-            </tbody>
-        </table>,
-        <span className="pull-right" key={1}>
-            <b>Total: £</b>
-            {total.toFixed(2)}
-        </span>
-    ];
-}
-
-const CheckoutButton = (props) => (
-    <a className="button is-primary pull-right">
-        Proceed to checkout
-    </a>     
-);
-
 
 @connect((store) => {
     return {
@@ -203,33 +207,110 @@ const CheckoutButton = (props) => (
         products: store.products.products
     }
 })
-class Cart extends Component {
+class CartTable extends Component {
     componentDidMount() {
-        this.props.dispatch(fetchCart());
         if(!this.props.products.fetched || this.props.products.fetching)
             this.props.dispatch(fetchAll());
     }
 
     render() {
+        if(!(this.props.products.fetched))
+            return (<Loading />);
+
+        var empty = Object.keys(this.props.cart.products.data).length == 0;
+
+        return empty ? (
+            <h3>Empty.</h3>
+        ) : (
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th></th>
+                        <th>Quantity</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.keys(this.props.cart.products.data).map((item, i) => (
+                        <CartItem product={findProduct(item,
+                                                       this.props.products.products.data)}
+                                  quantity={this.props.cart.products.data[item]}
+                                  key={i} />)
+                    )}
+                </tbody>
+            </table>
+        );
+    }
+}
+
+@connect((store) => {
+    return {
+        cart: store.cart,
+    }
+})
+class Cart extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchCart());
+        this.props.dispatch(fetchCartCost());
+    }
+
+
+    render() {
+        if(this.props.cart.costError)
+            alert(this.props.cart.costError);
+
+        if(!this.props.cart.costFetched)
+            return (<Loading />);
+
         if(this.props.cart.error)
             alert(this.props.cart.error);
-        if(this.props.products.error)
-            alert(this.props.products.error);
 
-        if(!(this.props.cart.fetched && this.props.products.fetched))
+        if(!(this.props.cart.fetched))
             return (<Loading />);
+
+        var cost = this.props.cart.cost.data;
+        window.test = cost;
+
+        var total = cost.sub_total + cost.shipping[0];
+
+        var empty = Object.keys(this.props.cart.products.data).length == 0;
+        total = empty ? <div /> : (
+            <div>
+                <br/>
+                <span className="pull-right">
+                    <b>Subtotal: </b>£{cost.sub_total.toFixed(2)}
+                </span>
+                <br/>
+                <span className="pull-right">
+                    <b>Shipping: </b>£{cost.shipping[0].toFixed(2)}
+                </span>
+                <br />
+                <hr />
+
+                <span className="pull-right">
+                    <b>Total: </b>£{total.toFixed(2)}
+                </span>
+            </div>
+        );
 
         return (
             <Section>
                 <Title>Items in your Basket</Title>
-                {makeCart(this.props.cart.products.data,
-                          this.props.products.products.data)}
-                <br/>
-                <CheckoutButton />
+                <CartTable />
+                {total}    
             </Section>
         );
     }
 }
 
-export default Cart;
+export default () => (
+    <RequiresLogin>
+        <Cart />
+    </RequiresLogin>
+);
+
+
 
