@@ -18,8 +18,7 @@ import './cart.scss';
 
 @connect((store) => {
     return {
-        cart: store.cart
-                token: store.token
+        token: store.token
     }
 })
 class _BuyNowButton extends Component {
@@ -212,8 +211,7 @@ const findProduct = (item, products) => {
 })
 class CartTable extends Component {
     componentDidMount() {
-        if(!this.props.products.fetched || this.props.products.fetching)
-            this.props.dispatch(fetchAll());
+        this.props.dispatch(fetchAll());
     }
 
     render() {
@@ -284,7 +282,7 @@ class CartCost extends Component {
                     <b>Total: </b>£{total.toFixed(2)}
                 </span>
             </div>
-        ;
+        );
     }
 }
 
@@ -312,13 +310,15 @@ class Cart extends Component {
         var contents = empty ? (
             <span>Empty.</span>
         ) : (
-            <CartTable />
-            <CartCost /> 
+            <span>
+	        <CartTable />
+                <CartCost /> 
+            </span>
         );
 
         return (
             <Section>
-                <Title>Items in your Basket</Title>+
+                <Title>Items in your Basket</Title>
                 {contents}   
             </Section>
         );
