@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 
-import {BuyNowButton, AddToCartButton} from '../cart';
+import {BuyNowButton, AddToCartButton} from '../cart/buttons';
 import LoadProduct from './load';
 import {values} from './index';
 
