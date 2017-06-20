@@ -18,8 +18,8 @@ import './cart.scss';
 
 @connect((store) => {
     return {
-        cart: store.cart,
-        token: store.token
+        cart: store.cart
+                token: store.token
     }
 })
 class _BuyNowButton extends Component {
@@ -100,7 +100,7 @@ export class AddToCartButton extends Component {
     }
 }
 
-@connect()
+@connect() // Only dispatches.
 class CartItem extends Component {
     constructor(props) {
         super(props)
@@ -190,7 +190,9 @@ class CartItem extends Component {
     }
 }
 
-
+/***
+ Looks up product from ID. 
+ ***/
 const findProduct = (item, products) => {
     for(var i in products) {
         if(products[i]._id.$oid === item) {
@@ -201,6 +203,7 @@ const findProduct = (item, products) => {
 }
 
 
+/* WARNING: cart is expected to be loaded error-free. */
 @connect((store) => {
     return {
         cart: store.cart,
@@ -214,14 +217,12 @@ class CartTable extends Component {
     }
 
     render() {
-        if(!(this.props.products.fetched))
-            return (<Loading />);
+        if(this.props.products.error)
+            return alert(this.props.products.error);
 
-        var empty = Object.keys(this.props.cart.products.data).length == 0;
+        var cartItems = this.props.cart.products;
 
-        return empty ? (
-            <h3>Empty.</h3>
-        ) : (
+        return (
             <table className="table">
                 <thead>
                     <tr>
@@ -234,10 +235,10 @@ class CartTable extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(this.props.cart.products.data).map((item, i) => (
+                    {Object.keys(cartItems.data).map((item, i) => (
                         <CartItem product={findProduct(item,
                                                        this.props.products.products.data)}
-                                  quantity={this.props.cart.products.data[item]}
+                                  quantity={cartItems.data[item]}
                                   key={i} />)
                     )}
                 </tbody>
@@ -251,12 +252,10 @@ class CartTable extends Component {
         cart: store.cart,
     }
 })
-class Cart extends Component {
+class CartCost extends Component {
     componentDidMount() {
-        this.props.dispatch(fetchCart());
         this.props.dispatch(fetchCartCost());
     }
-
 
     render() {
         if(this.props.cart.costError)
@@ -265,19 +264,10 @@ class Cart extends Component {
         if(!this.props.cart.costFetched)
             return (<Loading />);
 
-        if(this.props.cart.error)
-            alert(this.props.cart.error);
-
-        if(!(this.props.cart.fetched))
-            return (<Loading />);
-
         var cost = this.props.cart.cost.data;
-        window.test = cost;
-
         var total = cost.sub_total + cost.shipping[0];
 
-        var empty = Object.keys(this.props.cart.products.data).length == 0;
-        total = empty ? <div /> : (
+        return (
             <div>
                 <br/>
                 <span className="pull-right">
@@ -294,13 +284,42 @@ class Cart extends Component {
                     <b>Total: </b>£{total.toFixed(2)}
                 </span>
             </div>
+        ;
+    }
+}
+
+@connect((store) => {
+    return {
+        cart: store.cart,
+    }
+})
+class Cart extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchCart());
+    }
+
+
+    render() {
+        if(this.props.cart.error)
+            alert(this.props.cart.error);
+
+        if(!(this.props.cart.fetched))
+            return (<Loading />);
+
+
+
+        var empty = Object.keys(this.props.cart.products.data).length == 0;
+        var contents = empty ? (
+            <span>Empty.</span>
+        ) : (
+            <CartTable />
+            <CartCost /> 
         );
 
         return (
             <Section>
-                <Title>Items in your Basket</Title>
-                <CartTable />
-                {total}    
+                <Title>Items in your Basket</Title>+
+                {contents}   
             </Section>
         );
     }
