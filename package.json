@@ -32,8 +32,10 @@
     "html-to-react": "1.2.2",
     "jquery": "3.1.1",
     "material-design-icons": "3.0.1",
+    "material-ui": "^0.18.3",
     "moment": "2.17.1",
     "node-sass": "4.1.1",
+    "payment": "^2.2.1",
     "postcss-loader": "1.2.1",
     "quill": "1.1.8",
     "react": "0.14.9",
@@ -70,5 +72,8 @@
     "test": "webpack-dev-server --content-base ./public --progress --hot --inline",
     "build": "webpack",
     "postinstall": "./node_modules/webpack/bin/webpack.js --config ./webpack.prod.config.js"
+  },
+  "devDependencies": {
+    "react-credit-cards": "^0.4.1"
   }
 }
