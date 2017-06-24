@@ -409,20 +409,19 @@ class Cart extends Component {
         if(!this.props.cart.fetched)
             return (<Loading />);
 
-
-
         var empty = Object.keys(this.props.cart.products.data).length == 0;
-        var contents = empty ? (
-            <span>Empty.</span>
-        ) : (
-            <CartTable />
-        );
 
         return (
             <Section>
                 <Title>Items in your Basket</Title>
-                {contents}
-                <FinalDetails placeOrder={this.placeOrder} />
+                {empty ? (
+                    <span>Empty.</span>
+                ) : (
+                    <span>
+                        <CartTable />
+                        <FinalDetails placeOrder={this.placeOrder} />
+                    </span>
+                )}
             </Section>
         );
     }

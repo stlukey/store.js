@@ -184,22 +184,28 @@ class PaymentDialog extends Component {
         }
     }
 
+    loading() {
+        return this.state.processing || !this.state.loaded;
+    }
+
     render() {
         return (
             <MuiThemeProvider>
                 <Dialog
                     title={
                         <div>
-                            <a href="#" onClick={this.closeDialog} className="pull-right">
-                                <Icon>close</Icon>
-                            </a>
+                            {this.loading() ? (<span />) : (
+                                <a href="#" onClick={this.closeDialog} className="pull-right">
+                                    <Icon>close</Icon>
+                                </a>
+                            )}
                             <h1>Make Payment</h1>
                         </div>
                     }
                     modal={false}
                     open={this.state.dialogOpen}
                 >
-                    {this.state.processing || !this.state.loaded ? (<Loading />) : (
+                    {this.loading() ? (<Loading />) : (
                         <div>
                             {this.state.error !== null ? (
                                 <div className="notification is-danger">
