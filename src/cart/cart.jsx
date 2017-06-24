@@ -331,7 +331,7 @@ class FinalDetails extends Component {
     }
 
     goToPayment() {
-        if(false) //!this.checkDetails())
+        if(!this.checkDetails())
             return false;
         this.setState({payment: true});
     }
@@ -345,7 +345,7 @@ class FinalDetails extends Component {
     }
 
     renderPayment() {
-        return this.state.shippingMethod != null ? (<span />) : (!this.state.payment ? (
+        return this.state.shippingMethod == null ? (<span />) : (!this.state.payment ? (
             <a className="button is-primary pull-right" onClick={this.goToPayment}>
                 Place Order
             </a>

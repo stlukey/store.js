@@ -150,7 +150,8 @@ class PaymentDialog extends Component {
         this.state = {
             dialogOpen: true,
             processing: false,
-            loaded: false
+            loaded: false,
+            error: null
         }
         this.closeDialog = this.closeDialog.bind(this);
         this.process = this.process.bind(this);
@@ -174,6 +175,10 @@ class PaymentDialog extends Component {
     stripeResponseHandler(status, resp) {
         if(resp.error) {
             console.error(resp.error);
+            this.setState({
+                error: resp.error.message,
+                processing: false
+            });
         } else {
             this.props.tokenReceived(resp.id);
         }
@@ -196,6 +201,12 @@ class PaymentDialog extends Component {
                 >
                     {this.state.processing || !this.state.loaded ? (<Loading />) : (
                         <div>
+                            {this.state.error !== null ? (
+                                <div className="notification is-danger">
+                                    {this.state.error} <br/>
+                                    Please try again.
+                                </div>
+                            ) : (<span />)}
                             <Card ref={(card) => {this.card = card}}/>
                             <a className="button is-primary pull-right" onClick={this.process}>
                                 Pay £{this.props.getTotal()}
