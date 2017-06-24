@@ -176,14 +176,15 @@ const linkStateFeild = (obj, feildKey) => (key) => (e) => {
 class FinalDetails extends Component {
     constructor(props) {
         super(props);
-        this.goToCheckout = this.goToCheckout.bind(this);
-        this.checkoutAbort = this.checkoutAbort.bind(this);
+        this.goToPayment = this.goToPayment.bind(this);
+        this.paymentAbort = this.paymentAbort.bind(this);
         this.getTotal = this.getTotal.bind(this);
+        this.tokenReceived = this.tokenReceived.bind(this);
 
         this.state = {
             shippingMethod: null,
             address: {},
-            checkout: false
+            payment: false
         };
     }
 
@@ -329,22 +330,26 @@ class FinalDetails extends Component {
         return true;
     }
 
-    goToCheckout() {
-        if(!this.checkDetails())
+    goToPayment() {
+        if(false) //!this.checkDetails())
             return false;
-        this.setState({checkout: true});
+        this.setState({payment: true});
     }
 
-    checkoutAbort() {
-        this.setState({checkout: false});
+    paymentAbort() {
+        this.setState({payment: false});
     }
 
-    renderCheckout() {
-        return this.state.shippingMethod == null ? (<span />) : (!this.state.checkout ? (
-            <a className="button is-primary pull-right" onClick={this.goToCheckout}>
+    tokenReceived(token) {
+        this.props.placeOrder(token, this.state.address);
+    }
+
+    renderPayment() {
+        return this.state.shippingMethod != null ? (<span />) : (!this.state.payment ? (
+            <a className="button is-primary pull-right" onClick={this.goToPayment}>
                 Place Order
             </a>
-        ) : (<Payment onClose={this.checkoutAbort} getTotal={this.getTotal}/>));
+        ) : (<Payment onClose={this.paymentAbort} getTotal={this.getTotal} tokenReceived={this.tokenReceived}/>));
     }
 
     render() {
@@ -369,7 +374,7 @@ class FinalDetails extends Component {
                 <hr />
                 {this.renderTotal()}
                 <br />
-                {this.renderCheckout()}
+                {this.renderPayment()}
             </div>
         );
     }
@@ -382,11 +387,21 @@ class FinalDetails extends Component {
     }
 })
 class Cart extends Component {
+    constructor(props) {
+        super(props);
+        this.placeOrder = this.placeOrder.bind(this);
+    }
+
     componentDidMount() {
         this.props.dispatch(fetchAll());
         this.props.dispatch(fetchCart());
     }
 
+    placeOrder(token, address){
+        console.log("Placing order...");
+        console.log("Token: " + token);
+        console.log("Address: " + address);
+    }
 
     render() {
         if(this.props.cart.error)
@@ -407,7 +422,7 @@ class Cart extends Component {
             <Section>
                 <Title>Items in your Basket</Title>
                 {contents}
-                <FinalDetails />
+                <FinalDetails placeOrder={this.placeOrder} />
             </Section>
         );
     }

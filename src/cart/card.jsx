@@ -7,17 +7,32 @@ import 'react-credit-cards/lib/styles.scss';
 import Icon from '../app/icon';
 import Payment from 'payment';
 
+import Loading from '../app/loading';
 
 
-let loadedStripe = true;
+window.Stripe = null;
+const loadStripe = (onLoad = () => {}) => {
+    if(window.Stripe !== null)
+        return null;
+    var body = document.querySelectorAll('body')[0];
+    var script = document.createElement('script');
+    script.src = "https://js.stripe.com/v2/";
+    body.appendChild(script);
+    script.addEventListener('load',
+        () => {
+            window.Stripe.setPublishableKey(STRIPE_KEY);
+            onLoad();
+        }
+    );
+}
 
-class Card  extends Component {
+class Card extends Component {
     constructor(props) {
         super(props);
         this.state = {
             number: '',
             name: '',
-            exp: '',
+            expiry: '',
             cvc: '',
             focused: '',
         };
@@ -27,6 +42,17 @@ class Card  extends Component {
         Payment.formatCardNumber(document.querySelector('[name="number"]'));
         Payment.formatCardExpiry(document.querySelector('[name="expiry"]'));
         Payment.formatCardCVC(document.querySelector('[name="cvc"]'));
+    }
+
+    getDetails() {
+        const {number, name, expiry, cvc} = this.state;
+        var exp_month = expiry.substring(0, 2);
+        var exp_year = expiry.substring(2);
+        return {
+            number, name,
+            exp_month, exp_year,
+            cvc
+        }
     }
 
     handleInputFocus = (e) => {
@@ -64,8 +90,8 @@ class Card  extends Component {
     render() {
         const { name, number, expiry, cvc, focused } = this.state;
         return (
-            <div className="rccs__demo">
-                <div className="rccs__demo__content">
+            <div>
+                <div>
                     <Cards
                         number={number}
                         name={name}
@@ -122,43 +148,62 @@ class PaymentDialog extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            dialogOpen: true
+            dialogOpen: true,
+            processing: false,
+            loaded: false
         }
         this.closeDialog = this.closeDialog.bind(this);
+        this.process = this.process.bind(this);
+        this.stripeResponseHandler = this.stripeResponseHandler.bind(this);
     }
 
+    componentDidMount() {
+        loadStripe(() => {this.setState({loaded: true})});
+    }
 
-
-    closeDialog = () => {
+    closeDialog() {
         this.setState({dialogOpen: false});
         this.props.onClose();
-    };
+    }
+
+    process() {
+        this.setState({processing: true});
+        window.Stripe.card.createToken(this.card.getDetails(), this.stripeResponseHandler);
+    }
+
+    stripeResponseHandler(status, resp) {
+        if(resp.error) {
+            console.error(resp.error);
+        } else {
+            this.props.tokenReceived(resp.id);
+        }
+    }
 
     render() {
         return (
-            <div>
-                <MuiThemeProvider>
-                    <Dialog
-                        title={
-                            <div>
-                                <a href="#" onClick={this.closeDialog} className="pull-right">
-                                    <Icon>close</Icon>
-                                </a>
-                                <h1>Make Payment</h1>
-                            </div>
-                        }
-                        modal={false}
-                        open={this.state.dialogOpen}
-                    >
+            <MuiThemeProvider>
+                <Dialog
+                    title={
                         <div>
-                                <Card />
-                                <a className="button is-primary pull-right" onClick={this.goToCheckout}>
-                                    Pay £{this.props.getTotal()}
-                                </a>
+                            <a href="#" onClick={this.closeDialog} className="pull-right">
+                                <Icon>close</Icon>
+                            </a>
+                            <h1>Make Payment</h1>
                         </div>
-                    </Dialog>
-                </MuiThemeProvider>
-            </div>
+                    }
+                    modal={false}
+                    open={this.state.dialogOpen}
+                >
+                    {this.state.processing || !this.state.loaded ? (<Loading />) : (
+                        <div>
+                            <Card ref={(card) => {this.card = card}}/>
+                            <a className="button is-primary pull-right" onClick={this.process}>
+                                Pay £{this.props.getTotal()}
+                            </a>
+                        </div>
+                    )}
+                </Dialog>
+            </MuiThemeProvider>
         );
     }
 }

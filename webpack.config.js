@@ -15,6 +15,8 @@ var ADMIN_DIR = path.resolve(__dirname, 'admin')
 const APPENLIGHT_API_KEY = null;
 const GA_TRACKING_CODE = null;
 
+const STRIPE_KEY = JSON.stringify('pk_test_ouzZ8A7FAfH60YeztLWdbHTp');
+
 var babelSettings = {
     // @remove-on-eject-begin
     babelrc: false,
@@ -96,7 +98,8 @@ var config = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.DefinePlugin({
             API_URL, ADMIN_API_URL,
-            APPENLIGHT_API_KEY, GA_TRACKING_CODE
+            APPENLIGHT_API_KEY, GA_TRACKING_CODE,
+            STRIPE_KEY
         })
     ],
     cache: true,
@@ -112,5 +115,8 @@ var config = {
 
 };
 
-module.exports = config;
+config.node = {
+  child_process: 'empty'
+}
 
+module.exports = config;
