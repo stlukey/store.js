@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Link, withRouter} from 'react-router';
+import {Link} from 'react-router';
+import {withRouter} from 'react-router';
 
 import Loading from '../app/loading';
 
@@ -12,6 +13,7 @@ import {fetchAll} from '../products/actions';
 import newMessage from '../messages/actions';
 import {Section, Title} from '../app/bulma';
 import Payment from './card';
+import {placeOrder} from '../orders/actions';
 
 @connect() // Only dispatches.
 class CartItem extends Component {
@@ -106,7 +108,7 @@ class CartItem extends Component {
 /***
  Looks up product from ID.
  ***/
-const findProduct = (item, products) => {
+export var findProduct = (item, products) => {
     for(var i in products) {
         if(products[i]._id.$oid === item) {
             return products[i];
@@ -341,7 +343,7 @@ class FinalDetails extends Component {
     }
 
     tokenReceived(token) {
-        this.props.placeOrder(token, this.state.address);
+        this.props.placeOrder(token, this.state.address, this.state.shippingMethod);
     }
 
     renderPayment() {
@@ -383,7 +385,8 @@ class FinalDetails extends Component {
 @connect((store) => {
     return {
         cart: store.cart,
-        products: store.products
+        products: store.products,
+        order: store.order
     }
 })
 class Cart extends Component {
@@ -397,10 +400,15 @@ class Cart extends Component {
         this.props.dispatch(fetchCart());
     }
 
-    placeOrder(token, address){
-        console.log("Placing order...");
-        console.log("Token: " + token);
-        console.log("Address: " + address);
+    placeOrder(card_token, address, shipping_method){
+        const data = {
+            ...address,
+            card_token,
+            shipping_method
+        };
+        this.props.dispatch(placeOrder(data)).then(() => {
+            this.props.router.push('/orders/' + this.props.order.data._id.$oid);
+        });;
     }
 
     render() {
@@ -419,7 +427,8 @@ class Cart extends Component {
                 ) : (
                     <span>
                         <CartTable />
-                        <FinalDetails placeOrder={this.placeOrder} />
+                        <FinalDetails placeOrder={this.placeOrder}
+                                      key={window.orders} />
                     </span>
                 )}
             </Section>
@@ -427,4 +436,4 @@ class Cart extends Component {
     }
 }
 
-export default Cart;
+export default withRouter(Cart);

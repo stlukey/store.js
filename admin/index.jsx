@@ -27,6 +27,9 @@ import Pages from './pages';
 import ViewPage from './pages/view';
 import EditPage from './pages/edit';
 
+import Orders from './orders';
+import OrdersView from './orders/view';
+
 import Users from './users';
 
 window.API = ADMIN_API_URL;
@@ -63,7 +66,10 @@ const routes = (
 
         <Route path="users" component={Users} />
         <Route path="shipments" component={ComingSoon} />
-        <Route path="orders" component={ComingSoon} />
+        <Route path="orders">
+            <IndexRoute component={Orders} />
+            <Route path=":orderId" component={OrdersView} />
+        </Route>
     </Route>
 );
 

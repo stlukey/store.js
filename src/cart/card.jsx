@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
+import 'babel-polyfill';
 import Cards from 'react-credit-cards';
 import Dialog from 'material-ui/Dialog';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -12,8 +15,10 @@ import Loading from '../app/loading';
 
 window.Stripe = null;
 const loadStripe = (onLoad = () => {}) => {
-    if(window.Stripe !== null)
+    if(window.Stripe !== null){
+        onLoad();
         return null;
+    }
     var body = document.querySelectorAll('body')[0];
     var script = document.createElement('script');
     script.src = "https://js.stripe.com/v2/";
@@ -91,15 +96,15 @@ class Card extends Component {
         const { name, number, expiry, cvc, focused } = this.state;
         return (
             <div>
+                <Cards
+                    number={number}
+                    name={name}
+                    expiry={expiry}
+                    cvc={cvc}
+                    focused={focused}
+                    callback={this.handleCallback}
+                />
                 <div>
-                    <Cards
-                        number={number}
-                        name={name}
-                        expiry={expiry}
-                        cvc={cvc}
-                        focused={focused}
-                        callback={this.handleCallback}
-                        />
                     <form>
                         <center>
                             <div>
@@ -144,6 +149,11 @@ class Card extends Component {
     }
 }
 
+@connect((store) => {
+    return {
+        order: store.order
+    };
+})
 class PaymentDialog extends Component {
     constructor(props) {
         super(props);
@@ -186,6 +196,15 @@ class PaymentDialog extends Component {
 
     loading() {
         return this.state.processing || !this.state.loaded;
+    }
+
+    componentWillUpdate() {
+        if(this.props.order.error !== null) {
+            this.setState({
+                error: this.props.order.error.message,
+                processing: false
+            });
+        }
     }
 
     render() {

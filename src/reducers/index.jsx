@@ -6,6 +6,8 @@ import token from './token';
 import pages from './pages';
 import cart from './cart';
 import users from './users';
+import order from './order';
+import orders from './orders';
 
 import { reducer as form } from 'redux-form';
 
@@ -16,6 +18,7 @@ export default combineReducers({
     token,
     pages,
     cart,
-    users
+    users,
+    order,
+    orders
 })
-

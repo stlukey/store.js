@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
+import {Link} from 'react-router';
+import {RequiresLogin} from '../token/login';
+import {fetchOrders} from '../orders/actions';
 
-// import Loading from '../app/loading';
+import Loading from '../app/loading';
 
 import {
     Container, Columns,
@@ -11,7 +14,6 @@ import {
     Section
 } from '../app/bulma';
 
-/// import fetchPage from './actions';
 
 var SaveForm = (props) => (
     <Container>
@@ -77,45 +79,75 @@ SaveForm = reduxForm({
       form: 'save'
 })(SaveForm);
 
+export const AccountDetails = () => (
+  <div className="container">
+    <div className="tabs">
+      <ul>
+        <li className="is-active"><Link to="/account">Details</Link></li>
+        <li><Link to="/account/orders">Orders</Link></li>
+      </ul>
+    </div>
+    <div className="box">
+      <p className="menu-label">Your Details</p>
+      <SaveForm />
+    </div>
+  </div>
+)
+
 @connect((store) => {
     return {
+        orders: store.orders
     }
 })
+class Orders extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchOrders());
+    }
+
+    render() {
+        if(this.props.orders.error)
+            return alert(this.orders.error);
+        if(!this.props.orders.fetched)
+            return (<Loading />);
+
+        return (
+            <ul>
+                {this.props.orders.data.map((order, i) => (
+                    <li key={i}><Link to={"/orders/" + order._id.$oid}>{order._id.$oid}</Link></li>
+                ))}
+            </ul>
+        );
+    }
+}
+
+export const AccountOrders = () => (
+  <div className="container">
+    <div className="tabs">
+      <ul>
+        <li><Link to="/account">Details</Link></li>
+        <li className="is-active"><Link to="/account/orders">Orders</Link></li>
+      </ul>
+    </div>
+    <div className="box">
+      <p className="menu-label">Your Orders</p>
+      <Orders />
+    </div>
+  </div>
+)
+
 export default class Account extends Component {
     componentDidMount() {
-        //this.props.dispatch(fetchPage(this.props.pageId))
     }
 
     render() {
         return (
-            <Section>
-                <Title>Your Account</Title>
-                <div className="container">
-                  <div className="tabs">
-                    <ul>
-                      <li className="is-active"><a>Details</a></li>
-                      <li><a>Orders</a></li>
-                    </ul>
-                  </div>
-                  <div className="box">
-                    <p className="menu-label">Your Details</p>
-                    <SaveForm />
-                  </div>
-                </div>
-            </Section>
+            <RequiresLogin>
+                <Section>
+                    <Title>Your Account</Title>
+                    {this.props.children}
+                </Section>
+            </RequiresLogin>
         );
-        /*if(this.props.page.error) alert(this.props.page.error);
-
-        if(!this.props.page.fetched)
-            return (<Loading />);
-
-        const page_html = {
-            __html: this.props.page.page.data.content
-        };
-
-        return (
-            <Section className="content" dangerouslySetInnerHTML={page_html} />
-        );*/
     }
 }
 

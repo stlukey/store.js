@@ -22,6 +22,8 @@ import ProductPage from './products/view';
 import {ContactPage, AboutPage} from './pages';
 import Cart from './cart';
 import Account from './account';
+import {AccountDetails, AccountOrders} from './account';
+import Order from './orders';
 
 const history = useRouterHistory(createHistory)();
 
@@ -38,12 +40,16 @@ const routes = (
 
         <Route path="products" component={ProductsPage} />
         <Route path="products/:productId" component={ProductPage}/>
-        
+
         <Route path="contact" component={ContactPage} />
         <Route path="about" component={AboutPage} />
 
         <Route path="cart" component={Cart} />
-        <Route path="account" component={Account} />
+        <Route path="orders/:orderId" component={Order} />
+        <Route path="account" component={Account}>
+            <IndexRoute component={AccountDetails} />
+            <Route path="orders" component={AccountOrders}/>
+        </Route>
 
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />
@@ -55,7 +61,7 @@ class Root extends Component {
     render() {
         return (
             <Router history={history}>
-               {routes} 
+               {routes}
             </Router>
         );
     }
@@ -67,4 +73,3 @@ ReactDOM.render((
         <Root />
     </Provider>
 ), document.getElementById('root'))
-
