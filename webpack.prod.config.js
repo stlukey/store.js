@@ -91,7 +91,8 @@ var config = {
             API_URL, NODE_ENV,
             APPENLIGHT_API_KEY,
             ADMIN_API_URL,
-            GA_TRACKING_CODE
+            GA_TRACKING_CODE,
+            STRIPE_KEY
         })
     ],
 };
