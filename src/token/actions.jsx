@@ -6,7 +6,10 @@ var deleteCookie = (name) => {
 };
 
 const AXIOS_CONFIG = {
-    withCredentials: true
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json'
+    }
 };
 
 export function fetchToken(credentials) {
