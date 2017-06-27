@@ -3,16 +3,17 @@ import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router';
 import {RequiresLogin} from '../token/login';
-import {fetchOrders} from '../orders/actions';
 
 import Loading from '../app/loading';
-
 import {
     Container, Columns,
     Title, Label, Input,
     ControlButton, pCommand,
     Section
 } from '../app/bulma';
+
+import {fetchOrders} from '../orders/actions';
+import OrdersTable from '../orders/table';
 
 
 var SaveForm = (props) => (
@@ -111,11 +112,7 @@ class Orders extends Component {
             return (<Loading />);
 
         return (
-            <ul>
-                {this.props.orders.data.map((order, i) => (
-                    <li key={i}><Link to={"/orders/" + order._id.$oid}>{order._id.$oid}</Link></li>
-                ))}
-            </ul>
+            <OrdersTable orders={this.props.orders} />
         );
     }
 }
@@ -136,9 +133,6 @@ export const AccountOrders = () => (
 )
 
 export default class Account extends Component {
-    componentDidMount() {
-    }
-
     render() {
         return (
             <RequiresLogin>
