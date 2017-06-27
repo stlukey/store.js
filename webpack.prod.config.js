@@ -24,6 +24,9 @@ const APPENLIGHT_API_KEY =
 const GA_TRACKING_CODE =
     JSON.stringify('UA-89576317-1');
 
+// Temporary
+const STRIPE_KEY = JSON.stringify('pk_test_ouzZ8A7FAfH60YeztLWdbHTp');
+
 var config = {
     entry: {
         bundle: [

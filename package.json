@@ -40,6 +40,7 @@
     "quill": "1.1.8",
     "react": "0.14.9",
     "react-addons-css-transition-group": "15.4.1",
+    "react-credit-cards": "^0.4.1",
     "react-dom": "0.14.9",
     "react-dropdown": "1.2.0",
     "react-file-input": "0.2.5",
