@@ -80,3 +80,20 @@ export function createToken(data) {
     };
 }
 
+export function fetchTokenDetails() {
+    const url = `${API_URL}/user`;
+
+    return {
+        type: "FETCH_TOKEN_DETAILS",
+        payload: axios.get(url, AXIOS_CONFIG)
+    };
+}
+
+export function updateTokenDetails(data) {
+    const url = `${API_URL}/user`;
+
+    return {
+        type: "UPDATE_TOKEN_DETAILS",
+        payload: axios.put(url, data, AXIOS_CONFIG)
+    };
+}

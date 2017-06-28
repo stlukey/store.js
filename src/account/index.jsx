@@ -15,85 +15,52 @@ import {
 import {fetchOrders} from '../orders/actions';
 import OrdersTable from '../orders/table';
 
-
-var SaveForm = (props) => (
-    <Container>
-        <Columns>
-            <div>
-                <form onSubmit={props.handleSubmit}>
-
-                    <Label>Email</Label>
-                    <pCommand>
-                        <Field name="email"
-                               component="input"
-                               type="text" />
-                    </pCommand>
-
-                    <Label>Password</Label>
-                    <pCommand>
-                        <Field name="password"
-                               component="input"
-                               type="password" />
-                    </pCommand>
-
-                    <Label>Confirm Password</Label>
-                    <pCommand>
-                        <Field name="confirm"
-                               component="input"
-                               type="password" />
-                    </pCommand>
-
-                    <Label>First Name</Label>
-                    <pCommand>
-                        <Field name="first"
-                               component="input"
-                               type="text" />
-                    </pCommand>
-
-                    <Label>Last Name</Label>
-                    <pCommand>
-                        <Field name="last"
-                               component="input"
-                               type="text" />
-                    </pCommand>
-
-                    <Label>Contact Number</Label>
-                    <pCommand>
-                        <Field name="contact"
-                               component="input"
-                               type="text" />
-                    </pCommand>
+import {fetchTokenDetails, updateTokenDetails} from '../token/actions';
+import UpdateDetails from './updateDetails';
+import newMessage from '../messages/actions';
 
 
-                    <br />
-                    <br />
-                    <ControlButton className="is-primary" type="submit">
-                        Save
-                    </ControlButton>
-                </form>
+@connect(store => {
+    return {
+        token: store.token
+    }
+})
+export class AccountDetails extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchTokenDetails())
+        this.updateDetails = this.updateDetails.bind(this);
+    }
+
+    updateDetails(details) {
+        this.props.dispatch(updateTokenDetails(details))
+                  .then(() => this.dispatch(newMessage("Details updated.", 'success')))
+                  .catch((error) => alert(error));
+    }
+
+    render() {
+        if(this.props.token.error)
+            return alert(this.props.token.error);
+        if(!this.props.token.fetched)
+            return <Loading />;
+
+        window.deets = this;
+        return (
+            <div className="container">
+                <div className="tabs">
+                    <ul>
+                        <li className="is-active"><Link to="/account">Details</Link></li>
+                        <li><Link to="/account/orders">Orders</Link></li>
+                    </ul>
+                </div>
+                <div className="box">
+                    <p className="menu-label">Your Details</p>
+                    <UpdateDetails details={this.props.token.data}
+                                   updateDetails={this.updateDetails}/>
+                </div>
             </div>
-        </Columns>
-    </Container>
-);
-
-SaveForm = reduxForm({
-      form: 'save'
-})(SaveForm);
-
-export const AccountDetails = () => (
-  <div className="container">
-    <div className="tabs">
-      <ul>
-        <li className="is-active"><Link to="/account">Details</Link></li>
-        <li><Link to="/account/orders">Orders</Link></li>
-      </ul>
-    </div>
-    <div className="box">
-      <p className="menu-label">Your Details</p>
-      <SaveForm />
-    </div>
-  </div>
-)
+        )
+    }
+}
 
 @connect((store) => {
     return {

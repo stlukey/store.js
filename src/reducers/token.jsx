@@ -54,11 +54,47 @@ export default function reducer(state=DEFAULT_STATE, action){
         case "CREATE_TOKEN_REJECTED":
             return {...state, fetching:false, error:action.payload,
                     fetched:false}
-
         case "CREATE_TOKEN_FULFILLED":
             return {
                 ...DEFAULT_STATE,
                 created: true
+            };
+
+
+        case "FETCH_TOKEN_DETAILS_PENDING":
+            return {
+                ...state,
+                fetching: true,
+                fetched: false,
+            };
+        case "FETCH_TOKEN_DETAILS_REJECTED":
+            return {...state, fetching:false, error:action.payload,
+                    fetched:false}
+        case "FETCH_TOKEN_DETAILS_FULFILLED":
+            return {
+                ...state,
+                error: null,
+                fetching: false,
+                fetched: true,
+                data: action.payload.data,
+            };
+
+        case "UPDATE_TOKEN_DETAILS_PENDING":
+            return {
+                ...state,
+                fetching: true,
+                fetched: false,
+            };
+        case "UPDATE_TOKEN_DETAILS_REJECTED":
+            return {...state, fetching:false, error:action.payload,
+                    fetched:false}
+        case "UPDATE_TOKEN_DETAILS_FULFILLED":
+            return {
+                ...state,
+                error: null,
+                fetching: false,
+                fetched: true,
+                data: action.payload.data,
             };
 
         default:
