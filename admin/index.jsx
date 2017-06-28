@@ -30,6 +30,9 @@ import EditPage from './pages/edit';
 import Orders from './orders';
 import OrdersView from './orders/view';
 
+import Shipments from './shipments';
+import ShipmentsView from './shipments/view';
+
 import Users from './users';
 
 window.API = ADMIN_API_URL;
@@ -65,7 +68,8 @@ const routes = (
         <Route path="pages/:pageId/edit" component={EditPage} />
 
         <Route path="users" component={Users} />
-        <Route path="shipments" component={ComingSoon} />
+        <Route path="shipments" component={Shipments} />
+        <Route path="shipments/:shipmentId" component={ShipmentsView} />
         <Route path="orders">
             <IndexRoute component={Orders} />
             <Route path=":orderId" component={OrdersView} />

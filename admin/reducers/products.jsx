@@ -5,14 +5,14 @@ export default function reducer(state={
     error: null
 }, action){
     switch(action.type) {
-        case "FETCH_ALL_PRODUCTS_PENDING":
+        case "ADMIN_FETCH_ALL_PRODUCTS_PENDING":
             return {...state, fetching:true, fetched:false};
 
-        case "FETCH_ALL_PRODUCTS_REJECTED":
+        case "ADMIN_FETCH_ALL_PRODUCTS_REJECTED":
             return {...state, fetching:false, error:action.payload,
                     fetched:false}
 
-        case "FETCH_ALL_PRODUCTS_FULFILLED":
+        case "ADMIN_FETCH_ALL_PRODUCTS_FULFILLED":
             return {
                 ...state,
                 fetching: false,

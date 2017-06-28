@@ -85,24 +85,29 @@ export const OrderView = (props) => (
     <Section>
         <Title>
             <b>Order</b>
-            {" "}#{props.orderData._id.$oid}
+            {" "}<Link to={"/orders/" + props.orderData._id.$oid}>#{props.orderData._id.$oid}</Link>
         </Title>
         <Section>
             <Title>Details</Title>
-            <div className="columns"ç>
-                <Detail title="ID">
-                    {props.orderData._id.$oid}
-                </Detail>
-                <Detail title="Status">
-                    TODO
-                </Detail>
-            </div>
+            {props.summary ? (<span />) :
+                (
+                    <div className="columns">
+                        <Detail title="Email">
+                        {props.orderData.user}
+                        </Detail>
+                        <Detail title="Status">
+                            {props.orderData.status}
+                        </Detail>
+                    </div>
+                )
+            }
             <div className="columns">
                 <Detail title="Shipping Address">
                     <Address details={props.orderData.shipping.address} />
                 </Detail>
-                <Detail title="Email">
-                    <span>{props.orderData.user}</span>
+                <Detail title="Shipping Method">
+                    <span>{props.orderData.shipping.method == 0 ?
+                        "Royal Mail 1st Class (1 to 2 working days)" : "Royal Mail 2nd Class (2 to 3 working days)" }</span>
                 </Detail>
             </div>
             <div className="columns">

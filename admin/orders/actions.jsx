@@ -4,7 +4,7 @@ export function fetchOrders(){
     const url = `${API}/orders`;
 
     return {
-        type: "FETCH_ORDERS",
+        type: "ADMIN_FETCH_ORDERS",
         payload: axios.get(url)
     };
 }

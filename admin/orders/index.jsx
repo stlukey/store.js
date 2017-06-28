@@ -13,7 +13,7 @@ import {
 
 @connect(store => {
     return {
-        orders: store.orders
+        orders: store.admin.orders
     }
 })
 class Orders extends Component {

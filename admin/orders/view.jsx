@@ -21,7 +21,7 @@ function findOrder(orders, orderId) {
 @connect((store) => {
     return {
         products: store.products.products,
-        orders: store.orders
+        orders: store.admin.orders
     }
 })
 class Order extends Component {
