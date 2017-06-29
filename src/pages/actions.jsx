@@ -1,11 +1,16 @@
 import axios from "axios";
 import newMessage from '../messages/actions';
 
+const AXIOS_CONFIG = {
+    withCredentials: true
+};
+
+
 export default function fetchPage(page) {
     const url = `${API}/pages/${page}`;
     return {
         type: "FETCH_PAGE",
-        payload: axios.get(url)
+        payload: axios.get(url, AXIOS_CONFIG)
     };
 }
 
@@ -13,7 +18,7 @@ export function fetchPages(page) {
     const url = `${API}/pages`;
     return {
         type: "FETCH_PAGES",
-        payload: axios.get(url)
+        payload: axios.get(url, AXIOS_CONFIG)
     };
 }
 
@@ -23,7 +28,7 @@ export const savePage = (pageId, content) => dispatch => {
 
     return dispatch({
         type: "SAVE_PAGE",
-        payload: axios.put(url, data)
+        payload: axios.put(url, data, AXIOS_CONFIG)
     }).then(dispatch(
         newMessage('Page Updated.')
     ));

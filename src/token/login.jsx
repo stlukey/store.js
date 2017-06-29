@@ -4,7 +4,7 @@ import {Field, reduxForm} from 'redux-form';
 import {withRouter} from 'react-router';
 
 import newMessage from '../messages/actions';
-import {fetchToken} from './actions';
+import {fetchTokenDetails, fetchToken} from './actions';
 
 import {
     Container, Columns,
@@ -82,12 +82,14 @@ LoginForm = reduxForm({
 })
 class Login extends Component {
     handleSubmit = (credentials) => {
-        this.props.dispatch(fetchToken(credentials))
+        this.props.dispatch(fetchToken(credentials));
     }
 
     componentWillUpdate() {
-        if(this.props.token.valid)
+        if(this.props.token.valid){
+            this.props.dispatch(fetchTokenDetails());
             this.props.router.push('/');
+        }
 
         if(this.props.token.error)
             alert(this.props.token.error);

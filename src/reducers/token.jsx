@@ -4,6 +4,7 @@ const DEFAULT_STATE = {
     fetched: false,
     error: null,
     valid: null,
+    admin: null,
     created: false
 };
 
@@ -77,6 +78,8 @@ export default function reducer(state=DEFAULT_STATE, action){
                 fetching: false,
                 fetched: true,
                 data: action.payload.data,
+                admin: !!action.payload.data.admin,
+                valid: true
             };
 
         case "UPDATE_TOKEN_DETAILS_PENDING":

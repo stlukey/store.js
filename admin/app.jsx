@@ -1,12 +1,16 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import AppEnlight from 'appenlight-client';
+import {connect} from 'react-redux';
 
 import {
     Container
 } from '../src/app/bulma';
+import Loading from '../src/app/loading';
 import {Footer} from '../src/app';
 import Messages from '../src/messages';
+
+import {fetchTokenDetails} from '../src/token/actions';
 
 import './admin.scss';
 
@@ -52,6 +56,31 @@ const SideBar = (props) => (
     </aside>
 );
 
+@connect((store) => {
+    return {
+        token: store.token
+    }
+})
+class RequiresAdmin extends Component {
+    componentDidMount() {
+        this.props.dispatch(fetchTokenDetails());
+    }
+
+    render() {
+        if(!this.props.token.fetched)
+            return <Loading />;
+
+        if(!(this.props.token.valid && this.props.token.admin))
+            return window.location.replace('/login');
+
+        return (
+            <div>
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
 class AdminApp extends Component {
     componentDidMount() {
         if(APPENLIGHT_API_KEY) {
@@ -65,7 +94,7 @@ class AdminApp extends Component {
 
     render() {
         return (
-    <div>
+    <RequiresAdmin>
         <NavBar />
         <div id="app">
             <div className="columns">                
@@ -77,7 +106,7 @@ class AdminApp extends Component {
             </div>
         </div>
         <Footer />
-    </div>
+    </RequiresAdmin>
     );}
 }
 

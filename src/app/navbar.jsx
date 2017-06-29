@@ -5,11 +5,10 @@ import {connect} from 'react-redux';
 import './navbar.scss';
 
 import Icon from './icon';
-
-import $ from 'jquery';
-
+import Loading from './loading';
 
 
+import {fetchDetails} from '../token/actions';
 
 const NavToggle = () => (
     <div className="nav-toggle">
@@ -23,30 +22,41 @@ const NavItem = (props) => (
     </Link>
 )
 
-const LoggedIn = [
-        <NavItem to='/cart' key={1}>
-            Basket{' '}
-            <Icon>shopping_basket</Icon>
-        </NavItem>,
-        <NavItem to='/account' key={2}>
+const LoggedIn = admin => (
+    <span>
+        {admin ? (
+            <a href="admin" className="nav-item is-tab">
+                Admin{' '}
+                <Icon>build</Icon>
+            </a>
+        ) : (
+            <NavItem to='/cart'>
+                Basket{' '}
+                <Icon>shopping_basket</Icon>
+            </NavItem>
+        )}
+        <NavItem to='/account'>
             My Account{' '}
             <Icon>account_circle</Icon>
-        </NavItem>,
-        <NavItem to='/logout' key={3}>
+        </NavItem>
+        <NavItem to='/logout'>
             Log out{' '}
             <Icon>input</Icon>
         </NavItem>
-];
+    </span>
+);
 
-const LoggedOut = [
-    <NavItem to='/login' key={0}>
-        Log in{' '}
-        <Icon>account_box</Icon>
-    </NavItem>,
-    <NavItem to='/signup' key={1}>
-        or Sign Up
-    </NavItem>
-];
+const LoggedOut = (
+    <span>
+        <NavItem to='/login'>
+            Log in{' '}
+            <Icon>account_box</Icon>
+        </NavItem>
+        <NavItem to='/signup'>
+            or Sign Up
+        </NavItem>
+    </span>
+);
 
 /* TODO: Make stateful with is-active nav items */
 @connect((store) => {
@@ -55,18 +65,12 @@ const LoggedOut = [
     }
 })
 class NavBar extends Component {
-    componentDidMount() {
-        var $toggle = $('.nav-toggle');
-        var $menu = $('.nav-menu');
-
-        $toggle.click(function() {
-          $(this).toggleClass('is-active');
-          $menu.toggleClass('is-active');
-        });
-    }
-
     render() {
-        const userLinks = this.props.token.valid ? LoggedIn : LoggedOut;
+        if(this.props.token.valid && this.props.token.admin === null)
+            return <Loading />;
+
+        var userLinks = this.props.token.valid ? LoggedIn(this.props.token.admin) : LoggedOut;
+        
         return (
             <nav className='nav has-shadow' id='top'>
                 <div className='nav-left'>
