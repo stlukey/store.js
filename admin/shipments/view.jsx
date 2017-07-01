@@ -10,7 +10,7 @@ import {
 } from '../../src/app/bulma';
 
 import {fetchShipment, dispatchShipment} from './actions';
-import {fetchAll} from '../../src/products/actions';
+import {fetchAll} from '../products/actions';
 import {OrderView} from '../../src/orders';
 
 const Detail = (props) => (
@@ -68,14 +68,14 @@ class ShipmentsView extends Component {
                         {new Date(this.props.shipment.data.datetime.$date).toString()}
                     </Detail>
                     <Detail title="Dispatched">
-                        {this.props.shipment.data.dispatch_datetime ? 
+                        {this.props.shipment.data.dispatch_datetime ?
                             <span>{new Date(this.props.shipment.data.dispatch_datetime.$date).toString()}</span> :
                             <a className="button is-primary" onClick={this.markAsDispatched}>Mark as Dispatched</a>
                         }
                     </Detail>
                 </div>
                 <ol>
-                    {this.props.shipment.data.orders.map((order, index) => 
+                    {this.props.shipment.data.orders.map((order, index) =>
                         <li key={index}><OrderView summary={true} orderData={order} productsData={this.props.products.products.data} /></li>)}
                 </ol>
             </Section>

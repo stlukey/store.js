@@ -28,7 +28,7 @@ export function createShipment(id){
 
     return {
         type: "ADMIN_CREATE_SHIPMENT",
-        payload: axios.post(url, AXIOS_CONFIG)
+        payload: axios.post(url, null, AXIOS_CONFIG)
     };
 }
 
@@ -37,6 +37,6 @@ export function dispatchShipment(id){
 
     return {
         type: "ADMIN_DISPATCH_SHIPMENT",
-        payload: axios.put(url, AXIOS_CONFIG)
+        payload: axios.put(url, null, AXIOS_CONFIG)
     };
 }
