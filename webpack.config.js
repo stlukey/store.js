@@ -109,8 +109,9 @@ var config = {
             index: 'index.html',
             rewrites: [
                 { from: '/admin', to: '/admin.html' },
+                { from: /^\/confirm\/.*$/, to: '/index.html' },
             ],
-        }
+        },
     },
 
 };

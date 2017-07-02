@@ -8,6 +8,7 @@ import cart from './cart';
 import users from './users';
 import order from './order';
 import orders from './orders';
+import activateUser from './activateUser';
 import admin from '../../admin/reducers';
 
 import { reducer as form } from 'redux-form';
@@ -22,5 +23,6 @@ export default combineReducers({
     users,
     order,
     orders,
-    admin
+    admin,
+    activateUser
 })

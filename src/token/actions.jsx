@@ -97,3 +97,12 @@ export function updateTokenDetails(data) {
         payload: axios.put(url, data, AXIOS_CONFIG)
     };
 }
+
+export function activateUser(emailToken) {
+    const url = `${API_URL}/confirm/${emailToken}`;
+
+    return {
+        type: "ACTIVATE_USER",
+        payload: axios.post(url, null, AXIOS_CONFIG)
+    };
+}

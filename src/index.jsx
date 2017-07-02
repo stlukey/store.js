@@ -16,6 +16,7 @@ import Home from './home';
 import Login from './token/login';
 import Logout from './token/logout';
 import Signup from './token/signup';
+import ConfirmEmail from './token/confirm';
 
 import ProductsPage from './products';
 import ProductPage from './products/view';
@@ -54,6 +55,7 @@ const routes = (
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />
         <Route path="signup" component={Signup} />
+        <Route path="confirm/:emailToken" component={ConfirmEmail} />
     </Route>
 );
 

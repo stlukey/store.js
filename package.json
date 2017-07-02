@@ -71,7 +71,7 @@
     "webpack-dev-server": "1.16.2"
   },
   "scripts": {
-    "test": "webpack-dev-server --content-base ./public --progress --hot --inline",
+    "test": "webpack-dev-server --content-base ./public --progress --hot --inline ",
     "build": "webpack",
     "postinstall": "./node_modules/webpack/bin/webpack.js --config ./webpack.prod.config.js"
   },
