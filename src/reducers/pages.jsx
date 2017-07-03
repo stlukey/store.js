@@ -23,7 +23,7 @@ export default function reducer(state={
                 ...state,
                 fetching: false,
                 fetched: true,
-                page: action.payload,
+                page: action.payload.data,
 
                 fetchingPages: false,
                 fetchedPages: false
@@ -40,7 +40,7 @@ export default function reducer(state={
                 ...state,
                 fetchingPages: false,
                 fetchedPages: true,
-                pages: action.payload,
+                pages: action.payload.data,
 
                 fetching: false,
                 fetched: false

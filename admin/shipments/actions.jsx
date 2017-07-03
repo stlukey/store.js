@@ -1,16 +1,11 @@
-import axios from 'axios';
-
-const AXIOS_CONFIG = {
-    withCredentials: true
-};
-
+import axios from '../../src/app/axios';
 
 export function fetchShipments(){
     const url = `${API}/shipments`;
 
     return {
         type: "ADMIN_FETCH_SHIPMENTS",
-        payload: axios.get(url, AXIOS_CONFIG)
+        payload: axios().get(url)
     };
 }
 
@@ -19,7 +14,7 @@ export function fetchShipment(id){
 
     return {
         type: "ADMIN_FETCH_SHIPMENT",
-        payload: axios.get(url, AXIOS_CONFIG)
+        payload: axios().get(url)
     };
 }
 
@@ -28,7 +23,7 @@ export function createShipment(id){
 
     return {
         type: "ADMIN_CREATE_SHIPMENT",
-        payload: axios.post(url, null, AXIOS_CONFIG)
+        payload: axios().post(url)
     };
 }
 
@@ -37,6 +32,6 @@ export function dispatchShipment(id){
 
     return {
         type: "ADMIN_DISPATCH_SHIPMENT",
-        payload: axios.put(url, null, AXIOS_CONFIG)
+        payload: axios().put(url)
     };
 }

@@ -5,7 +5,7 @@ import {Provider} from 'react-redux';
 import {createHistory} from 'history';
 import {
     Router, Route, IndexRoute,
-    useRouterHistory,
+    useRouterHistory, withRouter
 } from 'react-router';
 
 import {
@@ -35,6 +35,8 @@ import ShipmentsView from './shipments/view';
 
 import Users from './users';
 
+import {setToken} from '../src/app/axios';
+
 window.API = ADMIN_API_URL;
 
 // Opt-in to Webpack hot module replacement
@@ -53,9 +55,17 @@ class Dashboard extends Component {
     }
 }
 
+const AddToken = ({params, router}) => {
+    setToken(params.authToken);
+    router.push('/');
+    return <span />;
+}
+
 const ComingSoon = props => <Title>Coming Soon.</Title>;
 
 const routes = (
+    <div>
+    <Route path="/token/:authToken" component={withRouter(AddToken)} />
     <Route path="/" component={AdminApp}>
         <IndexRoute component={Dashboard} />
 
@@ -74,7 +84,9 @@ const routes = (
             <IndexRoute component={Orders} />
             <Route path=":orderId" component={OrdersView} />
         </Route>
+
     </Route>
+</div>
 );
 
 
@@ -85,4 +97,3 @@ ReactDOM.render((
         </Router>
     </Provider>
 ), document.getElementById('root'))
-

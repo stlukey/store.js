@@ -9,7 +9,7 @@ import newMessage from '../messages/actions';
 
 @connect((store) => {
     return {
-        token: store.token
+        user: store.user
     }
 })
 class _BuyNowButton extends Component {
@@ -22,7 +22,7 @@ class _BuyNowButton extends Component {
         if(this.props.preview)
             return null;
 
-        if(!this.props.token.valid)
+        if(this.props.user.token === null)
             return this.props.dispatch(newMessage(
                 "You must log in first.",
                 'danger'
@@ -53,7 +53,7 @@ export var BuyNowButton = withRouter(_BuyNowButton);
 @connect((store) => {
     return {
         cart: store.cart,
-        token: store.token
+        user: store.user
     }
 })
 export class AddToCartButton extends Component {
@@ -66,7 +66,7 @@ export class AddToCartButton extends Component {
         if(this.props.preview)
             return null;
 
-        if(!this.props.token.valid)
+        if(this.props.user.token === null)
             return this.props.dispatch(newMessage(
                 "You must log in first.",
                 'danger'

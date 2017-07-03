@@ -15,7 +15,7 @@ const linkStateFeild = (obj, feildKey) => (key) => (e) => {
 class UpdateDetails extends Component {
     constructor(props) {
         super(props);
-        
+
         var {_id, create_time, cart, active, ...details} = this.props.details;
 
         this.state = {
@@ -25,6 +25,7 @@ class UpdateDetails extends Component {
 
     render() {
         const linkToDetails = linkStateFeild(this, 'details');
+        window.state = this.state;
 
         return (
             <div>

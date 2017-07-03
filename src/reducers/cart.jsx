@@ -39,7 +39,7 @@ export default function reducer(state=defaultState, action){
                 ...state,
                 fetching: false,
                 fetched: true,
-                products: action.payload
+                products: action.payload.data
             };
 
 
@@ -54,7 +54,7 @@ export default function reducer(state=defaultState, action){
                 ...state,
                 fetching: false,
                 fetched: true,
-                products: action.payload
+                products: action.payload.data
             };
 
 
@@ -65,7 +65,7 @@ export default function reducer(state=defaultState, action){
             return{...state, costFetching:false, costError:action.payload, costFetched:false};
 
         case "FETCH_CART_COST_FULFILLED":
-            return{...state, costFetching:false, costFetched:true, cost:action.payload};
+            return{...state, costFetching:false, costFetched:true, cost:action.payload.data};
 
 
         default:

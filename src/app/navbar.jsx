@@ -8,7 +8,8 @@ import Icon from './icon';
 import Loading from './loading';
 
 
-import {fetchDetails} from '../token/actions';
+import {fetchUser} from '../user/actions';
+import {getToken} from './axios';
 
 const NavToggle = () => (
     <div className="nav-toggle">
@@ -25,7 +26,7 @@ const NavItem = (props) => (
 const LoggedIn = admin => (
     <span>
         {admin ? (
-            <a href="admin" className="nav-item is-tab">
+            <a href={`/admin/token/${getToken()}`} className="nav-item is-tab">
                 Admin{' '}
                 <Icon>build</Icon>
             </a>
@@ -61,16 +62,19 @@ const LoggedOut = (
 /* TODO: Make stateful with is-active nav items */
 @connect((store) => {
     return {
-        token: store.token
+        user: store.user
     }
 })
 class NavBar extends Component {
-    render() {
-        if(this.props.token.valid && this.props.token.admin === null)
-            return <Loading />;
+    componentDidMount() {
+        this.props.dispatch(fetchUser());
+    }
 
-        var userLinks = this.props.token.valid ? LoggedIn(this.props.token.admin) : LoggedOut;
-        
+    render() {
+        const {user} = this.props;
+
+        var userLinks = user.details !== null && user.token !== null ? LoggedIn(user.details.admin) : LoggedOut;
+
         return (
             <nav className='nav has-shadow' id='top'>
                 <div className='nav-left'>
@@ -91,4 +95,3 @@ class NavBar extends Component {
 }
 
 export default NavBar;
-
