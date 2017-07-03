@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {RequiresLogin} from '../token/login';
+import {RequiresLogin} from '../user/login';
 
 import Cart from './cart';
 import './cart.scss';
@@ -17,5 +17,3 @@ class CartPage extends Component {
 }
 
 export default CartPage;
-
-

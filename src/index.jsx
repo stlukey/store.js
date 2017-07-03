@@ -13,10 +13,11 @@ import store from './store';
 import App from './app';
 import Home from './home';
 
-import Login from './token/login';
-import Logout from './token/logout';
-import Signup from './token/signup';
-import ConfirmEmail from './token/confirm';
+import Login from './user/login';
+import Logout from './user/logout';
+import Signup from './user/signup';
+import ConfirmEmail from './user/confirm';
+import Recovery from './user/recovery';
 
 import ProductsPage from './products';
 import ProductPage from './products/view';
@@ -55,7 +56,9 @@ const routes = (
         <Route path="login" component={Login} />
         <Route path="logout" component={Logout} />
         <Route path="signup" component={Signup} />
+
         <Route path="confirm/:emailToken" component={ConfirmEmail} />
+        <Route path="recovery/:emailToken" component={Recovery} />
     </Route>
 );
 

@@ -110,6 +110,7 @@ var config = {
             rewrites: [
                 { from: '/admin', to: '/admin.html' },
                 { from: /^\/confirm\/.*$/, to: '/index.html' },
+                { from: /^\/recovery\/.*$/, to: '/index.html' },
             ],
         },
     },

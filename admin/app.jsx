@@ -10,7 +10,7 @@ import Loading from '../src/app/loading';
 import {Footer} from '../src/app';
 import Messages from '../src/messages';
 
-import {fetchTokenDetails} from '../src/token/actions';
+import {fetchUser} from '../src/user/actions';
 
 import './admin.scss';
 
@@ -58,19 +58,19 @@ const SideBar = (props) => (
 
 @connect((store) => {
     return {
-        token: store.token
+        user: store.user
     }
 })
 class RequiresAdmin extends Component {
     componentDidMount() {
-        this.props.dispatch(fetchTokenDetails());
+        this.props.dispatch(fetchUser());
     }
 
     render() {
-        if(!this.props.token.fetched)
+        if(!this.props.user.fetched)
             return <Loading />;
 
-        if(!(this.props.token.valid && this.props.token.admin))
+        if(!(!!this.props.user.details && this.props.user.details.admin))
             return window.location.replace('/login');
 
         return (
@@ -94,19 +94,19 @@ class AdminApp extends Component {
 
     render() {
         return (
-    <RequiresAdmin>
-        <NavBar />
-        <div id="app">
-            <div className="columns">                
-                <SideBar />
-                <Container className="column is-10 admin-panel">
-                    <Messages />
-                    {this.props.children}
-                </Container>
+        <RequiresAdmin>
+            <NavBar />
+            <div id="app">
+                <div className="columns">
+                    <SideBar />
+                    <Container className="column is-10 admin-panel">
+                        <Messages />
+                        {this.props.children}
+                    </Container>
+                </div>
             </div>
-        </div>
-        <Footer />
-    </RequiresAdmin>
+            <Footer />
+        </RequiresAdmin>
     );}
 }
 

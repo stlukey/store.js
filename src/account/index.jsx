@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router';
-import {RequiresLogin} from '../token/login';
+import {RequiresLogin} from '../user/login';
 
 import Loading from '../app/loading';
 import {
@@ -15,35 +15,30 @@ import {
 import {fetchOrders} from '../orders/actions';
 import OrdersTable from '../orders/table';
 
-import {fetchTokenDetails, updateTokenDetails} from '../token/actions';
+import {updateUserDetails} from '../user/actions';
 import UpdateDetails from './updateDetails';
 import newMessage from '../messages/actions';
 
 
 @connect(store => {
     return {
-        token: store.token
+        user: store.user
     }
 })
 export class AccountDetails extends Component {
-    componentDidMount() {
-        this.props.dispatch(fetchTokenDetails())
+    constructor(props) {
+        super(props);
         this.updateDetails = this.updateDetails.bind(this);
     }
 
-    updateDetails(details) {
-        this.props.dispatch(updateTokenDetails(details))
-                  .then(() => this.dispatch(newMessage("Details updated.", 'success')))
-                  .catch((error) => alert(error));
+    updateDetails({admin, email, ...details}) {
+        this.props.dispatch(updateUserDetails({_id:email, ...details}));
     }
 
     render() {
-        if(this.props.token.error)
-            return alert(this.props.token.error);
-        if(!this.props.token.fetched)
+        if(!this.props.user.fetched)
             return <Loading />;
 
-        window.deets = this;
         return (
             <div className="container">
                 <div className="tabs">
@@ -54,7 +49,7 @@ export class AccountDetails extends Component {
                 </div>
                 <div className="box">
                     <p className="menu-label">Your Details</p>
-                    <UpdateDetails details={this.props.token.data}
+                    <UpdateDetails details={this.props.user.details}
                                    updateDetails={this.updateDetails}/>
                 </div>
             </div>
@@ -111,4 +106,3 @@ export default class Account extends Component {
         );
     }
 }
-

@@ -16,7 +16,7 @@ export default function reducer(state={
                 ...state,
                 fetching: false,
                 fetched: true,
-                categories: action.payload
+                categories: action.payload.data
             };
         default:
             return {...state};

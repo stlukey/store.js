@@ -16,7 +16,7 @@ export default function reducer(state={
                 ...state,
                 fetching: false,
                 fetched: true,
-                data: action.payload
+                data: action.payload.data
             };
 
         case "SAVE_PRODUCT_PENDING":
@@ -28,7 +28,7 @@ export default function reducer(state={
                 ...state,
                 saving: false,
                 saved: true,
-                data: action.payload
+                data: action.payload.data
             };
 
 
@@ -41,7 +41,7 @@ export default function reducer(state={
                 ...state,
                 saving: false,
                 saved: true,
-                data: action.payload
+                data: action.payload.data
             };
 
         case "CREATE_PRODUCT_PENDING":
@@ -53,7 +53,7 @@ export default function reducer(state={
                 ...state,
                 saving: false,
                 saved: true,
-                data: action.payload
+                data: action.payload.data
             };
 
 
@@ -66,7 +66,7 @@ export default function reducer(state={
                 ...state,
                 saving: false,
                 saved: true,
-                data: action.payload
+                data: action.payload.data
             };
 
         default:

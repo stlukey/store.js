@@ -33,8 +33,8 @@ export default function reducer(state=DEFAULT_STATE, action) {
                 error: null,
                 fetching: false,
                 fetched: true,
-                data: action.payload.data.filter(isShipped),
-                current: action.payload.data.find(notShipped)
+                data: action.payload.data.data.filter(isShipped),
+                current: action.payload.data.data.find(notShipped)
             };
 
         default:

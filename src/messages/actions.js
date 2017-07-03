@@ -5,4 +5,3 @@ export default function newMessage(msg, cat) {
             resolve(dispatch(action)));
     }
 }
-

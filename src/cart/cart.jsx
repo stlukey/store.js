@@ -137,7 +137,7 @@ class CartTable extends Component {
         if(!this.props.products.fetched)
             return (<Loading />);
 
-        var cartItems = this.props.cart.products;
+        var cartItems = this.props.cart.products.data;
 
         return (
             <table className="table">
@@ -163,6 +163,7 @@ class CartTable extends Component {
         );
     }
 }
+
 const linkStateFeild = (obj, feildKey) => (key) => (e) => {
     var state = obj.state;
     state[feildKey][key] = e.target.value;
@@ -386,7 +387,7 @@ class FinalDetails extends Component {
     return {
         cart: store.cart,
         products: store.products,
-        order: store.order
+        order: store.order.data
     }
 })
 class Cart extends Component {
@@ -417,7 +418,13 @@ class Cart extends Component {
         if(!this.props.cart.fetched)
             return (<Loading />);
 
-        var empty = Object.keys(this.props.cart.products.data).length == 0;
+        const products = this.props.cart.products;
+
+        var empty = true;
+        if(products.data !== undefined &&
+           products.data.data !== undefined &&
+           Object.keys(products.data.data).length !== 0)
+           empty = false;
 
         return (
             <Section>

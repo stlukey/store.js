@@ -1,15 +1,10 @@
-import axios from 'axios';
-
-const AXIOS_CONFIG = {
-    withCredentials: true
-};
+import axios from '../../src/app/axios';
 
 export default function fetchUsers(){
     const url = `${API}/users`;
 
     return {
         type: "FETCH_USERS",
-        payload: axios.get(url, AXIOS_CONFIG)
+        payload: axios().get(url)
     };
 }
-

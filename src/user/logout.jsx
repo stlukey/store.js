@@ -3,20 +3,20 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
 
 import newMessage from '../messages/actions';
-import {removeToken} from './actions';
+import {logoutUser} from './actions';
 
 import Loading from '../app/loading';
 
 
 @connect((store) => {
     return {
-        token: store.token
+        user: store.user
     }
 })
 class Logout extends Component {
     componentDidMount() {
-        if(this.props.token.valid) {
-            this.props.dispatch(removeToken)
+        if(this.props.user.token !== null) {
+            this.props.dispatch(logoutUser())
         }
         this.props.router.push('/');
     }
@@ -26,4 +26,3 @@ class Logout extends Component {
 }
 
 export default withRouter(Logout);
-
