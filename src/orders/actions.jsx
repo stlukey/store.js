@@ -1,5 +1,8 @@
 import axios from "../app/axios";
+<<<<<<< HEAD
 import newMessage from '../messages/actions';
+=======
+>>>>>>> 155906f46779290bf3b0e809039460658aa3cebb
 
 export default function fetchOrder(order) {
     const url = `${API}/orders/${order}`;
@@ -20,7 +23,6 @@ export function fetchOrders() {
 
 export const placeOrder = (data, router) => dispatch => {
     const url = `${API}/orders`;
-
     dispatch({type: "PLACE_ORDER_PENDING"})
     axios().post(url, data)
            .then((resp) => {

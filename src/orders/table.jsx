@@ -11,7 +11,7 @@ const OrdersTable = props => (
             </tr>
         </thead>
         <tbody>
-            {props.orders.data.map((order, index) => (
+            {props.orders.data.data.map((order, index) => (
                 <tr key={index}>
                     <td>
                         <Link to={`/orders/${order._id.$oid}`}>
