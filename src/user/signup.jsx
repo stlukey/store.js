@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {Field, reduxForm} from 'redux-form';
 import {withRouter} from 'react-router';
+import {Field, reduxForm} from 'redux-form';
 
 import newMessage from '../messages/actions';
 import TextFeildGroup from '../app/textFeildGroup';

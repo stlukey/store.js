@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router';
+
 import {fetchProduct, fetchCategories} from './actions';
+import newMessage from '../messages/actions';
 
 import Loading from '../app/loading';
 
@@ -38,9 +41,19 @@ class LoadProduct extends Component {
         this.props.dispatch(fetchProduct(id))
     }
 
+
+    notFound() {
+        let {router, dispatch} = this.props;
+        router.push('/');
+
+        dispatch(newMessage("That product can not be found.", "danger"));
+        return <Loading />;
+    }
+
     render() {
         if(this.props.product.error)
-            return alert(this.props.product.error);
+            return this.notFound();
+
         if(!this.props.product.fetched || this.props.product.saving)
             return <Loading />;
 
@@ -48,4 +61,4 @@ class LoadProduct extends Component {
                                  this.props.dispatch);
     }
 }
-export default LoadProduct;
+export default withRouter(LoadProduct);

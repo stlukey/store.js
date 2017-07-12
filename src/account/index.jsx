@@ -68,14 +68,19 @@ class Orders extends Component {
     }
 
     render() {
-        if(this.props.orders.error)
-            return alert(this.orders.error);
-        if(!this.props.orders.fetched)
-            return (<Loading />);
+        let {orders} = this.props;
 
-        return (
-            <OrdersTable orders={this.props.orders} />
-        );
+        if(orders.error)
+            return alert(this.orders.error);
+        if(!orders.fetched)
+            return <Loading />;
+
+        if(orders.data.length < 1)
+            return (
+                <span>You currently have not placed any orders.</span>
+            );
+
+        return <OrdersTable orders={orders} />;
     }
 }
 

@@ -34,11 +34,11 @@ const loadStripe = (onLoad = () => {}) => {
 class Card extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            number: '',
-            name: '',
-            expiry: '',
-            cvc: '',
+        this.state = { // TODO: remove
+            number: '4242 4242 4242 4242',
+            name: 'Foo',
+            expiry: '1018',
+            cvc: '181',
             focused: '',
         };
     }

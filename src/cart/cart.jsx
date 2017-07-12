@@ -407,9 +407,8 @@ class Cart extends Component {
             card_token,
             shipping_method
         };
-        this.props.dispatch(placeOrder(data)).then(() => {
-            this.props.router.push('/orders/' + this.props.order.data._id.$oid);
-        });;
+        let {router,dispatch} = this.props;
+        dispatch(placeOrder(data, router));
     }
 
     render() {
