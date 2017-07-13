@@ -39,7 +39,7 @@ class Order extends Component {
 
         return (
             <OrderView productsData={this.props.products.products.data}
-                       orderData={findOrder(this.props.orders.data.data, this.props.params.orderId)} />
+                       orderData={findOrder(this.props.orders.data, this.props.params.orderId)} />
         );
     }
 }

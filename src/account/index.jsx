@@ -69,6 +69,7 @@ class Orders extends Component {
 
     render() {
         let {orders} = this.props;
+        window.orders = orders;
 
         if(orders.error)
             return alert(this.orders.error);

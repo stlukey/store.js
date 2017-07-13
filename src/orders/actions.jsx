@@ -1,8 +1,5 @@
 import axios from "../app/axios";
-<<<<<<< HEAD
 import newMessage from '../messages/actions';
-=======
->>>>>>> 155906f46779290bf3b0e809039460658aa3cebb
 
 export default function fetchOrder(order) {
     const url = `${API}/orders/${order}`;
@@ -25,8 +22,7 @@ export const placeOrder = (data, router) => dispatch => {
     const url = `${API}/orders`;
     dispatch({type: "PLACE_ORDER_PENDING"})
     axios().post(url, data)
-           .then((resp) => {
-               window.resp = resp;
+           .then(resp => {
                dispatch({
                    type: "PLACE_ORDER_FULFILLED",
                    payload: resp
@@ -36,11 +32,12 @@ export const placeOrder = (data, router) => dispatch => {
                if(router) router.push(`/orders/${oid}`);
            })
            .catch(err => {
+               console.error(err);
                let msg = err.response ? err.response.data.message :
                'There was an error connecting to the server. Please try again later.';
                dispatch({
                    type: "PLACE_ORDER_REJECTED",
-                   payload: err
+                   payload: msg
                });
            })
 }

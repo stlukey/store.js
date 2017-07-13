@@ -25,7 +25,7 @@ export default function reducer(state=DEFAULT_STATE, action) {
                 error: null,
                 fetching: false,
                 fetched: true,
-                data: action.payload.data,
+                data: action.payload.data.data,
                 notShipped: action.payload.data.data.filter(notShipped)
             };
 

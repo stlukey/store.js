@@ -387,7 +387,6 @@ class FinalDetails extends Component {
     return {
         cart: store.cart,
         products: store.products,
-        order: store.order.data
     }
 })
 class Cart extends Component {

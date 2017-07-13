@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import FileInput from 'react-file-input';
+import {uploadImage} from './actions';
 
 import {
     Title,

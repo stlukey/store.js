@@ -12,6 +12,7 @@ export default function reducer(state=DEFAULT_STATE, action) {
                 ...state,
                 fetching: true,
                 fetched: false,
+                error: null
             };
         case "FETCH_ORDERS_REJECTED":
             return {...state, fetching:false, error:action.payload,
