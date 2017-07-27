@@ -4,6 +4,7 @@ import moment from 'moment';
 import {BuyNowButton, AddToCartButton} from '../cart/buttons';
 import LoadProduct from './load';
 import {values} from './index';
+import ProductTabs from './tabs';
 
 const ProductDetails = (product, preview=false) => (
 <div>
@@ -52,27 +53,8 @@ const ProductDetails = (product, preview=false) => (
     </div>
   </div>
   <div className="section">
-    <div className="container">
-      <div className="tabs">
-        <ul>
-          <li className="is-active"><a>Recipes</a></li>
-          <li><a>Reviews</a></li>
-        </ul>
-      </div>
-      <div className="box">
-        <p className="menu-label">Recipes</p>
-        <ul className="menu-list">
-            {product.recipes.map((recipe, index) => (
-                <li key={index}>
-                  <a href={recipe.url} target="_blank">
-                    {recipe.name}
-                  </a>
-                </li>
-            ))}
-        </ul>
-      </div>
-    </div>
-    </div>
+      <ProductTabs product={product} />
+  </div>
 </div>
 );
 

@@ -27,7 +27,11 @@ import Account from './account';
 import {AccountDetails, AccountOrders} from './account';
 import Order from './orders';
 
+import Sandbox from './sandbox'; // comment this out in production
+const SANDBOX = false;
+
 const history = useRouterHistory(createHistory)();
+
 
 const unlisten = GA_TRACKING_CODE ? history.listen(location => {
     console.log('Connected to GA with tracking code:', GA_TRACKING_CODE);
@@ -36,7 +40,14 @@ const unlisten = GA_TRACKING_CODE ? history.listen(location => {
 
 window.API = API_URL;
 
-const routes = (
+const routes = SANDBOX ? (
+    <Route path="/" component={App}>
+        <IndexRoute component={Sandbox} />
+
+        <Route path="login" component={Login} />
+        <Route path="logout" component={Logout} />
+    </Route>
+) : (
     <Route path="/" component={App}>
         <IndexRoute component={Home} />
 
