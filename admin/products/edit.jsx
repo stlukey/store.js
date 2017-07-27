@@ -42,6 +42,7 @@ class ProductEditDetailsForm extends Component {
     }
 
     render() {
+        window.data = this.props.data;
         return (
             <div>
                 <Title>Details</Title>
@@ -74,6 +75,48 @@ class ProductEditDetailsForm extends Component {
                         type="text"
                         onChange={linkState(this, 'description')}
                         defaultValue={this.props.data.description}/>
+                </div>
+
+                <hr/>
+
+                <div className="input-row">
+                    <label htmlFor="width">
+                        Width (cm):&nbsp;&nbsp;
+                    </label>
+                    <input name="width"
+                           type="number"
+                           onChange={linkState(this, 'width')}
+                           defaultValue={this.props.data.measurements.width} />
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="depth">
+                        Depth (cm):&nbsp;&nbsp;
+                    </label>
+                    <input name="depth"
+                           type="number"
+                           onChange={linkState(this, 'depth')}
+                           defaultValue={this.props.data.measurements.depth} />
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="length">
+                        Length (cm):&nbsp;&nbsp;
+                    </label>
+                    <input name="length"
+                           type="number"
+                           onChange={linkState(this, 'length')}
+                           defaultValue={this.props.data.measurements.length} />
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="weight">
+                        Weight (kg):&nbsp;&nbsp;
+                    </label>
+                    <input name="weight"
+                           type="number"
+                           onChange={linkState(this, 'weight')}
+                           defaultValue={this.props.data.measurements.weight} />
                 </div>
 
                 <Button className="is-primary" onClick={this.save}>
@@ -160,7 +203,7 @@ class ProductEditStock extends Component {
         this.saveIncrease = this.saveIncrease.bind(this);
         this.saveDecrease = this.saveDecrease.bind(this);
         this.saveSet = this.saveSet.bind(this);
-        
+
         this.state = {
             'increase': 0,
             'decrease': 0,
@@ -259,7 +302,7 @@ class ProductEditStock extends Component {
 class ProductEditViewControl extends Component {
     constructor(props) {
         super(props);
-        
+
         this.toggleView = this.toggleView.bind(this);
     }
 

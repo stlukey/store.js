@@ -23,7 +23,7 @@ var babelSettings = {
     presets: ['es2015', 'react', 'stage-2', 'react-hmre'],
     plugins: ['transform-decorators-legacy'],
     // @remove-on-eject-end
-    cacheDirectory: false
+    cacheDirectory: true
 };
 
 var jsxLoaders = combineLoaders([
@@ -63,13 +63,15 @@ var config = {
     debug: true,
     devtool: 'source-map',
     resolve: {
+        modulesDirectories: ['node_modules'],
         extensions: ['', '.js', '.jsx']
     },
     module: {
         loaders: [ {
             test: /\.(js|jsx)$/,
             include: [APP_DIR, ADMIN_DIR],
-            loader: jsxLoaders
+            loader: jsxLoaders,
+            exclude: /node_modules/,
         }, {
             test: /\.scss$|\.sass$/,
             loaders: [

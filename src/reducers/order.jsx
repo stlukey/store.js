@@ -39,7 +39,7 @@ export default function reducer(state=DEFAULT_STATE, action) {
                 ...state,
                 error: null,
                 fetching: false,
-                fetched: true,
+                fetched: false,
             };
 
 

@@ -28,8 +28,7 @@ export const placeOrder = (data, router) => dispatch => {
                    payload: resp
                });
                dispatch(newMessage(resp.data.message, "success"));
-               let oid = resp.data.data._id.$oid;
-               if(router) router.push(`/orders/${oid}`);
+               if(router) router.push(`/orders/${resp.data.data._id.$oid}`);
            })
            .catch(err => {
                console.error(err);

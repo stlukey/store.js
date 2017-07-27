@@ -73,12 +73,17 @@ class NewProductRow extends Component {
         this.activate = this.activate.bind(this);
         this.create = this.create.bind(this);
         this.goToProductEdit = this.goToProductEdit.bind(this);
-        
+
         this.state = {
             active: false,
             name: null,
             cost: null,
-            description: null
+            description: null,
+
+            width: null,
+            depth: null,
+            length: null,
+            weight: null
         };
 
         this.i = 0;
@@ -99,7 +104,11 @@ class NewProductRow extends Component {
         const data = {
             name:this.state.name,
             cost:this.state.cost,
-            description:this.state.description
+            description:this.state.description,
+            width: this.state.width,
+            depth: this.state.depth,
+            length: this.state.length,
+            weight: this.state.weight
         };
 
         this.props.dispatch(createProduct(data))
@@ -150,6 +159,44 @@ class NewProductRow extends Component {
                                 onChange={linkState(this, 'description')} />
                         </div>
 
+                        <hr/>
+
+                        <div className="input-row">
+                            <label htmlFor="width">
+                                Width (cm):&nbsp;&nbsp;
+                            </label>
+                            <input name="width"
+                                   type="number"
+                                   onChange={linkState(this, 'width')} />
+                        </div>
+
+                        <div className="input-row">
+                            <label htmlFor="depth">
+                                Depth (cm):&nbsp;&nbsp;
+                            </label>
+                            <input name="depth"
+                                   type="number"
+                                   onChange={linkState(this, 'depth')} />
+                        </div>
+
+                        <div className="input-row">
+                            <label htmlFor="length">
+                                Length (cm):&nbsp;&nbsp;
+                            </label>
+                            <input name="length"
+                                   type="number"
+                                   onChange={linkState(this, 'length')} />
+                        </div>
+
+                        <div className="input-row">
+                            <label htmlFor="weight">
+                                Weight (kg):&nbsp;&nbsp;
+                            </label>
+                            <input name="weight"
+                                   type="number"
+                                   onChange={linkState(this, 'weight')} />
+                        </div>
+
                     </section>
                     <footer className="modal-card-foot">
                       <a className="button is-primary"
@@ -182,7 +229,7 @@ const Products = (products) => (
             </tr>
         </thead>
         <tbody>
-            {products.map((product, index) => 
+            {products.map((product, index) =>
                 <ProductRow product={product} key={index} />
             )}
             <NewProductRow />
@@ -221,4 +268,3 @@ export default class ProductsPage extends Component {
         );
     }
 }
-
