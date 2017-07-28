@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import StarRating from 'react-star-rating';
 
 const switchTab = (tabs, tabId) => tabs.setState({current:tabId});
 
@@ -30,7 +31,10 @@ const Reviews = ({product}) =>
                     <div className="card is-fullwidth">
                         <header className="card-header">
                             <p className="card-header-title">
-                                {review.rating} / 5 {"     "}
+                                <StarRating
+                                  count={5}
+                                  rating={review.rating}
+                                  editing={false} />
                             </p>
                         </header>
                         <div className="card-content">

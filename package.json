@@ -55,6 +55,7 @@
     "react-router-transition": "0.0.6",
     "react-skylight": "0.4.1",
     "react-slick": "0.14.5",
+    "react-star-rating": "^1.4.2",
     "react-tag-autocomplete": "5.0.4",
     "react-tag-complete": "1.0.2",
     "redux": "3.6.0",

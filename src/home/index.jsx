@@ -24,7 +24,7 @@ const latestProductsSettings = {
     autoplay: true,
     lazyLoad: true,
     centerMode: true,
-    adaptiveHeight: true,
+    adaptiveHeight: false ,
     arrows: false,
     autoplaySpeed: 5000,
     className: 'latestProducts columns'
@@ -41,16 +41,6 @@ const latestProduct = (product, index) => (
                          src={`${API_URL}${product.images[
                             1 % product.images.length
                          ]}`} />
-                    <Title className="latest-title">
-                        <span className="latest-title-span">
-                            <span className="background">
-                                {product.name}:
-                            </span> <Spacer /> <br /> <Spacer />
-                            <span className="background">
-                                  {product.description}
-                            </span>
-                        </span>
-                    </Title>
                 </div>
             </Columns>
         </Link>
@@ -73,8 +63,10 @@ const popularProduct = (product, index) => (
                     <img className="is-128x128"
                          src={API_URL + product.images[0]} />
                 </p>
-                <div className="panel-block">
-                    {product.name}
+                <div className="panel-block vCenterContainer">
+                    <div className="vCenterContent">
+                      {product.name}
+                    </div>
                 </div>
             </Link>
         </Panel>
@@ -127,8 +119,8 @@ export default class Home extends Component {
         return (
             <div>
                 {latest}
-                <Title>Popular Products</Title>
-                <hr/>
+                <Title className="homeUnderline">Favourite Products</Title>
+                <hr className="homeUnderline" />
                 {popular}
             </div>
         );

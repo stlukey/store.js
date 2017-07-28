@@ -7,18 +7,18 @@ $family-primary: $family-serif;
 @import "~bulma/bulma.sass";
 
 #root {
-    max-width: 960px;
     margin: 0 auto;
 }
 
 #app {
-    padding: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-top: 5px;
 }
 
 body {
     background: transparent;
     font-size: 18px;
 }
-
-
-

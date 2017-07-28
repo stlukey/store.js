@@ -21,8 +21,10 @@ const product = (product, index) => (
                     <img className="is-128x128"
                          src={API_URL + product.images[0]} />
                 </p>
-                <div className="panel-block">
-                    {product.name}
+                <div className="panel-block vCenterContainer">
+                    <div className="vCenterContent">
+                      {product.name}
+                    </div>
                 </div>
             </Link>
         </Panel>
@@ -146,7 +148,7 @@ export default class ProductsPage extends Component {
         const products = getProductsByCategory(
             this.props.products.products.data, this.state.category.value
         );
-        
+
         const grid = productsGrid(products);
         const header = Header(this.options, this.state.category.label,
                               this.onCategorySelect);

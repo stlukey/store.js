@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import './app.scss';
-import 'font-awesome/scss/font-awesome.scss';    
+import 'font-awesome/scss/font-awesome.scss';
 
 
 import NavBar from './navbar';
@@ -45,6 +45,8 @@ class App extends Component {
                     <Messages />
                     {this.props.children}
                 </div>
+                <br/>
+                <hr/>
                 <Footer />
             </div>
         );
@@ -52,4 +54,3 @@ class App extends Component {
 }
 
 export default App;
-

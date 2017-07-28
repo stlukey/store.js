@@ -23,41 +23,37 @@ const NavItem = (props) => (
     </Link>
 )
 
-const LoggedIn = admin => (
-    <span>
-        {admin ? (
-            <a href={`/admin/token/${getToken()}`} className="nav-item is-tab">
-                Admin{' '}
-                <Icon>build</Icon>
-            </a>
-        ) : (
-            <NavItem to='/cart'>
-                Basket{' '}
-                <Icon>shopping_basket</Icon>
-            </NavItem>
-        )}
-        <NavItem to='/account'>
-            My Account{' '}
-            <Icon>account_circle</Icon>
+const LoggedIn = admin => [
+    admin ? (
+        <a href={`/admin/token/${getToken()}`} className="nav-item is-tab">
+            Admin{' '}
+            <Icon>build</Icon>
+        </a>
+    ) : (
+        <NavItem key={0} to='/cart'>
+            Basket{' '}
+            <Icon>shopping_basket</Icon>
         </NavItem>
-        <NavItem to='/logout'>
-            Log out{' '}
-            <Icon>input</Icon>
-        </NavItem>
-    </span>
-);
+    ),
+    <NavItem key={1} to='/account'>
+        My Account{' '}
+        <Icon>account_circle</Icon>
+    </NavItem>,
+    <NavItem key={2} to='/logout'>
+        Log out{' '}
+        <Icon>input</Icon>
+    </NavItem>
+];
 
-const LoggedOut = (
-    <span>
-        <NavItem to='/login'>
-            Log in{' '}
-            <Icon>account_box</Icon>
-        </NavItem>
-        <NavItem to='/signup'>
-            or Sign Up
-        </NavItem>
-    </span>
-);
+const LoggedOut = [
+    <NavItem key={3} to='/login'>
+        Log in{' '}
+        <Icon>account_box</Icon>
+    </NavItem>,
+    <NavItem key={4} to='/signup'>
+        or Sign Up
+    </NavItem>
+];
 
 /* TODO: Make stateful with is-active nav items */
 @connect((store) => {
@@ -87,8 +83,8 @@ class NavBar extends Component {
                     <NavItem to='/products'>Products</NavItem>
                     <NavItem to='/about'>About</NavItem>
                     <NavItem to='/contact'>Contact</NavItem>
+                    {userLinks}
                 </div>
-                {userLinks}
             </nav>
         )
     }

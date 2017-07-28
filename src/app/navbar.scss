@@ -2,3 +2,12 @@
     display: inline-flex;
 }
 
+.nav {
+  height: 47px;
+
+  @import url('https://fonts.googleapis.com/css?family=Ubuntu');
+  font-family: 'Ubuntu', sans-serif;
+
+
+  box-shadow: 0 2px 20px rgba(10, 10, 10, 0.15)
+}
