@@ -56,8 +56,8 @@ const latestProducts = (products) => (
 
 
 const popularProduct = (product, index) => (
-    <div className="is-3" key={index}>
-        <Panel>
+    <div className="is-one-third" key={index}>
+        <Panel className="product">
             <Link className="no-dec" to={"/products/" + product._id.$oid}>
                 <p className="is-marginless">
                     <img className="is-128x128"
@@ -75,7 +75,7 @@ const popularProduct = (product, index) => (
 
 const popularProducts = (products) => (
     <Container className="popularProducts">
-        <Columns>
+        <Columns className="is-multiline">
             {products.map(popularProduct)}
         </Columns>
     </Container>
