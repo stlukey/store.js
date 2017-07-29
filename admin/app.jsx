@@ -96,7 +96,7 @@ class AdminApp extends Component {
         return (
         <RequiresAdmin>
             <NavBar />
-            <div id="app">
+            <div id="adminApp">
                 <div className="columns">
                     <SideBar />
                     <Container className="column is-10 admin-panel">

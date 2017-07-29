@@ -62,8 +62,7 @@ export function values(data) {
 
 
 const Header = (options, value, onSelect) => (
-    <Section>
-        <Container>
+    <Container>
             <Columns>
                 <div>
                     <TitleSpan className="is-3">Products</TitleSpan>
@@ -75,8 +74,7 @@ const Header = (options, value, onSelect) => (
                     </TitleSpan>
                 </div>
             </Columns>
-        </Container>
-    </Section>
+    </Container>
 );
 
 function getProductsByCategory(initialProducts, categoryId) {
@@ -154,10 +152,10 @@ export default class ProductsPage extends Component {
                               this.onCategorySelect);
 
         return (
-            <div>
+            <Section>
                 {header}
                 {grid}
-            </div>
+            </Section>
         );
 
     }

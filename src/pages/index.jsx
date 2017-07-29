@@ -32,5 +32,4 @@ export default class CMSPage extends Component {
     }
 }
 
-export const ContactPage = () => (<CMSPage pageId="contact" />);
-export const AboutPage = () => (<CMSPage pageId="about" />);
+export const CMSRoute = () => ({location}) => <CMSPage key={location.pathname} pageId={location.pathname.substring(1)} />;

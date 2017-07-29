@@ -21,7 +21,7 @@ import Recovery from './user/recovery';
 
 import ProductsPage from './products';
 import ProductPage from './products/view';
-import {ContactPage, AboutPage} from './pages';
+import {CMSRoute} from './pages';
 import Cart from './cart';
 import Account from './account';
 import {AccountDetails, AccountOrders} from './account';
@@ -44,8 +44,13 @@ const routes = (
         <Route path="products" component={ProductsPage} />
         <Route path="products/:productId" component={ProductPage}/>
 
-        <Route path="contact" component={ContactPage} />
-        <Route path="about" component={AboutPage} />
+        <Route path="contact" component={CMSRoute()} />
+        <Route path="about" component={CMSRoute()} />
+        <Route path="press" component={CMSRoute()} />
+        <Route path="faqs" component={CMSRoute()} />
+        <Route path="delivery-and-returns" component={CMSRoute()} />
+        <Route path="terms-and-conditions" component={CMSRoute()} />
+        <Route path="privacy" component={CMSRoute()} />
 
         <Route path="cart" component={Cart} />
         <Route path="orders/:orderId" component={Order} />

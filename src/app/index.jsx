@@ -30,17 +30,17 @@ export const Footer = (props) => (
 
         <div className="links columns">
           <div className="column">
-            <a href="#">Contact Us</a>
-            <a href="#">Press</a>
+            <a href="/contact">Contact Us</a>
+            <a href="/press">Press</a>
           </div>
           <div className="column">
-            <a href="#">Frequently Asked Questions</a>
-            <a href="#">Delivery and Returns</a>
-            <a href="#">Terms and Conditions</a>
-            <a href="#">Privacy</a>
+            <a href="/faqs">Frequently Asked Questions</a>
+            <a href="/delivery-and-returns">Delivery and Returns</a>
+            <a href="/terms-and-conditions">Terms and Conditions</a>
+            <a href="/privacy">Privacy</a>
           </div>
           <div className="column">
-            <a href="#">The Persian Fusion Blog</a>
+            <a href="http://www.thepersianfusion.com/">The Persian Fusion Blog</a>
             <div id="social">
               <a href="#0" className="c-link c-link--facebook c-tooltip" aria-label="Facebook">
                   <svg className="c-icon"><use xlinkHref="#icon--facebook"></use></svg>
