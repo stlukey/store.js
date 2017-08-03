@@ -1,6 +1,14 @@
 var webpack = require('webpack');
 var path = require('path');
 
+try {
+  require('os').networkInterfaces();
+}
+catch (e) {
+  require('os').networkInterfaces = () => ({});
+}
+
+
 var autoprefixer = require('autoprefixer');
 var combineLoaders = require('webpack-combine-loaders');
 
@@ -60,6 +68,9 @@ var config = {
         publicPath: '/build',
         filename: '[name].js'
     },
+    watchOptions: {
+    poll: true
+},
     debug: true,
     devtool: 'source-map',
     resolve: {
