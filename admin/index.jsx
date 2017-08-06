@@ -27,6 +27,8 @@ import Pages from './pages';
 import ViewPage from './pages/view';
 import EditPage from './pages/edit';
 
+import Images from './images';
+
 import Orders from './orders';
 import OrdersView from './orders/view';
 
@@ -76,6 +78,8 @@ const routes = (
         <Route path="pages" component={Pages} />
         <Route path="pages/:pageId" component={ViewPage} />
         <Route path="pages/:pageId/edit" component={EditPage} />
+
+        <Route path="images" component={Images} />
 
         <Route path="users" component={Users} />
         <Route path="shipments" component={Shipments} />

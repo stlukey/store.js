@@ -67,7 +67,7 @@ const linkState = (obj, key) => (e) => {
         product: store.products.product
     }
 })
-class NewProductRow extends Component {
+class NewProduct extends Component {
     constructor(props) {
         super(props);
         this.activate = this.activate.bind(this);
@@ -115,105 +115,122 @@ class NewProductRow extends Component {
                   .then(this.goToProductEdit);
     }
 
-    render() {
+    renderModal() {
         var classes = classnames('modal', {'is-active': this.state.active});
-
-        return (
-        <tr className="product-row new-product-row">
-            <td onClick={this.activate()}><Icon className="large-icon">add</Icon></td>
-            <td className="medium-icon"
-                onClick={this.activate()}>Add new product.</td>
-            <td>
-                <div className={classes}>
-                  <div className="modal-background"></div>
-                  <div className="modal-card">
-                    <header className="modal-card-head">
-                      <p className="modal-card-title">New Product</p>
-                    </header>
-                    <section className="modal-card-body">
-                        <div className="input-row">
-                            <label htmlFor="name">
-                                Name:&nbsp;&nbsp;
-                            </label>
-                            <input name="name"
-                                   type="text"
-                                   onChange={linkState(this, 'name')}/>
-                        </div>
-
-                        <div className="input-row">
-                            <label htmlFor="price">
-                                Price (£):&nbsp;&nbsp;
-                            </label>
-                            <input name="price"
-                                   type="number"
-                                   onChange={linkState(this, 'cost')} />
-                        </div>
-
-
-                        <div className="input-row">
-                            <label htmlFor="description">
-                                Description:&nbsp;&nbsp;
-                            </label>
-                            <textarea name="description"
-                                type="text"
-                                onChange={linkState(this, 'description')} />
-                        </div>
-
-                        <hr/>
-
-                        <div className="input-row">
-                            <label htmlFor="width">
-                                Width (cm):&nbsp;&nbsp;
-                            </label>
-                            <input name="width"
-                                   type="number"
-                                   onChange={linkState(this, 'width')} />
-                        </div>
-
-                        <div className="input-row">
-                            <label htmlFor="depth">
-                                Depth (cm):&nbsp;&nbsp;
-                            </label>
-                            <input name="depth"
-                                   type="number"
-                                   onChange={linkState(this, 'depth')} />
-                        </div>
-
-                        <div className="input-row">
-                            <label htmlFor="length">
-                                Length (cm):&nbsp;&nbsp;
-                            </label>
-                            <input name="length"
-                                   type="number"
-                                   onChange={linkState(this, 'length')} />
-                        </div>
-
-                        <div className="input-row">
-                            <label htmlFor="weight">
-                                Weight (kg):&nbsp;&nbsp;
-                            </label>
-                            <input name="weight"
-                                   type="number"
-                                   onChange={linkState(this, 'weight')} />
-                        </div>
-
-                    </section>
-                    <footer className="modal-card-foot">
-                      <a className="button is-primary"
-                         onClick={this.create}>Create</a>
-                      <a className="button"
-                         onClick={this.activate(false)}>Cancel</a>
-                    </footer>
-                  </div>
+        return (<div className={classes}>
+          <div className="modal-background"></div>
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">New Product</p>
+            </header>
+            <section className="modal-card-body">
+                <div className="input-row">
+                    <label htmlFor="name">
+                        Name:&nbsp;&nbsp;
+                    </label>
+                    <input name="name"
+                           type="text"
+                           onChange={linkState(this, 'name')}/>
                 </div>
-            </td>
-            <td></td>
-            <td></td>
-        </tr>
-    );}
-}
 
-NewProductRow = withRouter(NewProductRow);
+                <div className="input-row">
+                    <label htmlFor="price">
+                        Price (£):&nbsp;&nbsp;
+                    </label>
+                    <input name="price"
+                           type="number"
+                           onChange={linkState(this, 'cost')} />
+                </div>
+
+
+                <div className="input-row">
+                    <label htmlFor="description">
+                        Description:&nbsp;&nbsp;
+                    </label>
+                    <textarea name="description"
+                        type="text"
+                        onChange={linkState(this, 'description')} />
+                </div>
+
+                <hr/>
+
+                <div className="input-row">
+                    <label htmlFor="width">
+                        Width (cm):&nbsp;&nbsp;
+                    </label>
+                    <input name="width"
+                           type="number"
+                           onChange={linkState(this, 'width')} />
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="depth">
+                        Depth (cm):&nbsp;&nbsp;
+                    </label>
+                    <input name="depth"
+                           type="number"
+                           onChange={linkState(this, 'depth')} />
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="length">
+                        Length (cm):&nbsp;&nbsp;
+                    </label>
+                    <input name="length"
+                           type="number"
+                           onChange={linkState(this, 'length')} />
+                </div>
+
+                <div className="input-row">
+                    <label htmlFor="weight">
+                        Weight (kg):&nbsp;&nbsp;
+                    </label>
+                    <input name="weight"
+                           type="number"
+                           onChange={linkState(this, 'weight')} />
+                </div>
+
+            </section>
+            <footer className="modal-card-foot">
+              <a className="button is-primary"
+                 onClick={this.create}>Create</a>
+              <a className="button"
+                 onClick={this.activate(false)}>Cancel</a>
+            </footer>
+          </div>
+        </div>);
+    }
+
+    render() {
+        var Parent = this.props.parent(this.activate());
+        return <Parent>{this.renderModal()}</Parent>;
+    }
+}
+NewProduct = withRouter(NewProduct);
+
+
+const NewProductRow = (onClick) => ({children}) =>(
+    <tr className="product-row new-product-row">
+        <td onClick={onClick}><Icon className="large-icon">add</Icon></td>
+        <td className="medium-icon"
+            onClick={onClick}>Add new product.</td>
+        <td>
+            {children}
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+);
+
+const NewProductButton = (onClick) => ({children}) => (
+    <span>
+        <a href="#" onClick={onClick} className="button is-primary"
+           width="100%" >New Product</a>
+        {children}
+    </span>
+);
+
+
 
 
 const Products = (products) => (
@@ -232,7 +249,7 @@ const Products = (products) => (
             {products.map((product, index) =>
                 <ProductRow product={product} key={index} />
             )}
-            <NewProductRow />
+            <NewProduct parent={NewProductRow} />
         </tbody>
     </table>
 );
@@ -262,6 +279,7 @@ export default class ProductsPage extends Component {
             <div>
                 <Title>Products</Title>
                 <Section>
+                    <NewProduct parent={NewProductButton}/>
                     {products}
                 </Section>
             </div>

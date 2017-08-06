@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 import {connect} from 'react-redux';
 
 import SocialLogosSVGs from './socialLogosSvgs';
@@ -30,15 +31,15 @@ const MailListSignup = () => (
 const Links = () => (
     <div className="links columns">
       <div className="column">
-        <a href="/contact">Contact Us</a>
-        <a href="/press">Press</a>
+        <Link to="/contact">Contact Us</Link>
+        <Link to="/press">Press</Link>
       </div>
 
       <div className="column">
-        <a href="/faqs">Frequently Asked Questions</a>
-        <a href="/delivery-and-returns">Delivery and Returns</a>
-        <a href="/terms-and-conditions">Terms and Conditions</a>
-        <a href="/privacy">Privacy</a>
+        <Link to="/faqs">Frequently Asked Questions</Link>
+        <Link to="/delivery-and-returns">Delivery and Returns</Link>
+        <Link to="/terms-and-conditions">Terms and Conditions</Link>
+        <Link to="/privacy">Privacy</Link>
       </div>
 
       <div className="column">

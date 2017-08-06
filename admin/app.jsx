@@ -17,6 +17,7 @@ import './admin.scss';
 //<Link key={i++} to="#" className="nav-item">Dashboard</Link>,
 var i = 0;
 const links = [
+    <Link key={i++} to="/images" className="nav-item">Images</Link>,
     <Link key={i++} to="/products" className="nav-item">Products</Link>,
     <Link key={i++} to="/pages" className="nav-item">Pages</Link>,
     <Link key={i++} to="/users" className="nav-item">Users</Link>,
@@ -105,7 +106,6 @@ class AdminApp extends Component {
                     </Container>
                 </div>
             </div>
-            <Footer />
         </RequiresAdmin>
     );}
 }

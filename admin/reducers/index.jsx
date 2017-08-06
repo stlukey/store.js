@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 
+import images from './images';
 import products from './products';
 import orders from './orders';
 import shipments from './shipments';
@@ -13,6 +14,6 @@ export default combineReducers({
     messages,
     orders,
     shipments,
-    shipment
+    shipment,
+    images
 })
-
