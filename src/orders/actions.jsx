@@ -36,7 +36,7 @@ export const placeOrder = (data, router) => dispatch => {
                'There was an error connecting to the server. Please try again later.';
                dispatch({
                    type: "PLACE_ORDER_REJECTED",
-                   payload: msg
                });
+               dispatch(newMessage(msg, "danger"));
            })
 }

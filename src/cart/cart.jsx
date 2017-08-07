@@ -174,6 +174,7 @@ const linkStateFeild = (obj, feildKey) => (key) => (e) => {
 @connect((store) => {
     return {
         cart: store.cart,
+        order: store.order
     }
 })
 class FinalDetails extends Component {
@@ -193,6 +194,14 @@ class FinalDetails extends Component {
 
     componentDidMount() {
         this.props.dispatch(fetchCartCost());
+    }
+
+    componentWillUpdate() {
+        var {error} = this.props.order;
+        if (error && this.state.payment) {
+            this.props.updateCart();
+            this.setState({payment: false});
+        };
     }
 
     getTotal() {
@@ -393,6 +402,11 @@ class Cart extends Component {
     constructor(props) {
         super(props);
         this.placeOrder = this.placeOrder.bind(this);
+        this.updateCart = this.updateCart.bind(this);
+
+        this.state = {
+            cartUpdate: 0
+        }
     }
 
     componentDidMount() {
@@ -408,6 +422,13 @@ class Cart extends Component {
         };
         let {router,dispatch} = this.props;
         dispatch(placeOrder(data, router));
+    }
+
+    updateCart() {
+        this.props.dispatch(fetchCart());
+        // this.setState({
+        //     cartUpdate: this.state.cartUpdate + 1
+        // });
     }
 
     render() {
@@ -431,9 +452,10 @@ class Cart extends Component {
                     <span>Empty.</span>
                 ) : (
                     <span>
-                        <CartTable />
+                        <CartTable key={this.state.cartUpdate} />
                         <FinalDetails placeOrder={this.placeOrder}
-                                      key={window.orders} />
+                                      key={window.orders}
+                                      updateCart={this.updateCart}/>
                     </span>
                 )}
             </Section>

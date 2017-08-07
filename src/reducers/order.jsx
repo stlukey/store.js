@@ -32,7 +32,7 @@ export default function reducer(state=DEFAULT_STATE, action) {
                 fetched: false,
             };
         case "PLACE_ORDER_REJECTED":
-            return {...state, fetching:false, error:action.payload,
+            return {...state, fetching:false, error:true,
                     fetched:false}
         case "PLACE_ORDER_FULFILLED":
             return {

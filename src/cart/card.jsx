@@ -201,7 +201,6 @@ class PaymentDialog extends Component {
     componentWillUpdate() {
         if(this.props.order.error !== null) {
             this.setState({
-                error: this.props.order.error.message,
                 processing: false
             });
         }

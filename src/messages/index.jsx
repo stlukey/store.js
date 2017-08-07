@@ -9,7 +9,7 @@ import './messages.scss';
 import Expire from './expire';
 import Icon from '../app/icon';
 
-const MESSAGE_TIMEOUT = 3000;
+const MESSAGE_TIMEOUT = 5000;
 
 class Message extends Component {
     static defaultProps = {
@@ -34,7 +34,10 @@ class Message extends Component {
                 >
                     <div className={classes}>
                         <Icon>error</Icon>
-                        {" "}{this.props.content}
+                        {" "}
+                        <span className="message-content">
+                            {this.props.content}
+                        </span>
                     </div>
                 </ReactCSSTransitionGroup>
             </Expire>
@@ -75,4 +78,3 @@ class Messages extends Component {
 }
 
 export default Messages;
-
