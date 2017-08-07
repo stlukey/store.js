@@ -403,10 +403,6 @@ class Cart extends Component {
         super(props);
         this.placeOrder = this.placeOrder.bind(this);
         this.updateCart = this.updateCart.bind(this);
-
-        this.state = {
-            cartUpdate: 0
-        }
     }
 
     componentDidMount() {
@@ -426,9 +422,6 @@ class Cart extends Component {
 
     updateCart() {
         this.props.dispatch(fetchCart());
-        // this.setState({
-        //     cartUpdate: this.state.cartUpdate + 1
-        // });
     }
 
     render() {
@@ -452,7 +445,7 @@ class Cart extends Component {
                     <span>Empty.</span>
                 ) : (
                     <span>
-                        <CartTable key={this.state.cartUpdate} />
+                        <CartTable />
                         <FinalDetails placeOrder={this.placeOrder}
                                       key={window.orders}
                                       updateCart={this.updateCart}/>
