@@ -19,6 +19,35 @@
     height: 300px;
 }
 
+.homeImg {
+    object-fit: cover;
+    height: 337.5px;
+    width: 900px;
+
+}
+
+.homeText {
+    @import url('https://fonts.googleapis.com/css?family=Righteous');
+    font-family: 'Righteous', cursive;
+    top: 350px;
+    z-index: 100;
+    font-size: 100px;
+    position: absolute;
+    top: 0;
+    padding: 10px;
+    width: 750px;
+    color: whitesmoke;
+    margin: 5px;
+    margin-left: 150px;
+    background-color: rgba(0,0,0,0.3);
+}
+
+.homeContainer {
+    position: relative;
+    height: 337.5px;
+    width: 900px;
+}
+
 h1.homeUnderline {
   margin-top: 20px;
   margin-bottom: 0;

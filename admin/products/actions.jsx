@@ -15,7 +15,7 @@ export const saveProduct = (productId, data) => (dispatch) => {
         type: "SAVE_PRODUCT",
         payload: axios().put(url, data)
     }).then(dispatch(
-        newMessage("Product updated.")
+        newMessage("Product updated.", 'success')
     ));
 }
 
@@ -38,15 +38,15 @@ export function createProduct(data) {
     }
 }
 
-export const uploadImage = (productId, image, index) => (dispatch) => {
-    const url = `${window.API}/products/${productId}/${index}`;
-    var data = new FormData();
-    data.append('file', image);
+export const setImage = (productId, image) => (dispatch) => {
+    const url = `${window.API}/products/${productId}`;
+    const imageUrl = `/images/${image}.jpg`;
+    const data = {images: [imageUrl]};
 
     return dispatch({
         type: "UPLOAD_PRODUCT_IMAGE",
         payload: axios().put(url, data)
     }).then(dispatch(
-        newMessage("Image upload complete.")
+        newMessage("Image updated.", 'success')
     ));
 }

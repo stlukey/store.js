@@ -1,40 +1,40 @@
 const DEFAULT_STATE = {
     data: null,
-    upload: null
+    updated: null
 };
 
 export default function reducer(state=DEFAULT_STATE, action){
     switch(action.type) {
-        case "FETCH_IMAGES_PENDING":
+        case "FETCH_APPEARANCE_IMAGES_PENDING":
             return {
                 ...state,
                 data: null,
             };
-        case "FETCH_IMAGES_REJECTED":
+        case "FETCH_APPEARANCE_IMAGES_REJECTED":
             return {
                 ...state,
                 data:false,
             };
-        case "FETCH_IMAGES_FULFILLED":
+        case "FETCH_APPEARANCE_IMAGES_FULFILLED":
             return {
                 ...state,
                 data: action.payload,
             };
 
-        case "UPLOAD_IMAGE_PENDING":
+        case "SET_APPEARANCE_IMAGES_PENDING":
             return {
                 ...state,
-                upload: null,
+                updated: null,
             };
-        case "UPLOAD_IMAGE_REJECTED":
+        case "SET_APPEARANCE_IMAGES_REJECTED":
             return {
                 ...state,
-                upload:false,
+                updated:false,
             };
-        case "UPLOAD_IMAGE_FULFILLED":
+        case "SET_APPEARANCE_IMAGES_FULFILLED":
             return {
                 ...state,
-                upload: action.payload,
+                updated: true,
             };
 
         default:

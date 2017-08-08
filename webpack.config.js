@@ -127,6 +127,9 @@ var config = {
             ],
         },
     },
+    sassLoader:{
+        data: "$APIURL: 'http://localhost:5000';"
+    }
 
 };
 

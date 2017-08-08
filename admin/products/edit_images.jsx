@@ -1,94 +1,57 @@
 import React, {Component} from 'react';
-import FileInput from 'react-file-input';
-import {uploadImage} from './actions';
+import {connect} from 'react-redux';
 
 import {
     Title,
+    Section,
     Button
 } from '../../src/app/bulma';
 
+import {ImageField} from '../images';
 
-const imageNameToIndex = {
-    'main': 0,
-    'home': 1
-};
+import {setImage} from './actions';
 
+import Loading from '../../src/app/loading';
+
+
+@connect(store => {
+    return {
+        products: store.admin.products
+    }
+})
 class ProductEditImages extends Component {
     constructor(props) {
         super(props);
+        this.update = this.update.bind(this);
+        var s = this.props.data.images[0];
+        this.state = {
+            main:  s.substr(8, s.length -8 - 4)
+        };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.save = this.save.bind(this);
-        this.state = {};
+        window.cacheKey = 0;
+
     }
 
-    handleChange = (target) => (event) => {
-        var state = this.state;
-        state[target] = event.target.files[0];
-        this.setState(state);
+    update() {
+        this.props.dispatch(setImage(this.props.data._id.$oid, this.state.main));
     }
 
-    save = (target) => (event) => {
-        const productId = this.props.data._id.$oid;
 
-        const file = this.state[target];
-        if(file === undefined)
-            return this.props.dispatch(
-                newMessage("No image provided!", 'warning')
-            );
-
-        this.props.dispatch(
-            uploadImage(productId, file, imageNameToIndex[target])
-        );
-    }
 
     render() {
+        if (this.state == {})
+            return <Loading />;
 
-        const homeImage = this.props.data.images.length ? (
-            <div className="input-row">
-                <label htmlFor="home-image">
-                    Home Image:&nbsp;&nbsp;
-                </label>
-                <input className="image-input"
-                       name="home-image"
-                       type="file"
-                       onChange={this.handleChange('home')}
-                       accept=".jpg"/>
-                <Button className="is-primary"
-                        onClick={this.save('home')}>
-                Save
-                </Button>
-            </div>
-        ) : (
-            <div className="input-row">
-                <label htmlFor="home-image">
-                    Home Image:&nbsp;&nbsp;
-                </label>
-                <span>You must upload a main image first.</span>
-            </div>
-        );
-
-        return (
-            <div>
-
+        return <div>
             <Title>Images</Title>
-            <div className="input-row">
-                <label htmlFor="main-image">
-                    Main Image:&nbsp;&nbsp;
-                </label>
-                <input className="image-input"
-                       name="main-image"
-                       type="file"
-                       onChange={this.handleChange('main')}
-                       accept=".jpg"/>
-                <Button className="is-primary"
-                        onClick={this.save('main')}>
-                Save
-                </Button>
-            </div>
-            {homeImage}
-            </div>
-        );
+            <Section>
+                    <ImageField update={this.update}
+                                    key={window.cacheKey}
+                                    src={`${API_URL}/..${this.props.data.images[0]}`}
+                                    name={'main'}
+                                    parent={this}/>
+            </Section>
+        </div>;
     }
 }
 

@@ -1,3 +1,24 @@
-.clip:active {
-    content: 'Copied!';
+
+#popup {
+    .card-content {
+        padding: 5px;
+    }
+    .column {
+        padding: 3px;
+    }
+    .card, .column {
+        width: 200px;
+    }
+}
+
+
+.set-image-row {
+    img {
+        width: 185px;;
+        height: 140px;
+    }
+}
+
+.field-body, .field-label {
+    display: inline-block;
 }

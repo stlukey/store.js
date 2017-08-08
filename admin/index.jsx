@@ -19,6 +19,8 @@ import addMessage from '../src/messages/actions';
 import AdminApp from './app';
 import store from './store';
 
+import AppearencePage from './appearence';
+
 import ProductsPage from './products';
 import ProductView from './products/view';
 import ProductEdit from './products/edit';
@@ -27,7 +29,7 @@ import Pages from './pages';
 import ViewPage from './pages/view';
 import EditPage from './pages/edit';
 
-import Images from './images';
+import Images, {ImagesPopup} from './images';
 
 import Orders from './orders';
 import OrdersView from './orders/view';
@@ -68,8 +70,11 @@ const ComingSoon = props => <Title>Coming Soon.</Title>;
 const routes = (
     <div>
     <Route path="/token/:authToken" component={withRouter(AddToken)} />
+    <Route path="/images/popup" component={ImagesPopup} />
     <Route path="/" component={AdminApp}>
         <IndexRoute component={Dashboard} />
+
+        <Route path="appearence" component={AppearencePage} />
 
         <Route path="products" component={ProductsPage} />
         <Route path="products/:productId" component={ProductView} />

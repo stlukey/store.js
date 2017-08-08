@@ -109,16 +109,16 @@ export default class Home extends Component {
         if(this.props.latestError) alert(this.props.latestError);
         if(this.props.popularError) alert(this.props.popularError);
 
-        var latest = !this.props.latestFetched
-            ? (<Loading/>) : latestProducts(this.props.latest.data);
-
         var popular = !this.props.popularFetched
             ? (<Loading/>) : popularProducts(this.props.popular.data);
         window.pops = this.props.popular;
 
         return (
             <div>
-                {latest}
+                <div className="homeContainer">
+                    <img className="homeImg" src={`${API_URL}/simages/home.jpg`} />
+                    <p className="homeText">Maryam's Ingredients</p>
+                </div>
                 <Title className="homeUnderline">Favourite Products</Title>
                 <hr className="homeUnderline" />
                 {popular}

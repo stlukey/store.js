@@ -3,17 +3,101 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import classnames from 'classnames';
 import Clipboard from 'clipboard';
+import newMessage from '../../src/messages/actions';
+import Messages from '../../src/messages';
 import './index.scss';
 
 
-import {fetchImages} from './actions';
+import {fetchImages, uploadImage, deleteImage} from './actions';
 
 import Loading from '../../src/app/loading';
 import {
     Title,
-    Section
+    Section,
+    Button
 } from '../../src/app/bulma';
 
+const linkState = (obj, key) => (e) => {
+    var state = obj.state;
+    state[key] = e.target.value;
+    obj.setState(state);
+}
+
+window.popUpChecker = null;
+
+const openPopup = (name, selectImage) => () => {
+    localStorage.selectedImage = null;
+    localStorage.selectedImageName = name;
+    window.open('/admin/images/popup','popup','width=800,height=600');
+    window.popUpChecker = setInterval(function(){
+      if(localStorage.selectedImage != "null"){
+          selectImage(localStorage.selectedImageName)(localStorage.selectedImage);
+        clearInterval(popUpChecker);
+      }
+  }, 1000);
+}
+
+const closePopup = (id) => {
+    localStorage.selectedImage = id;
+    window.close();
+}
+
+export class ImageField extends Component {
+    constructor(props) {
+        super(props);
+        this.parent = this.props.parent;
+        this.selectImage = this.selectImage.bind(this);
+    }
+
+    selectImage(name) {
+        return (id) => {
+            var s = this.parent.state;
+            s[name] = id;
+            this.parent.setState(s);
+        }
+    }
+
+    render() {
+
+        var {name, parent, src, update, paste} = this.props;
+
+        return (
+            <div className="field is-horizontal">
+                <div className="field-label is-normal">
+                    <label htmlFor={name} className="label">
+                        {name}:&nbsp;&nbsp;
+                    </label>
+                </div>
+
+                <div className="field-body">
+                    <div className="field has-addons has-addons-right set-image-row">
+                        <p className="control"><img src={src+ '?' + Math.random()} /></p>
+                        <p className="control">
+                            <input name={name} type="text"
+                                   value={parent.state[name]} onChange={linkState(parent, name)} />
+                        </p>
+                        <p className="control">
+                            <Button
+                              onClick={openPopup(name, this.selectImage)}>
+                               Select
+                            </Button>
+                            <Button className="is-primary"
+                              onClick={update}>
+                               Update
+                            </Button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+
+@connect(store => {
+    return {
+        images: store.admin.images
+    }
+})
 class NewImage extends Component {
     constructor(props) {
         super(props);
@@ -33,14 +117,19 @@ class NewImage extends Component {
     }
 
     upload() {
-        // this.props.dispatch(createProduct(data))
-        //           .then(this.goToImageUpload);
+        this.props.dispatch(uploadImage(this.state.image));
     }
 
     handleChange = (target) => (event) => {
         var state = this.state;
         state[target] = event.target.files[0];
         this.setState(state);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!!nextProps.images.upload) {
+            this.activate(false);
+        }
     }
 
     renderModal() {
@@ -52,7 +141,7 @@ class NewImage extends Component {
               <p className="modal-card-title">Upload Image</p>
             </header>
             <section className="modal-card-body">
-                <div className="input-row">
+                {this.props.images.upload != false ? <div className="input-row">
                     <label htmlFor="name">
                         Image:&nbsp;&nbsp;
                     </label>
@@ -61,11 +150,11 @@ class NewImage extends Component {
                            type="file"
                            onChange={this.handleChange('image')}
                            accept=".jpg"/>
-                </div>
+                </div> : <Loading />}
             </section>
             <footer className="modal-card-foot">
               <a className="button is-primary"
-                 onClick={this.create}>Upload</a>
+                 onClick={this.upload}>Upload</a>
               <a className="button"
                  onClick={this.activate(false)}>Cancel</a>
             </footer>
@@ -82,20 +171,21 @@ class NewImage extends Component {
     }
 }
 
-const ImageCard = props =>
+const ImageCard = ({image, onSelect, popup, del})  =>
     <div className="card">
         <div className="card-content">
-            <img src={`${API_URL}${props.url}`} />
+            <img src={`${API_URL}${image.url}`} />
         </div>
         <footer className="card-footer">
             <p className="card-footer-item">
-                <a href="#" className="button is-primary clip"
-                   data-clipboard-text={props.url}>
-                    Copy URL
-                </a>
+                <button className="button is-primary clip"
+                   data-clipboard-text={API_URL + image.url}
+                   onClick={onSelect}>
+                    {popup ? 'Select' : 'Copy URL'}
+                </button>
             </p>
             <p className="card-footer-item">
-                <a href="#" className="button">
+                <a href="#" className="button" onClick={del}>
                     Delete
                 </a>
             </p>
@@ -109,19 +199,47 @@ const ImageCard = props =>
     }
 })
 class ImagesGrid extends Component {
+    constructor(props) {
+        super(props);
+        this.del = this.del.bind(this);
+
+        if (!this.props.popup) {
+            this.c = new Clipboard('.clip');
+            this.c.on('success', () =>
+                this.props.dispatch(newMessage('Image URL copied.', 'success')));
+        }
+    }
+
     componentDidMount() {
-        new Clipboard('.clip');
+        this.onSelect = this.onSelect.bind(this);
         this.props.dispatch(fetchImages());
+    }
+
+    onSelect(id) {
+        return () => {
+            if (!!this.props.popup) {
+                closePopup(id);
+            }
+        };
+    }
+
+    del(id) {
+        return () => {
+            if (confirm("Are you sure?"))
+                this.props.dispatch(deleteImage(id))
+            };
     }
 
     render() {
         if(!this.props.images)
             return <Loading />;
 
-        window.images = this.props.images;
         const images = this.props.images.map((image, index) => (
             <div className="column" key={index}>
-                 <ImageCard url={image.url} />
+                 <ImageCard image={image}
+                            onSelect={this.onSelect(image._id.$oid)}
+                            popup={!!this.props.popup}
+                            del={this.del(image._id.$oid)}/>
             </div>
         ))
 
@@ -137,6 +255,14 @@ class ImagesGrid extends Component {
         );
     }
 }
+
+export const ImagesPopup = () =>(
+    <div id="popup">
+        <Messages />
+        <br />
+        <ImagesGrid popup={true}/>
+    </div>
+);
 
 const Images = (props) => (
     <div>
