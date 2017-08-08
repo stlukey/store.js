@@ -1,65 +1,40 @@
 var webpack = require('webpack');
 var path = require('path');
 
-try {
-  require('os').networkInterfaces();
-}
-catch (e) {
-  require('os').networkInterfaces = () => ({});
-}
-
-
 var autoprefixer = require('autoprefixer');
-var combineLoaders = require('webpack-combine-loaders');
-
-const API_URL = JSON.stringify('http://127.0.0.1:5000');
-const ADMIN_API_URL = JSON.stringify('http://127.0.0.1:5000/admin');
 
 var BUILD_DIR = path.resolve(__dirname, 'build');
 var PUBLIC_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
+
+const ENV = 'production';
+const _API_URL = 'https://maryamsingredientsapi.herokuapp.com';
+const API_URL = JSON.stringify(_API_URL);
 var ADMIN_DIR = path.resolve(__dirname, 'admin')
-
-const APPENLIGHT_API_KEY = null;
-const GA_TRACKING_CODE = null;
-
-const STRIPE_KEY = JSON.stringify('pk_test_ouzZ8A7FAfH60YeztLWdbHTp');
-
-var babelSettings = {
-    // @remove-on-eject-begin
-    babelrc: false,
-    presets: ['es2015', 'react', 'stage-2', 'react-hmre'],
-    plugins: ['transform-decorators-legacy'],
-    // @remove-on-eject-end
-    cacheDirectory: true
-};
-
-var jsxLoaders = combineLoaders([
-  {
-    loader: 'react-hot',
-  },
-  {
-    loader: 'babel-loader',
-    query: babelSettings,
-  },
-]);
-
-var ENV = 'development';
 
 process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
+const NODE_ENV = ENV;
+
+const ADMIN_API_URL = JSON.stringify('https://maryamsingredientsapi.herokuapp.com/admin');
+
+const APPENLIGHT_API_KEY =
+    JSON.stringify('2f78d4a6f30349679a5ebace72fe7301');
+
+const GA_TRACKING_CODE =
+    JSON.stringify('UA-89576317-1');
+
+// Temporary
+const STRIPE_KEY = JSON.stringify('pk_test_ouzZ8A7FAfH60YeztLWdbHTp');
 
 var config = {
-    context: __dirname,
     entry: {
         bundle: [
-            'webpack-dev-server/client?http://localhost:3000',
-            'webpack/hot/only-dev-server',
+            'babel-polyfill',
             APP_DIR + '/index.jsx'
-        ] ,
+        ],
         admin: [
-            'webpack-dev-server/client?http://localhost:3000',
-            'webpack/hot/only-dev-server',
+            'babel-polyfill',
             ADMIN_DIR + '/index.jsx'
         ]
     },
@@ -68,21 +43,22 @@ var config = {
         publicPath: '/build',
         filename: '[name].js'
     },
-    watchOptions: {
-    poll: true
-},
-    debug: true,
-    devtool: 'source-map',
     resolve: {
-        modulesDirectories: ['node_modules'],
         extensions: ['', '.js', '.jsx']
     },
     module: {
         loaders: [ {
             test: /\.(js|jsx)$/,
             include: [APP_DIR, ADMIN_DIR],
-            loader: jsxLoaders,
-            exclude: /node_modules/,
+            loader: 'babel-loader',
+            query: {
+                // @remove-on-eject-begin
+                babelrc: false,
+                presets: ['es2015', 'react', 'stage-2'],
+                plugins: ['transform-decorators-legacy'],
+                // @remove-on-eject-end
+                cacheDirectory: false
+            }
         }, {
             test: /\.scss$|\.sass$/,
             loaders: [
@@ -99,42 +75,29 @@ var config = {
         {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader?mimetype=application/octet-stream"},
         {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
         {test: /\.gif(\?v=\d+\.\d+\.\d+)?$/, loader: "file-loader"},
-        { test: /(\.css$)/, loaders: ['style-loader', 'css-loader', 'postcss-loader'] },,
+        { test: /(\.css$)/, loaders: ['style-loader', 'css-loader', 'postcss-loader'] },
         ]
     },
-    // postcss:  [ autoprefixer({ browsers: ['last 2 versions'] }) ],
+    postcss:  [ autoprefixer({ browsers: ['last 2 versions'] }) ],
     plugins: [
-        /* new HtmlWebpackPlugin({
-            inject: true,
-            template: PUBLIC_DIR + '/index.html',
-        }),*/
-        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            compress: {
+                warnings: false
+            }
+        }),
         new webpack.DefinePlugin({
-            API_URL, ADMIN_API_URL,
-            APPENLIGHT_API_KEY, GA_TRACKING_CODE,
-            STRIPE_KEY
+            API_URL, NODE_ENV,
+            APPENLIGHT_API_KEY,
+            ADMIN_API_URL,
+            GA_TRACKING_CODE,
+            STRIPE_KEY, ENV
         })
     ],
-    cache: true,
-    devServer: {
-        port: 3000,
-        historyApiFallback: {
-            index: 'index.html',
-            rewrites: [
-                { from: '/admin', to: '/admin.html' },
-                { from: /^\/confirm\/.*$/, to: '/index.html' },
-                { from: /^\/recovery\/.*$/, to: '/index.html' },
-            ],
-        },
-    },
     sassLoader:{
         data: "$APIURL: 'http://localhost:5000';"
     }
-
 };
-
-config.node = {
-  child_process: 'empty'
-}
 
 module.exports = config;
