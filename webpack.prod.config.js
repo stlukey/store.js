@@ -96,7 +96,7 @@ var config = {
         })
     ],
     sassLoader:{
-        data: "$APIURL: '" + API_URL + "';"
+        data: "$APIURL: '" + _API_URL + "';"
     }
 };
 

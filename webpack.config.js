@@ -12,7 +12,8 @@ catch (e) {
 var autoprefixer = require('autoprefixer');
 var combineLoaders = require('webpack-combine-loaders');
 
-const API_URL = JSON.stringify('http://127.0.0.1:5000');
+const _API_URL = 'http://127.0.0.1:5000';
+const API_URL = JSON.stringify(_API_URL);
 const ADMIN_API_URL = JSON.stringify('http://127.0.0.1:5000/admin');
 
 var BUILD_DIR = path.resolve(__dirname, 'build');
@@ -128,7 +129,7 @@ var config = {
         },
     },
     sassLoader:{
-        data: "$APIURL: 'http://localhost:5000';"
+        data: "$APIURL: '" + _API_URL + "';"
     }
 
 };
