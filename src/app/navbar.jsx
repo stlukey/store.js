@@ -78,6 +78,8 @@ class NavBar extends Component {
 
         var userLinks = user.details !== null && user.token !== null ? LoggedIn(user.details.admin) : LoggedOut;
 
+        var apple = false; ///iPad|iPhone|iPo/.test(navigator.userAgent) && !window.MSStream;
+
         return (
             <nav className='nav has-shadow' id='top'>
                 <NavToggle onClick={() => this.setState({showMenu:!this.state.showMenu})}/>
@@ -100,7 +102,7 @@ class NavBar extends Component {
                         <span>
                         <NavItem to='/products'>Products</NavItem>
                         <NavItem to='/about'>About</NavItem>
-                        <br />
+                        {apple ? <span /> : <br />}
                         <NavItem to='/contact'>Contact</NavItem>
                         <NavItem to='/signup'>Sign Up</NavItem>
                     </span>

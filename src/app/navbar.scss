@@ -32,9 +32,36 @@
     }
     .nav-right-mobile {
         display: flex;
-        font-size: 10px;
+        font-size: 12px;
+    }
+    .nav-item {
+        padding: 3px;
+    }
+}
+
+@media (max-width: 375px) {
+    .nav-item {
+        padding-left: 0px !important;
+    }
+}
+
+@media (max-width: 365px) {
+    .nav-right-mobile {
+        font-size: 8px;
     }
     .nav-item {
         padding: 5px;
+    }
+}
+
+@media (max-width: 325px) {
+    .nav-item {
+        padding: 5px;
+    }
+    nav {
+        font-size: 14px;
+    }
+    .nav-right-mobile {
+        font-size: 10px;
     }
 }
