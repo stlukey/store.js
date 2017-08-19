@@ -11,8 +11,8 @@ import Loading from './loading';
 import {fetchUser} from '../user/actions';
 import {getToken} from './axios';
 
-const NavToggle = () => (
-    <div className="nav-toggle">
+const NavToggle = (props) => (
+    <div className="nav-toggle" {...props}>
         <span/><span/><span/>
     </div>
 )
@@ -26,32 +26,32 @@ const NavItem = (props) => (
 const LoggedIn = admin => [
     admin ? (
         <a href={`/admin/token/${getToken()}`} className="nav-item is-tab">
-            Admin{' '}
+            <span className="nav-label">Admin{' '}</span>
             <Icon>build</Icon>
         </a>
     ) : (
         <NavItem key={0} to='/cart'>
-            Basket{' '}
+            <span className="nav-label">Basket{' '}</span>
             <Icon>shopping_basket</Icon>
         </NavItem>
     ),
     <NavItem key={1} to='/account'>
-        My Account{' '}
+        <span className="nav-label">My Account{' '}</span>
         <Icon>account_circle</Icon>
     </NavItem>,
     <NavItem key={2} to='/logout'>
-        Log out{' '}
+        <span className="nav-label">Log out{' '}</span>
         <Icon>input</Icon>
     </NavItem>
 ];
 
 const LoggedOut = [
     <NavItem key={3} to='/login'>
-        Log in{' '}
+        <span className="nav-label">Log in{' '}</span>
         <Icon>account_box</Icon>
     </NavItem>,
     <NavItem key={4} to='/signup'>
-        or Sign Up
+        <span className="nav-label">or Sign Up</span>
     </NavItem>
 ];
 
@@ -62,6 +62,13 @@ const LoggedOut = [
     }
 })
 class NavBar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showMenu: false
+        }
+    }
+
     componentDidMount() {
         this.props.dispatch(fetchUser());
     }
@@ -73,17 +80,31 @@ class NavBar extends Component {
 
         return (
             <nav className='nav has-shadow' id='top'>
-                <div className='nav-left'>
+                <NavToggle onClick={() => this.setState({showMenu:!this.state.showMenu})}/>
+
+                <div className='nav-center'>
                     <NavItem to='/'>Maryam&#39;s Ingredients</NavItem>
                 </div>
 
-                <NavToggle />
 
-                <div className="nav-right nav-menu">
+
+                <div className="nav-right">
                     <NavItem to='/products'>Products</NavItem>
                     <NavItem to='/about'>About</NavItem>
                     <NavItem to='/contact'>Contact</NavItem>
                     {userLinks}
+                </div>
+
+                <div className="nav-right-mobile">
+                    {this.state.showMenu ? (
+                        <span>
+                        <NavItem to='/products'>Products</NavItem>
+                        <NavItem to='/about'>About</NavItem>
+                        <br />
+                        <NavItem to='/contact'>Contact</NavItem>
+                        <NavItem to='/signup'>Sign Up</NavItem>
+                    </span>
+                    ) : userLinks}
                 </div>
             </nav>
         )

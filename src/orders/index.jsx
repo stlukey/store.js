@@ -12,6 +12,7 @@ import {findProduct} from '../cart/cart';
 
 import Loading from '../app/loading';
 
+import "../cart/cart.scss";
 
 const Item = (props) => {
     var product = findProduct(props.productId, props.productsData);
@@ -33,7 +34,7 @@ const Item = (props) => {
 };
 
 const ItemsTable = (props) => (
-    <table className="table">
+    <table className="table cart-table">
         <thead>
             <tr>
                 <th></th>

@@ -27,6 +27,8 @@ const links = [
     <a key={i++} href="/" className="nav-item">Home</a>,
 ];
 
+window.showMenu = false;
+
 const NavBar = (props) => (
     <nav className="nav has-shadow is-hidden-tablet">
         <Container>
@@ -35,13 +37,13 @@ const NavBar = (props) => (
               Maryam&#39;s Ingredients (admin)
             </span>
           </div>
-              <span className="nav-toggle">
+              <span className="nav-toggle" onClick={() => {window.showMenu = !window.showMenu;}}>
                 <span></span>
                 <span></span>
                 <span></span>
               </span>
-            <div className="nav-right nav-menu">
-                {links}
+            <div className="nav-right">
+                <span className={window.showMenu ? "" : "nav-menu"}>{links}</span>
             </div>
         </Container>
     </nav>

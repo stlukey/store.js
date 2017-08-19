@@ -1,0 +1,19 @@
+@media (max-width: 900px) {
+    .cart-table {
+        font-size: 12px;
+    }
+    .rccs__card--front {
+        max-width: 220px;
+        max-height: 165px;
+    }
+    .rccs__card--front {
+        font-size: 14px;
+    }
+    .desktop-column {
+        display: none;
+    }
+}
+
+input {
+    margin: 2px;
+}

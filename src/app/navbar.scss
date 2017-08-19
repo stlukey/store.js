@@ -11,3 +11,30 @@
 
   box-shadow: 0 2px 20px rgba(10, 10, 10, 0.15)
 }
+
+.nav-right {
+    display: flex;
+}
+.nav-right-mobile {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .nav-label {
+        display: none;
+    }
+    .nav-toggle {
+        display: flex;
+        float: left;
+    }
+    .nav-right {
+        display: none;
+    }
+    .nav-right-mobile {
+        display: flex;
+        font-size: 10px;
+    }
+    .nav-item {
+        padding: 5px;
+    }
+}

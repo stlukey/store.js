@@ -140,7 +140,7 @@ class CartTable extends Component {
         var cartItems = this.props.cart.products.data;
 
         return (
-            <table className="table">
+            <table className="table cart-table">
                 <thead>
                     <tr>
                         <th></th>

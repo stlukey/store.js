@@ -23,6 +23,8 @@
     margin-bottom: 30px;
 }
 
-.message-content {
-   white-space: pre;
+@media (min-width: 900px) {
+    .message-content {
+       white-space: pre;
+    }
 }

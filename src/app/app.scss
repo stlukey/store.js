@@ -70,4 +70,17 @@ body {
   display: none;
 }
 
+#app {
+    padding: 5px;
+}
+
+@media (max-width: 900px) {
+    html, body {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        position: relative;
+    }
+}
+
+
 @import "social"

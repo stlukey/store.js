@@ -115,11 +115,13 @@ export default class Home extends Component {
 
         return (
             <div>
-                <div className="homeContainer">
-                    <img className="homeImg" src={`${API_URL}/simages/home.jpg`} />
-                    <p className="homeText">Maryam's Ingredients</p>
+                <div className="center">
+                    <div className="homeContainer">
+                        <img className="homeImg" src={`${API_URL}/simages/home.jpg`} />
+                        <p className="homeText">Maryam's Ingredients</p>
+                    </div>
                 </div>
-                <Title className="homeUnderline">Favourite Products</Title>
+                <h1 className="homeTitle homeUnderline">Favourite Products</h1>
                 <hr className="homeUnderline" />
                 {popular}
             </div>

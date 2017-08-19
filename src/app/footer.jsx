@@ -8,7 +8,7 @@ const socialLinks = {
     facebook: 'https://www.facebook.com/persianfusioncooking',
     twitter: 'http://www.twitter.com/@sinaiee_maryam',
     google: 'https://plus.google.com/u/0/+maryamsinaieeThepersianfusion',
-    pinterest: 'http://www.thepersianfusion.com/wp-content/plugins/acurax-social-media-widget/images/themes/1/pinterest.png',
+    pinterest: 'https://www.pinterest.co.uk/MaryamSinaiee1/',
     instagram: 'https://www.instagram.com/maryamspersiancuisine/'
 }
 

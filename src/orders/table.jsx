@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 
+import "../cart/cart.scss";
+
 const OrdersTable = props => (
-    <table className="table">
+    <table className="table cart-table">
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Email</th>
-                <th>Date/Time</th>
+                <th className="desktop-column">Email</th>
+                <th className="desktop-column">Date/Time</th>
             </tr>
         </thead>
         <tbody>
@@ -18,10 +20,10 @@ const OrdersTable = props => (
                             {order._id.$oid}
                         </Link>
                     </td>
-                    <td>
+                    <td className="desktop-column">
                         {order.user}
                     </td>
-                    <td>
+                    <td className="desktop-column">
                         {new Date(order.datetime.$date).toString()}
                     </td>
                 </tr>
