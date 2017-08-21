@@ -33,10 +33,12 @@ const ProductDetails = (product, preview=false) => (
           <hr />
           <p>{product.description}</p>
           <br/>
-          <p className="control">
-            <BuyNowButton productId={product._id.$oid} preview={preview}/>&nbsp;
-            <AddToCartButton productId={product._id.$oid} preview={preview}/>
-          </p>
+          {product.stock > 0  ? <p className="control">
+                <BuyNowButton productId={product._id.$oid} preview={preview}/>&nbsp;
+                <AddToCartButton productId={product._id.$oid} preview={preview}/>
+            </p> :
+            <p className="control"><b>Out of Stock</b></p>
+          }
           <br />
           <table className="table">
             <tbody>
