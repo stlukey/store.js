@@ -258,64 +258,57 @@ class FinalDetails extends Component {
             <form>
                 <Title>Address Details</Title>
                 <div className="input-row">
-                    <label htmlFor="name">
-                        Name:&nbsp;&nbsp;
-                    </label>
-                    <input name="name"
+                    <input className="input"
+                           placeholder="Name"
+                           name="name"
                            type="text"
                            onChange={linkToAddress('name')}/>
                 </div>
 
                 <div className="input-row">
-                    <label htmlFor="line1">
-                        Line 1:&nbsp;&nbsp;
-                    </label>
-                    <input name="line1"
+                    <input className="input"
+                           placeholder="Line 1"
+                           name="line1"
                            type="text"
                            onChange={linkToAddress('line1')}/>
                 </div>
 
                 <div className="input-row">
-                    <label htmlFor="line2">
-                        Line 2:&nbsp;&nbsp;
-                    </label>
-                    <input name="line2"
+                    <input className="input"
+                           placeholder="Line 2"
+                           name="line2"
                            type="text"
                            onChange={linkToAddress('line2')}/>
                 </div>
 
                 <div className="input-row">
-                    <label htmlFor="line3">
-                        Line 3:&nbsp;&nbsp;
-                    </label>
-                    <input name="line3"
+                    <input className="input"
+                           placeholder="Line 3"
+                           name="line3"
                            type="text"
                            onChange={linkToAddress('line3')}/>
                 </div>
 
                 <div className="input-row">
-                    <label htmlFor="city">
-                        City:&nbsp;&nbsp;
-                    </label>
-                    <input name="city"
+                    <input className="input"
+                           placeholder="City"
+                           name="city"
                            type="text"
                            onChange={linkToAddress('city')}/>
                 </div>
 
                 <div className="input-row">
-                    <label htmlFor="county">
-                        County:&nbsp;&nbsp;
-                    </label>
-                    <input name="county"
+                    <input className="input"
+                           placeholder="County"
+                           name="county"
                            type="text"
                            onChange={linkToAddress('county')}/>
                 </div>
 
                 <div className="input-row">
-                    <label htmlFor="name">
-                        Postcode:&nbsp;&nbsp;
-                    </label>
-                    <input type="text"
+                    <input className="input"
+                           placeholder="Postcode"
+                           type="text"
                            onChange={linkToAddress('postcode')}/>
                 </div>
             </form>
