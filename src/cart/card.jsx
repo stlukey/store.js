@@ -129,7 +129,7 @@ class Card extends Component {
                                 <input
                                     type="tel"
                                     name="expiry"
-                                    placeholder="Valid Thru"
+                                    placeholder="Valid Thru (mm/yy)"
                                     onKeyUp={this.handleInputChange}
                                     onFocus={this.handleInputFocus}
                                     />
