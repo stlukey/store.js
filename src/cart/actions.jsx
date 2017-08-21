@@ -16,8 +16,8 @@ export function fetchCart() {
     };
 }
 
-export function addToCart(productId) {
-    const url = `${API_URL}/cart/${productId}`;
+export function addToCart(productId, quantity) {
+    const url = `${API_URL}/cart/${productId}/${quantity}`;
     return {
         type: "ADD_TO_CART",
         payload: axios().post(url)

@@ -7,6 +7,8 @@ import Loading from '../app/loading';
 import {addToCart} from './actions';
 import newMessage from '../messages/actions';
 
+import './buttons.scss';
+
 @connect((store) => {
     return {
         user: store.user
@@ -28,7 +30,8 @@ class _BuyNowButton extends Component {
                 'danger'
             ));
 
-        this.props.dispatch(addToCart(this.props.productId))
+        this.props.dispatch(addToCart(this.props.productId,
+                                      this.props.quantity))
                   .then(() => {
                       this.props.dispatch(newMessage(
                           "Basket updated.",
@@ -72,7 +75,8 @@ export class AddToCartButton extends Component {
                 'danger'
             ));
 
-        this.props.dispatch(addToCart(this.props.productId))
+        this.props.dispatch(addToCart(this.props.productId,
+                                      this.props.quantity))
                   .then(() => {
                       this.props.dispatch(newMessage(
                           "Item added to Basket.",
@@ -87,5 +91,35 @@ export class AddToCartButton extends Component {
                 Add to Basket
             </a>
         );
+    }
+}
+
+export class PurchaseButtons extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            quantity: 1
+        };
+
+        this.onQuantityChange = this.onQuantityChange.bind(this);
+    }
+
+    onQuantityChange(e) {
+        var quantity = e.target.value;
+        this.setState({quantity})
+    }
+
+    render() {
+        let {quantity} = this.state;
+
+        return <div>
+            <input type="number"
+                   value={quantity}
+                   onChange={this.onQuantityChange}
+                   className="input quantity-input" />
+
+            <BuyNowButton {...this.props} quantity={quantity}/>&nbsp;
+            <AddToCartButton {...this.props} quantity={quantity}/>
+        </div>;
     }
 }

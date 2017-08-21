@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 
-import {BuyNowButton, AddToCartButton} from '../cart/buttons';
+import {PurchaseButtons} from '../cart/buttons';
 import LoadProduct from './load';
 import {values} from './index';
 import ProductTabs from './tabs';
@@ -33,12 +33,13 @@ const ProductDetails = (product, preview=false) => (
           <hr />
           <p>{product.description}</p>
           <br/>
-          {product.stock > 0  ? <p className="control">
-                <BuyNowButton productId={product._id.$oid} preview={preview}/>&nbsp;
-                <AddToCartButton productId={product._id.$oid} preview={preview}/>
-            </p> :
-            <p className="control"><b>Out of Stock</b></p>
-          }
+          <p className="control">
+            {product.stock > 0  ?
+                <PurchaseButtons productId={product._id.$oid}
+                                 preview={preview} /> :
+                <b>Out of Stock</b>
+            }
+        </p>
           <br />
           <table className="table">
             <tbody>
