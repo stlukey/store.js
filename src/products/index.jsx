@@ -61,7 +61,7 @@ export function values(data) {
 }
 
 
-const Header = (options, value, onSelect) => (
+const Header = (options, value, onSelect, onSearchChange) => (
     <Container>
             <Columns>
                 <div>
@@ -71,6 +71,9 @@ const Header = (options, value, onSelect) => (
                         <Dropdown options={options}
                                   value={value}
                                   onChange={onSelect} />
+                        <input type="text" className="input"
+                               placeholder={`Search ${value}.`}
+                               onChange={onSearchChange} />
                     </TitleSpan>
                 </div>
             </Columns>
@@ -100,6 +103,15 @@ function convertCategoriesToOptions(categories) {
     return options;
 }
 
+const getWords = s => s.toLowerCase().match(/[^_\W]+/g);
+
+function matches(product, q) {
+    for (var i = 0; i < q.length; i++)
+        if (!product.name.toLowerCase().includes(q[i]))
+            return false;
+    return true;
+}
+
 @connect((store) => {
     return {
         products: store.products.products,
@@ -110,16 +122,41 @@ export default class ProductsPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            category: null
+            category: null,
+            filteredProducts: null
         }
         this.onCategorySelect = this.onCategorySelect.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
         this.options = null;
     }
 
     onCategorySelect(category) {
-        if(category.value == 'all')
+        if(category.value.toLowerCase() == 'all')
             category.value = null;
-        this.setState({category});
+
+        this.setState({category: category, query:null}, this.filterProducts);
+    }
+
+    onSearchChange(e) {
+        const query = e.target.value;
+        this.setState({query}, this.filterProducts);
+    }
+
+    filterProducts() {
+        var filteredProducts = getProductsByCategory(
+            this.props.products.products.data,
+            this.state.category.value
+        );
+
+        window.products = this.props.products.products.data;
+
+        if (!!this.state.query) {
+            const query = getWords(this.state.query);
+            filteredProducts = this.props.products.products.data.filter(product =>
+                matches(product, query)
+            )
+        }
+        this.setState({filteredProducts});
     }
 
     componentDidMount() {
@@ -127,12 +164,12 @@ export default class ProductsPage extends Component {
         this.props.dispatch(fetchCategories());
     }
 
-    componentDidUpdate() {
-        if(this.props.categories.fetched && this.options === null) {
+    componentWillUpdate(nextProps) {
+        if(nextProps.categories.fetched && this.options === null && nextProps.products.fetched) {
             this.options = convertCategoriesToOptions(
-                this.props.categories.categories.data
+                nextProps.categories.categories.data
             );
-            this.setState({category: this.options[0]});
+            this.onCategorySelect(this.options[0]);
         }
     }
 
@@ -140,16 +177,13 @@ export default class ProductsPage extends Component {
         if(this.props.products.error) alert(this.props.products.error);
         if(this.props.categories.error) alert(this.props.categories.error);
 
-        if(!(this.props.products.fetched && this.props.categories.fetched) || this.options === null)
+        if(!(this.props.products.fetched && this.props.categories.fetched) || this.options === null
+           || this.state.filteredProducts == null || this.state.filteredProducts == undefined)
             return (<Loading />);
 
-        const products = getProductsByCategory(
-            this.props.products.products.data, this.state.category.value
-        );
-
-        const grid = productsGrid(products);
+        const grid = productsGrid(this.state.filteredProducts);
         const header = Header(this.options, this.state.category.label,
-                              this.onCategorySelect);
+                              this.onCategorySelect, this.onSearchChange);
 
         return (
             <Section>
