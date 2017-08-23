@@ -148,11 +148,9 @@ export default class ProductsPage extends Component {
             this.state.category.value
         );
 
-        window.products = this.props.products.products.data;
-
         if (!!this.state.query) {
             const query = getWords(this.state.query);
-            filteredProducts = this.props.products.products.data.filter(product =>
+            filteredProducts = filteredProducts.filter(product =>
                 matches(product, query)
             )
         }
