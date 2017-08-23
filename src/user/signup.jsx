@@ -42,7 +42,7 @@ class SignupForm extends Component {
                             onChange={details('confirm')} />
             <TextFeildGroup label="First Name"
                             onChange={details('first_name')} />
-            <TextFeildGroup label="lastName"
+            <TextFeildGroup label="Last Name"
                             onChange={details('last_name')} />
             <TextFeildGroup label="Contact Number"
                             onChange={details('contact_number')} />
