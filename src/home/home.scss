@@ -113,6 +113,9 @@ span.background {
 }
 
 @media (max-width: 900px) {
+    .homeContainer {
+        margin-left: -5px;
+    }
     .homeImg, .homeContainer {
         width: 400px;
         height: 150px;
