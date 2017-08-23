@@ -7,6 +7,7 @@ const production = process.env.NODE_ENV === 'production';
 function App() {
     const app = express();
     const indexPath = path.join(__dirname, '/public/index.html');
+    const comingSoonPath = path.join(__dirname, '/public/cs.html');
     const adminPath = path.join(__dirname, '/public/admin.html');
     const buildPath = express.static(path.join(__dirname, './build'));
 
@@ -21,7 +22,8 @@ function App() {
 
     app.use('/build', buildPath);
     app.get('/admin*', function (_, res) { res.sendFile(adminPath) });
-    app.get('/*', function (_, res) { res.sendFile(indexPath) });
+    app.get('/demo*', function (_, res) { res.sendFile(indexPath) });
+    app.get('/*', function (_, res) { res.sendFile(comingSoonPath) });
 
     return app;
 }

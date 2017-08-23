@@ -27,7 +27,10 @@ import Account from './account';
 import {AccountDetails, AccountOrders} from './account';
 import Order from './orders';
 
-const history = useRouterHistory(createHistory)();
+const history = useRouterHistory(createHistory)({
+    basename: '/demo'
+});
+
 
 
 const unlisten = GA_TRACKING_CODE ? history.listen(location => {

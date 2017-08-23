@@ -14,6 +14,9 @@ import Loading from '../app/loading';
 
 
 window.Stripe = null;
+
+const demo = false;
+
 const loadStripe = (onLoad = () => {}) => {
     if(window.Stripe !== null){
         onLoad();
@@ -34,11 +37,17 @@ const loadStripe = (onLoad = () => {}) => {
 class Card extends Component {
     constructor(props) {
         super(props);
-        this.state = { // TODO: remove
+        this.state = demo ? {
             number: '4242 4242 4242 4242',
             name: 'Foo',
             expiry: '1018',
             cvc: '181',
+            focused: '',
+        } : {
+            number: '',
+            name: '',
+            expiry: '',
+            cvc: '',
             focused: '',
         };
     }

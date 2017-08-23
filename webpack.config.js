@@ -120,9 +120,10 @@ var config = {
     devServer: {
         port: 3000,
         historyApiFallback: {
-            index: 'index.html',
+            index: 'cs.html',
             rewrites: [
                 { from: '/admin', to: '/admin.html' },
+                { from: '/demo', to: '/index.html' },
                 { from: /^\/confirm\/.*$/, to: '/index.html' },
                 { from: /^\/recovery\/.*$/, to: '/index.html' },
             ],
