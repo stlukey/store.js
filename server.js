@@ -11,7 +11,7 @@ function App() {
     const adminPath = path.join(__dirname, '/public/admin.html');
     const buildPath = express.static(path.join(__dirname, './build'));
 
-    if(production) {
+    if(production &&  0) {
         app.get('*',function(req,res,next){
           if(req.headers['x-forwarded-proto'] != 'https')
             res.redirect('https://'+ req.headers.host + req.url);
