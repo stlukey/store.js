@@ -16,7 +16,7 @@ process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
 const NODE_ENV = ENV;
 
-const ADMIN_API_URL = JSON.stringify('https://maryamsingredientsapi.herokuapp.com/admin');
+const ADMIN_API_URL = JSON.stringify('https://maryamspersianpastrysapi.herokuapp.com/admin');
 
 const APPENLIGHT_API_KEY =
     JSON.stringify('2f78d4a6f30349679a5ebace72fe7301');
