@@ -85,7 +85,7 @@ class NavBar extends Component {
                 <NavToggle onClick={() => this.setState({showMenu:!this.state.showMenu})}/>
 
                 <div className='nav-center'>
-                    <NavItem to='/'>Maryam&#39;s Ingredients</NavItem>
+                    <NavItem to='/'>{window.SITE_TITLE}</NavItem>
                 </div>
 
 
