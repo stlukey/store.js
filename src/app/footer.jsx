@@ -79,7 +79,7 @@ const Footer = (props) => (
         <Links />
         <hr />
         <center>
-          <p>Copyright &copy; Maryam&#39;s Ingredients 2016</p>
+          <p>Copyright &copy; {window.SITE_TITLE} {(new Date()).getFullYear()}</p>
           <p>Developed by Luke Southam &lt;luke@devthe.com&gt;</p>
         </center>
     </footer>
