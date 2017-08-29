@@ -29,17 +29,18 @@
 .homeText {
     @import url('https://fonts.googleapis.com/css?family=Righteous');
     font-family: 'Righteous', cursive;
-    top: 350px;
+    //top: 350px;
     z-index: 100;
     font-size: 100px;
     position: absolute;
     top: 0;
     padding: 10px;
-    width: 750px;
     color: whitesmoke;
-    margin: 5px;
-    margin-left: 150px;
-    background-color: rgba(0,0,0,0.3);
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    padding-top: 35px;
+    background-color: rgba(0, 0, 0, 0.13);
 }
 
 .homeContainer {
@@ -124,13 +125,10 @@ span.background {
         margin-right: auto;
     }
     .homeText {
-        width: auto;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 0;
         text-align: center;
         //line-height: 70px;
         font-size: 42px;
+        padding-top: 20px;
     }
     .homeTitle {
         color: #363636;
