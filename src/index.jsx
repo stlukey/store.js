@@ -39,7 +39,7 @@ const unlisten = GA_TRACKING_CODE ? history.listen(location => {
 }) : null;
 
 window.API = API_URL;
-window.SITE_TITLE = "Maryam's Persian Pantry";
+window.SITE_TITLE = "Maryam's \n Persian Pantry";
 
 const routes = (
     <Route path="/" component={App}>

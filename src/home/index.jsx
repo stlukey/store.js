@@ -118,7 +118,7 @@ export default class Home extends Component {
                 <div className="center">
                     <div className="homeContainer">
                         <img className="homeImg" src={`${API_URL}/simages/home.jpg`} />
-                        <p className="homeText">{window.SITE_TITLE}</p>
+                        <pre className="homeText">{window.SITE_TITLE}</pre>
                     </div>
                 </div>
                 <h1 className="homeTitle homeUnderline">Favourite Products</h1>

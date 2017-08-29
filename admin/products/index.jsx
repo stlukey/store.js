@@ -85,8 +85,6 @@ class NewProduct extends Component {
             length: null,
             weight: null
         };
-
-        this.i = 0;
     }
 
     activate = (value=true) => () => {
@@ -130,6 +128,7 @@ class NewProduct extends Component {
                     </label>
                     <input name="name"
                            type="text"
+                           value={this.state.name}
                            onChange={linkState(this, 'name')}/>
                 </div>
 
@@ -139,6 +138,7 @@ class NewProduct extends Component {
                     </label>
                     <input name="price"
                            type="number"
+                           value={this.state.cost}
                            onChange={linkState(this, 'cost')} />
                 </div>
 
@@ -149,6 +149,7 @@ class NewProduct extends Component {
                     </label>
                     <textarea name="description"
                         type="text"
+                        value={this.state.description}
                         onChange={linkState(this, 'description')} />
                 </div>
 
@@ -160,6 +161,7 @@ class NewProduct extends Component {
                     </label>
                     <input name="width"
                            type="number"
+                           value={this.state.width}
                            onChange={linkState(this, 'width')} />
                 </div>
 
@@ -169,6 +171,7 @@ class NewProduct extends Component {
                     </label>
                     <input name="depth"
                            type="number"
+                           value={this.state.depth}
                            onChange={linkState(this, 'depth')} />
                 </div>
 
@@ -178,6 +181,7 @@ class NewProduct extends Component {
                     </label>
                     <input name="length"
                            type="number"
+                           value={this.state.length}
                            onChange={linkState(this, 'length')} />
                 </div>
 
@@ -187,6 +191,7 @@ class NewProduct extends Component {
                     </label>
                     <input name="weight"
                            type="number"
+                           value={this.state.weight}
                            onChange={linkState(this, 'weight')} />
                 </div>
 
@@ -202,14 +207,15 @@ class NewProduct extends Component {
     }
 
     render() {
-        var Parent = this.props.parent(this.activate());
-        return <Parent>{this.renderModal()}</Parent>;
+        return <NewProductRow onClick={this.activate()}>
+            {this.renderModal()}
+        </NewProductRow>;
     }
 }
 NewProduct = withRouter(NewProduct);
 
 
-const NewProductRow = (onClick) => ({children}) =>(
+const NewProductRow = ({children, onClick}) =>(
     <tr className="product-row new-product-row">
         <td onClick={onClick}><Icon className="large-icon">add</Icon></td>
         <td className="medium-icon"
@@ -222,19 +228,16 @@ const NewProductRow = (onClick) => ({children}) =>(
     </tr>
 );
 
-const NewProductButton = (onClick) => ({children}) => (
-    <span>
+const NewProductButton = ({onClick}) => (
         <a href="#" onClick={onClick} className="button is-primary"
-           width="100%" >New Product</a>
-        {children}
-    </span>
+           width="100%">New Product</a>
 );
 
 
 
 
-const Products = (products) => (
-    <table className="table" key={0}>
+const Products = (products, newProduct) => (
+    <table className="table">
         <thead>
             <tr>
                 <th></th>
@@ -249,7 +252,7 @@ const Products = (products) => (
             {products.map((product, index) =>
                 <ProductRow product={product} key={index} />
             )}
-            <NewProduct parent={NewProductRow} />
+            <NewProduct onClick={newProduct} />
         </tbody>
     </table>
 );
@@ -279,7 +282,6 @@ export default class ProductsPage extends Component {
             <div>
                 <Title>Products</Title>
                 <Section>
-                    <NewProduct parent={NewProductButton}/>
                     {products}
                 </Section>
             </div>
