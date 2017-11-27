@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "8.6.0"
+    "node": "5.0.0"
   },
   "dependencies": {
     "appenlight-client": "git+https://github.com/AppEnlight/appenlight-client-js.git",
@@ -21,7 +21,6 @@
     "babel-preset-react-hmre": "1.1.1",
     "babel-preset-stage-0": "6.16.0",
     "babel-preset-stage-2": "6.18.0",
-    "braintree-web": "^2.32.1",
     "bulma": "0.2.3",
     "classnames": "2.2.5",
     "clipboard": "^1.7.1",
