@@ -14,7 +14,7 @@ var ADMIN_DIR = path.resolve(__dirname, 'admin')
 
 process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
-const NODE_ENV = ENV;
+//const NODE_ENV = ENV;
 
 const ADMIN_API_URL = JSON.stringify(_API_URL + '/admin');
 
@@ -92,8 +92,7 @@ var config = {
             APPENLIGHT_API_KEY,
             ADMIN_API_URL,
             GA_TRACKING_CODE,
-            STRIPE_KEY, ENV,
-            'options.defaultEnv': ENV
+            STRIPE_KEY, ENV
         })
     ],
     sassLoader:{

@@ -82,7 +82,7 @@
   },
   "scripts": {
     "test": "webpack-dev-server --content-base ./public --progress --hot --inline ",
-    "build": "webpack -p",
+    "build": "webpack -p --env.production",
     "postinstall": "./node_modules/webpack/bin/webpack.js --config ./webpack.prod.config.js"
   },
   "devDependencies": {
