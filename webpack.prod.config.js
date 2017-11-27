@@ -92,7 +92,8 @@ var config = {
             APPENLIGHT_API_KEY,
             ADMIN_API_URL,
             GA_TRACKING_CODE,
-            STRIPE_KEY, ENV
+            STRIPE_KEY, ENV,
+            'options.defaultEnv': ENV
         })
     ],
     sassLoader:{
