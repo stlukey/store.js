@@ -93,7 +93,10 @@ var config = {
             ADMIN_API_URL,
             GA_TRACKING_CODE,
             STRIPE_KEY, ENV
-        })
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': ENV
+        }),
     ],
     sassLoader:{
         data: "$APIURL: '" + _API_URL + "';"
