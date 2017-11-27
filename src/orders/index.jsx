@@ -8,7 +8,7 @@ import {
 
 import {fetchAll} from '../products/actions';
 import fetchOrder from './actions';
-import {findProduct} from '../cart/cart';
+import {findProduct} from '../cart/carttable';
 
 import Loading from '../app/loading';
 
