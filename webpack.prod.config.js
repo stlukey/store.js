@@ -14,7 +14,7 @@ var ADMIN_DIR = path.resolve(__dirname, 'admin')
 
 process.env['NODE_ENV'] = ENV;
 process.env['BABEL_ENV'] = ENV;
-//const NODE_ENV = ENV;
+const NODE_ENV = ENV;
 
 const ADMIN_API_URL = JSON.stringify(_API_URL + '/admin');
 
