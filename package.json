@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "8.9.1"
+    "node": ">=4.5"
   },
   "dependencies": {
     "appenlight-client": "git+https://github.com/AppEnlight/appenlight-client-js.git",
