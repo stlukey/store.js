@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {withRouter} from 'react-router';
+
+import paypal from 'paypal-checkout';
+
 
 import Loading from '../app/loading';
 
@@ -12,7 +16,7 @@ import {
 import {fetchAll} from '../products/actions';
 import newMessage from '../messages/actions';
 import {Section, Title} from '../app/bulma';
-import Payment from './card';
+import Stripe from './card';
 import {placeOrder} from '../orders/actions';
 
 @connect() // Only dispatches.
@@ -170,6 +174,68 @@ const linkStateFeild = (obj, feildKey) => (key) => (e) => {
     obj.setState(state)
 }
 
+const address = link => <form>
+    <Title>Address Details</Title>
+    <div className="input-row">
+        <input className="input"
+               placeholder="Name"
+               name="name"
+               type="text"
+               onChange={link('name')}/>
+    </div>
+
+    <div className="input-row">
+        <input className="input"
+               placeholder="Line 1"
+               name="line1"
+               type="text"
+               onChange={link('line1')}/>
+    </div>
+
+    <div className="input-row">
+        <input className="input"
+               placeholder="Line 2"
+               name="line2"
+               type="text"
+               onChange={link('line2')}/>
+    </div>
+
+    <div className="input-row">
+        <input className="input"
+               placeholder="Line 3"
+               name="line3"
+               type="text"
+               onChange={link('line3')}/>
+    </div>
+
+    <div className="input-row">
+        <input className="input"
+               placeholder="City"
+               name="city"
+               type="text"
+               onChange={link('city')}/>
+    </div>
+
+    <div className="input-row">
+        <input className="input"
+               placeholder="County"
+               name="county"
+               type="text"
+               onChange={link('county')}/>
+    </div>
+
+    <div className="input-row">
+        <input className="input"
+               placeholder="Postcode"
+               type="text"
+               onChange={link('postcode')}/>
+    </div>
+</form>;
+
+const PayPalButton = paypal.Button.driver('react', { React, ReactDOM });
+const paypalClient = {
+    sandbox: 'AUDVe4PIXHRyGJTsEWce8taryZPazwPBST-K4025LYGOg52c50pDQZ5kl7YTRp1kATOVkzx026NOplF1'
+}
 
 @connect((store) => {
     return {
@@ -180,15 +246,16 @@ const linkStateFeild = (obj, feildKey) => (key) => (e) => {
 class FinalDetails extends Component {
     constructor(props) {
         super(props);
-        this.goToPayment = this.goToPayment.bind(this);
         this.paymentAbort = this.paymentAbort.bind(this);
         this.getTotal = this.getTotal.bind(this);
         this.tokenReceived = this.tokenReceived.bind(this);
+        this.paypalPayment = this.paypalPayment.bind(this);
+        this.paypalOnAuthorize = this.paypalOnAuthorize.bind(this);
 
         this.state = {
             shippingMethod: null,
             address: {},
-            payment: false
+            goToStripe: false
         };
     }
 
@@ -198,11 +265,46 @@ class FinalDetails extends Component {
 
     componentWillUpdate() {
         var {error} = this.props.order;
-        if (error && this.state.payment) {
+        if (error && this.state.goToStripe) {
             this.props.updateCart();
-            this.setState({payment: false});
+            this.setState({goToStripe: false});
         };
     }
+
+    // PayPal
+
+    paypalPayment(data, actions) {
+        return actions.payment.create({
+            payment: {
+                transactions: [
+                    {
+                        amount: {
+                            total: this.getTotal(),
+                            currency: 'GBP'
+                        }
+                    }
+                ]
+            },
+
+            experience: {
+                input_fields: {
+                    no_shipping: 1
+                }
+            }
+        });
+    }
+
+    paypalOnAuthorize(data, actions) {
+        this.tokenReceived({
+            type: "paypal",
+            data: {
+                paymentID: data.paymentID,
+                payerID:   data.payerID
+        }});
+
+    }
+
+    //
 
     getTotal() {
         if(this.state.shippingMethod == null)
@@ -213,19 +315,38 @@ class FinalDetails extends Component {
         ).toFixed(2);
     }
 
-    renderTotal() {
-        var total = this.getTotal();
-        if(total == null)
-            return (<span />);
+    checkDetails() {
+        const required = [
+            "name",
+            "line1",
+            "city",
+            "county",
+            "postcode"
+        ];
+        for (let key of required)
+        {
+            if(!this.state.address[key])
+            {
+                this.props.dispatch(newMessage(`Error: ${key} is required.`, "danger"));
+                return false;
+            }
+        }
 
-        return (
-            <span className="pull-right">
-                <b>Total: </b>£{total}
-            </span>
-        );
+        return true;
     }
 
-    renderShipping() {
+    paymentAbort() {
+        this.setState({payment: false});
+    }
+
+    tokenReceived(token) {
+        console.log('running');
+        this.props.placeOrder(token, this.state.address, this.state.shippingMethod);
+    }
+
+    // Render
+
+    renderShippingMethods() {
         return (
             <span className="pull-right">
                 <b>Shipping: </b>
@@ -248,113 +369,61 @@ class FinalDetails extends Component {
         );
     }
 
-    renderAddress() {
+    renderShipping() {
         if(this.state.shippingMethod == null)
-            return (<span />)
+            return (<span />);
 
         const linkToAddress = linkStateFeild(this, 'address');
 
+        return address(linkToAddress);
+    }
+
+    renderTotal() {
+        var total = this.getTotal();
+        if(total == null)
+            return (<span />);
+
         return (
-            <form>
-                <Title>Address Details</Title>
-                <div className="input-row">
-                    <input className="input"
-                           placeholder="Name"
-                           name="name"
-                           type="text"
-                           onChange={linkToAddress('name')}/>
-                </div>
-
-                <div className="input-row">
-                    <input className="input"
-                           placeholder="Line 1"
-                           name="line1"
-                           type="text"
-                           onChange={linkToAddress('line1')}/>
-                </div>
-
-                <div className="input-row">
-                    <input className="input"
-                           placeholder="Line 2"
-                           name="line2"
-                           type="text"
-                           onChange={linkToAddress('line2')}/>
-                </div>
-
-                <div className="input-row">
-                    <input className="input"
-                           placeholder="Line 3"
-                           name="line3"
-                           type="text"
-                           onChange={linkToAddress('line3')}/>
-                </div>
-
-                <div className="input-row">
-                    <input className="input"
-                           placeholder="City"
-                           name="city"
-                           type="text"
-                           onChange={linkToAddress('city')}/>
-                </div>
-
-                <div className="input-row">
-                    <input className="input"
-                           placeholder="County"
-                           name="county"
-                           type="text"
-                           onChange={linkToAddress('county')}/>
-                </div>
-
-                <div className="input-row">
-                    <input className="input"
-                           placeholder="Postcode"
-                           type="text"
-                           onChange={linkToAddress('postcode')}/>
-                </div>
-            </form>
+            <span className="pull-right">
+                <b>Total: </b>£{total}
+            </span>
         );
     }
 
-    checkDetails() {
-        const required = [
-            "name",
-            "line1",
-            "city",
-            "county",
-            "postcode"
-        ];
-        for (let key of required)
-        {
-            if(!this.state.address[key])
-            {
-                this.props.dispatch(newMessage(`Error: ${key} is required.`, "error"));
-                return false;
-            }
-        }
+    renderPaymentMethods() {
+        if (this.state.shippingMethod == null)
+            return <span />;
 
-        return true;
+        return !this.state.goToStripe ? (<span className="pull-right" id="payment-options">
+            <PayPalButton client={paypalClient}
+                         payment={this.paypalPayment}
+                         commit={true}
+                         onAuthorize={this.paypalOnAuthorize}
+                         env={'sandbox'}/>
+            <span className="space" />
+            <a className="button is-primary pull-right"
+               onClick={e => this.setState({goToStripe: true})}>
+                Pay with Card
+            </a>
+        </span> ) : ( <Stripe onClose={this.paymentAbort}
+                getTotal={this.getTotal}
+                tokenReceived={this.tokenReceived}/> );
     }
 
-    goToPayment() {
-        if(!this.checkDetails())
-            return false;
-        this.setState({payment: true});
-    }
-
-    paymentAbort() {
-        this.setState({payment: false});
-    }
-
-    tokenReceived(token) {
-        this.props.placeOrder(token, this.state.address, this.state.shippingMethod);
-    }
-
-    renderPayment() {
-        return this.state.shippingMethod == null ? (<span />) : (!this.state.payment ? (
-            <a className="button is-primary pull-right" onClick={this.goToPayment}>
+    renderStripe() {
+        return true ? (<span />) : (!this.state.goToStripe ? (
+            <a className="button is-primary pull-right"
+               onClick={e => {
+                    if (this.checkDetails())
+                        this.setState({goToStripe: true})
+            }}>
                 Place Order
             </a>
-        ) : (<Payment onClose={this.paymentAbort} getTotal={this.getTotal} tokenReceived={this.tokenReceived}/>));
+        ) : (
+            <Stripe onClose={this.paymentAbort}
+                    getTotal={this.getTotal}
+                    tokenReceived={this.tokenReceived}/>
+        ));
     }
 
     render() {
@@ -372,14 +441,15 @@ class FinalDetails extends Component {
                     <b>Subtotal: </b>£{this.cost.sub_total.toFixed(2)}
                 </span>
                 <br/>
+                {this.renderShippingMethods()}
+                <br />
+                <br />
                 {this.renderShipping()}
-                <br />
-                <br />
-                {this.renderAddress()}
                 <hr />
                 {this.renderTotal()}
                 <br />
-                {this.renderPayment()}
+                {this.renderPaymentMethods()}
+                {this.renderStripe()}
             </div>
         );
     }
