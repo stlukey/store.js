@@ -7,14 +7,14 @@ var BUILD_DIR = path.resolve(__dirname, 'build');
 var PUBLIC_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
 
-const ENV = 'testing';
+//const ENV = 'production';
 const _API_URL = 'https://maryamspersianpantryapi.herokuapp.com';
 const API_URL = JSON.stringify(_API_URL);
 var ADMIN_DIR = path.resolve(__dirname, 'admin')
 
-process.env['NODE_ENV'] = ENV;
-process.env['BABEL_ENV'] = ENV;
-const NODE_ENV = ENV;
+//process.env['NODE_ENV'] = ENV;
+//process.env['BABEL_ENV'] = ENV;
+//const NODE_ENV = ENV;
 
 const ADMIN_API_URL = JSON.stringify(_API_URL + '/admin');
 
@@ -88,11 +88,13 @@ var config = {
             }
         }),
         new webpack.DefinePlugin({
-            API_URL, NODE_ENV,
+            API_URL,
+            //NODE_ENV,
             APPENLIGHT_API_KEY,
             ADMIN_API_URL,
             GA_TRACKING_CODE,
-            STRIPE_KEY, ENV
+            STRIPE_KEY,
+            //ENV
         })
     ],
     sassLoader:{
