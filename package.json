@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": ">=4.5"
+    "node": "8.6.0"
   },
   "dependencies": {
     "appenlight-client": "git+https://github.com/AppEnlight/appenlight-client-js.git",
@@ -81,7 +81,7 @@
   },
   "scripts": {
     "test": "webpack-dev-server --content-base ./public --progress --hot --inline ",
-    "build": "webpack -p --env.production",
+    "build": "webpack -p",
     "postinstall": "./node_modules/webpack/bin/webpack.js --config ./webpack.prod.config.js"
   },
   "devDependencies": {
