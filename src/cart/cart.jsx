@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {withRouter} from 'react-router';
 
-import PaypalExpressBtn from 'react-paypal-express-checkout';
+import paypal from 'paypal-checkout';
 
 import Loading from '../app/loading';
 
