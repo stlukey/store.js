@@ -24,11 +24,15 @@ class _BuyNowButton extends Component {
         if(this.props.preview)
             return null;
 
-        if(this.props.user.token === null)
+        if(!this.props.user.token)
             return this.props.dispatch(newMessage(
                 "You must log in first.",
                 'danger'
             ));
+
+
+                    alert(this.props.user);
+                    window.user = this.props.user;
 
         this.props.dispatch(addToCart(this.props.productId,
                                       this.props.quantity))
@@ -69,11 +73,16 @@ export class AddToCartButton extends Component {
         if(this.props.preview)
             return null;
 
-        if(this.props.user.token === null)
+        console.log(this.props.user);
+
+        if(!this.props.user.token)
             return this.props.dispatch(newMessage(
                 "You must log in first.",
                 'danger'
             ));
+
+        alert(this.props.user);
+        window.user = this.props.user;
 
         this.props.dispatch(addToCart(this.props.productId,
                                       this.props.quantity))
