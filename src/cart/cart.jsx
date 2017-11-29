@@ -14,7 +14,6 @@ import {
 import {fetchAll} from '../products/actions';
 import newMessage from '../messages/actions';
 import {Section, Title} from '../app/bulma';
-import Payment from './card';
 import {placeOrder} from '../orders/actions';
 import CartTable from './carttable';
 

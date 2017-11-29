@@ -1,41 +1,35 @@
 import React, {Component} from 'react';
+
 import Stripe from './stripe';
 import PayPal from './paypal';
 
-import Loading from '../app/loading';
 
 class Payment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            method: null
-        }
-
-        this.openStripe = this.openStripe.bind(this)
-    }
-
-    openStripe() {
-        this.setState({method: 'stripe'});
+            goToStripe: false
+        };
     }
 
     render() {
-        switch(this.state.method) {
-            case 'stripe':
-                return  <Stripe onClose={this.props.onClose}
-                                getTotal={this.props.getTotal}
-                                tokenReceived={this.props.tokenReceived}/>;
-        }
+        const {total, tokenReceived} = this.props;
+
+        if (this.state.goToStripe)
+            return <Stripe onClose={() => this.setState({goToStripe: false})}
+                        total={total}
+                        tokenReceived={tokenReceived}/>;
 
         return <span className="pull-right" id="payment-options">
-            <PayPal onClose={this.props.onClose}
-                    getTotal={this.props.getTotal}
-                    tokenReceived={this.props.tokenReceived}
-                    getAddress={this.props.getAddress}/>
-            {"     "}
-            <a className="button is-primary" onClick={this.openStripe}>
+            <PayPal tokenReceived={tokenReceived} total={total}/>
+
+            <span className="space" />
+
+            <a className="button is-primary pull-right"
+               onClick={e => this.setState({goToStripe: true})}>
                 Pay with Card
             </a>
-        </span>
+        </span>;
     }
 }
 

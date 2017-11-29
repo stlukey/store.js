@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import paypal from 'paypal-checkout';
 import ReactDOM from 'react-dom';
 
 import {connect} from 'react-redux';
@@ -13,18 +12,14 @@ import {placeOrder} from '../orders/actions';
 import newMessage from '../messages/actions';
 
 
-import Stripe from './stripe';
+import Payment from './payment';
+
 import address from './address';
 
 const linkStateFeild = (obj, feildKey) => (key) => (e) => {
     var state = obj.state;
     state[feildKey][key] = e.target.value;
     obj.setState(state)
-}
-
-const PayPalButton = paypal.Button.driver('react', { React, ReactDOM });
-const paypalClient = {
-    sandbox: 'AUDVe4PIXHRyGJTsEWce8taryZPazwPBST-K4025LYGOg52c50pDQZ5kl7YTRp1kATOVkzx026NOplF1'
 }
 
 @connect((store) => {
@@ -39,13 +34,11 @@ class FinalDetails extends Component {
         this.paymentAbort = this.paymentAbort.bind(this);
         this.getTotal = this.getTotal.bind(this);
         this.tokenReceived = this.tokenReceived.bind(this);
-        this.paypalPayment = this.paypalPayment.bind(this);
-        this.paypalOnAuthorize = this.paypalOnAuthorize.bind(this);
 
         this.state = {
             shippingMethod: null,
             address: {},
-            goToStripe: false
+            goToPayment: false
         };
     }
 
@@ -55,43 +48,10 @@ class FinalDetails extends Component {
 
     componentWillUpdate() {
         var {error} = this.props.order;
-        if (error && this.state.goToStripe) {
+        if (error && this.state.goToPayment) {
             this.props.updateCart();
-            this.setState({goToStripe: false});
+            this.setState({goToPayment: false});
         };
-    }
-
-    // PayPal
-
-    paypalPayment(data, actions) {
-        return actions.payment.create({
-            payment: {
-                transactions: [
-                    {
-                        amount: {
-                            total: this.getTotal(),
-                            currency: 'GBP'
-                        }
-                    }
-                ]
-            },
-
-            experience: {
-                input_fields: {
-                    no_shipping: 1
-                }
-            }
-        });
-    }
-
-    paypalOnAuthorize(data, actions) {
-        this.tokenReceived({
-            type: "paypal",
-            data: {
-                paymentID: data.paymentID,
-                payerID:   data.payerID
-        }});
-
     }
 
     //
@@ -184,37 +144,17 @@ class FinalDetails extends Component {
         if (this.state.shippingMethod == null)
             return <span />;
 
-        return !this.state.goToStripe ? (<span className="pull-right" id="payment-options">
-            <PayPalButton client={paypalClient}
-                         payment={this.paypalPayment}
-                         commit={true}
-                         onAuthorize={this.paypalOnAuthorize}
-                         env={'sandbox'}/>
-            <span className="space" />
-            <a className="button is-primary pull-right"
-               onClick={e => this.setState({goToStripe: true})}>
-                Pay with Card
-            </a>
-        </span> ) : ( <Stripe onClose={this.paymentAbort}
-                getTotal={this.getTotal}
-                tokenReceived={this.tokenReceived}/> );
+        if (!this.state.goToPayment)
+            return <a className="button is-primary pull-right"
+               onClick={e => {if(this.checkDetails())
+                        this.setState({goToPayment: true})}}>
+                Place Order
+            </a>;
+
+        return <Payment total={this.getTotal()}
+                        tokenReceived={this.tokenReceived}/>;
     }
 
-    renderStripe() {
-        return true ? (<span />) : (!this.state.goToStripe ? (
-            <a className="button is-primary pull-right"
-               onClick={e => {
-                    if (this.checkDetails())
-                        this.setState({goToStripe: true})
-            }}>
-                Place Order
-            </a>
-        ) : (
-            <Stripe onClose={this.paymentAbort}
-                    getTotal={this.getTotal}
-                    tokenReceived={this.tokenReceived}/>
-        ));
-    }
 
     render() {
         if(this.props.cart.costError)
@@ -239,7 +179,6 @@ class FinalDetails extends Component {
                 {this.renderTotal()}
                 <br />
                 {this.renderPaymentMethods()}
-                {this.renderStripe()}
             </div>
         );
     }

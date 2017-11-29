@@ -115,7 +115,8 @@ class Card extends Component {
                 />
                 <div>
                     <form>
-                        <center>
+                        <center id="card-input">
+                            <br/>
                             <div>
                                 <input
                                     type="tel"
@@ -242,7 +243,7 @@ class PaymentDialog extends Component {
                             ) : (<span />)}
                             <Card ref={(card) => {this.card = card}}/>
                             <a className="button is-primary pull-right" onClick={this.process}>
-                                Pay £{this.props.getTotal()}
+                                Pay £{this.props.total}
                             </a>
                         </div>
                     )}
