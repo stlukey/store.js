@@ -53,7 +53,7 @@ class AppearencePage extends Component {
             return <Loading />;
 
         return <div>
-            <Title>Appearence</Title>
+            <Title>Appearance</Title>
             <Section>
                     <Title>Set Images</Title>
                     {Object.keys(this.state).map((name, index) =>
