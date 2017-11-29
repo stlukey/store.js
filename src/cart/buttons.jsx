@@ -30,10 +30,6 @@ class _BuyNowButton extends Component {
                 'danger'
             ));
 
-
-                    alert(this.props.user);
-                    window.user = this.props.user;
-
         this.props.dispatch(addToCart(this.props.productId,
                                       this.props.quantity))
                   .then(() => {
@@ -80,9 +76,6 @@ export class AddToCartButton extends Component {
                 "You must log in first.",
                 'danger'
             ));
-
-        alert(this.props.user);
-        window.user = this.props.user;
 
         this.props.dispatch(addToCart(this.props.productId,
                                       this.props.quantity))
