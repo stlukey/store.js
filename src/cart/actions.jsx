@@ -1,4 +1,17 @@
 import axios from "../app/axios";
+import store from "../store";
+
+export function sendReminderEmail() {
+    const url = `${API_URL}/cart/email`;
+
+    if (localStorage.getItem('token') !== null) {
+        var request = new XMLHttpRequest();
+        request.open("POST",`${API_URL}/cart/email`,false);
+        request.setRequestHeader("content-type","application/json");
+        request.setRequestHeader("Authorization",`Bearer ${localStorage.token}`);
+        request.send();
+    }
+}
 
 export function fetchCartCost() {
     const url = `${API_URL}/cart/cost`;

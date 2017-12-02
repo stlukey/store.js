@@ -1,5 +1,7 @@
 import newMessage from '../messages/actions';
 import axios, {setToken, removeToken, getToken} from '../app/axios';
+//import unload from 'unload';
+import {sendReminderEmail} from '../cart/actions';
 
 export const createUser = (data, router) => dispatch => {
     const url = `${API_URL}/user`;
@@ -56,6 +58,7 @@ export const loginUser = ({email, password}) => dispatch => {
                    type: "LOGIN_USER_FULFILLED",
                    payload: resp.data.data
                });
+               window.onunload = sendReminderEmail;
                dispatch(newMessage("Log in successful.", "success"));
            })
            .catch((err) => {
@@ -66,6 +69,8 @@ export const loginUser = ({email, password}) => dispatch => {
 }
 
 export const logoutUser = () => dispatch => {
+    sendReminderEmail();
+    window.onunload = null;
     removeToken();
     dispatch({type: "LOGOUT_USER"});
     dispatch(newMessage("You have been logged out.", 'info'));
