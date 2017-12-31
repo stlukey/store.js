@@ -8,6 +8,9 @@ import {
 import {createHistory} from 'history';
 import ga from 'ga-react-router';
 
+import initReactFastclick from 'react-fastclick';
+initReactFastclick();
+
 import store from './store';
 
 import App from './app';
