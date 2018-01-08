@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 
 import newMessage from '../messages/actions';
 import {loginUser, fetchUser, requestUserReset} from './actions';
-import TextFeildGroup from '../app/textFeildGroup';
+import TextFieldGroup from '../app/textFieldGroup';
 
 import {
     Container, Columns,
@@ -61,9 +61,9 @@ class LoginForm extends Component {
     render() {
         var credentials = linkStateField(this, 'credentials');
         return <div>
-            <TextFeildGroup label="Email"
+            <TextFieldGroup label="Email"
                             onChange={credentials('email')} />
-            <TextFeildGroup label="Password"
+            <TextFieldGroup label="Password"
                             onChange={credentials('password')}
                             type="password" />
             <br />

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-const TextFeildGroup = ({value, label, error, success, onChange, type}) => (
+const TextFieldGroup = ({value, label, error, success, onChange, type}) => (
     <div className="field">
         <label className="label">{label}: </label>
         <input className="input is-success" type={type} value={value} onChange={onChange}/>
@@ -9,4 +9,4 @@ const TextFeildGroup = ({value, label, error, success, onChange, type}) => (
     </div>
 );
 
-export default TextFeildGroup;
+export default TextFieldGroup;

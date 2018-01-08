@@ -4,7 +4,7 @@ import {withRouter} from 'react-router';
 import {Field, reduxForm} from 'redux-form';
 
 import newMessage from '../messages/actions';
-import TextFeildGroup from '../app/textFeildGroup';
+import TextFieldGroup from '../app/textFieldGroup';
 
 import {createUser} from './actions';
 
@@ -29,19 +29,19 @@ class SignupForm extends Component {
     render() {
         var details = linkStateField(this, 'details');
         return <div>
-            <TextFeildGroup label="Email"
+            <TextFieldGroup label="Email"
                             onChange={details('_id')} />
-            <TextFeildGroup label="Password"
+            <TextFieldGroup label="Password"
                             type="password"
                             onChange={details('password')} />
-            <TextFeildGroup label="Confirm Password"
+            <TextFieldGroup label="Confirm Password"
                             type="password"
                             onChange={details('confirm')} />
-            <TextFeildGroup label="First Name"
+            <TextFieldGroup label="First Name"
                             onChange={details('first_name')} />
-            <TextFeildGroup label="Last Name"
+            <TextFieldGroup label="Last Name"
                             onChange={details('last_name')} />
-            <TextFeildGroup label="Contact Number"
+            <TextFieldGroup label="Contact Number"
                             onChange={details('contact_number')} />
             <br />
             <a className="button is-primary" onClick={this.onClick}>

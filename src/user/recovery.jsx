@@ -4,7 +4,7 @@ import {Field, reduxForm} from 'redux-form';
 import {withRouter} from 'react-router';
 
 import newMessage from '../messages/actions';
-import TextFeildGroup from '../app/textFeildGroup';
+import TextFieldGroup from '../app/textFieldGroup';
 
 import {resetUserPassword} from './actions';
 
@@ -44,10 +44,10 @@ class Recovery extends Component {
         var details = linkStateField(this, 'details');
 
         return (<div>
-            <TextFeildGroup label="Password"
+            <TextFieldGroup label="Password"
                             type="password"
                             onChange={details('password')} />
-            <TextFeildGroup label="Confirm Password"
+            <TextFieldGroup label="Confirm Password"
                             type="password"
                             onChange={details('confirm')} />
             <br />
