@@ -71,6 +71,7 @@ const Header = (options, value, onSelect, onSearchChange) => (
                         <Dropdown options={options}
                                   value={value}
                                   onChange={onSelect} />
+                                  <br className="big-space"/>
                         <input type="text" className="input"
                                placeholder={`Search ${value}.`}
                                onChange={onSearchChange} />
@@ -184,7 +185,7 @@ export default class ProductsPage extends Component {
                               this.onCategorySelect, this.onSearchChange);
 
         return (
-            <Section>
+            <Section className="products-section">
                 {header}
                 {grid}
             </Section>

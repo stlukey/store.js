@@ -60,20 +60,24 @@ hr.homeUnderline {
   margin-bottom: 20px;
 }
 
+.vCenterContent {
+    padding: 0;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    line-height: 1.2em;
+    font-weight: 450;
+}
+
 .vCenterContainer {
-  height: 50px;
+  height: 60px;
   display: flex;
   /* flex-direction: column;*/
   align-items: center;
   /* justify-content: center;*/
-}
-
-.vCenterContent {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  line-height: 1.2em;
-  font-weight: 450;
 }
 
 a.no-dec {
@@ -82,7 +86,7 @@ a.no-dec {
 }
 
 .panel.product {
-    height: 200px;
+    height: 213px;
     width: 200px;
     margin-left: auto;
     margin-right: auto;
