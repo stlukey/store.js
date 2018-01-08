@@ -56,11 +56,8 @@ class ProductRow extends Component {
 }
 ProductRow = withRouter(ProductRow);
 
-const linkState = (obj, key) => (e) => {
-    var state = obj.state;
-    state[key] = e.target.value;
-    obj.setState(state)
-}
+import linkState from '../../src/helpers/linkState';
+
 
 @connect((store) => {
     return {

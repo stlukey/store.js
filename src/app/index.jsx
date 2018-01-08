@@ -14,6 +14,9 @@ import {sendReminderEmail} from '../cart/actions';
 
 import AppEnlight from 'appenlight-client';
 
+import {fetchUser} from '../user/actions';
+
+
 @connect((store) => ({
     user: store.user,
     cart: store.cart
@@ -32,6 +35,8 @@ class App extends Component {
                 windowOnError: 1
             });
         };
+
+        this.props.dispatch(fetchUser());
         console.log("Application mounted.");
     }
 

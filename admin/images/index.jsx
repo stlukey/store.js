@@ -17,11 +17,8 @@ import {
     Button
 } from '../../src/app/bulma';
 
-const linkState = (obj, key) => (e) => {
-    var state = obj.state;
-    state[key] = e.target.value;
-    obj.setState(state);
-}
+import linkState from '../../src/helpers/linkState';
+
 
 window.popUpChecker = null;
 

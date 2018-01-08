@@ -2,7 +2,7 @@ const DEFAULT_STATE = {
     details: null, // {id, password, first_name, last_name, contact_number}
     token: null,
     error: null,
-    fetching: false,
+    fetching: true,
 
     created: false,
     activated: null,

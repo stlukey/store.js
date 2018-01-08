@@ -16,11 +16,7 @@ import Payment from './payment';
 
 import address from './address';
 
-const linkStateFeild = (obj, feildKey) => (key) => (e) => {
-    var state = obj.state;
-    state[feildKey][key] = e.target.value;
-    obj.setState(state)
-}
+import linkStateField from '../helpers/linkStateField';
 
 @connect((store) => {
     return {
@@ -123,7 +119,7 @@ class FinalDetails extends Component {
         if(this.state.shippingMethod == null)
             return (<span />);
 
-        const linkToAddress = linkStateFeild(this, 'address');
+        const linkToAddress = linkStateField(this, 'address');
 
         return address(linkToAddress);
     }

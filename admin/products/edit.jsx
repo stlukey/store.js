@@ -22,11 +22,8 @@ import ProductEditRecipes from './edit_recipes';
 
 import './edit.scss';
 
-const linkState = (obj, key) => (e) => {
-    var state = obj.state;
-    state[key] = e.target.value;
-    obj.setState(state)
-}
+import linkState from '../../src/helpers/linkState';
+
 
 class ProductEditDetailsForm extends Component {
     constructor(props) {

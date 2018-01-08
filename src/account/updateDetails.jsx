@@ -5,11 +5,7 @@ import {
     Label
 } from '../app/bulma';
 
-const linkStateFeild = (obj, feildKey) => (key) => (e) => {
-    var state = obj.state;
-    state[feildKey][key] = e.target.value;
-    obj.setState(state);
-}
+import linkStateField from '../helpers/linkStateField';
 
 
 class UpdateDetails extends Component {
@@ -24,7 +20,7 @@ class UpdateDetails extends Component {
     }
 
     render() {
-        const linkToDetails = linkStateFeild(this, 'details');
+        const linkToDetails = linkStateField(this, 'details');
         window.state = this.state;
 
         return (

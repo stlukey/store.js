@@ -7,6 +7,8 @@ import Loading from '../app/loading';
 import {addToCart} from './actions';
 import newMessage from '../messages/actions';
 
+import goToLogin from '../user/goToLogin';
+
 import './buttons.scss';
 
 @connect((store) => {
@@ -21,23 +23,26 @@ class _BuyNowButton extends Component {
     }
 
     handleClick() {
-        if(this.props.preview)
+
+        const {
+            preview, user, dispatch,
+            productId, quantity, router
+        } = this.props;
+
+        if(preview)
             return null;
 
-        if(!this.props.user.token)
-            return this.props.dispatch(newMessage(
-                "You must log in first.",
-                'danger'
-            ));
+        if(user.details === null)
+            return goToLogin(router, dispatch);
 
-        this.props.dispatch(addToCart(this.props.productId,
-                                      this.props.quantity))
+        dispatch(addToCart(productId,
+                                      quantity))
                   .then(() => {
-                      this.props.dispatch(newMessage(
+                      dispatch(newMessage(
                           "Basket updated.",
                           "info"
                       ));
-                      this.props.router.push('/cart');
+                      router.push('/cart');
                   });
     }
 
@@ -59,28 +64,27 @@ export var BuyNowButton = withRouter(_BuyNowButton);
         user: store.user
     }
 })
-export class AddToCartButton extends Component {
+export class _AddToCartButton extends Component {
     constructor(props) {
         super(props)
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick() {
-        if(this.props.preview)
+        const {
+            preview, user, dispatch,
+            productId, quantity, router
+        } = this.props;
+
+        if(preview)
             return null;
 
-        console.log(this.props.user);
+        if(user.details === null)
+            return goToLogin(router, dispatch);
 
-        if(!this.props.user.token)
-            return this.props.dispatch(newMessage(
-                "You must log in first.",
-                'danger'
-            ));
-
-        this.props.dispatch(addToCart(this.props.productId,
-                                      this.props.quantity))
+        dispatch(addToCart(productId, quantity))
                   .then(() => {
-                      this.props.dispatch(newMessage(
+                      dispatch(newMessage(
                           "Item added to Basket.",
                           "info"
                       ))
@@ -95,6 +99,8 @@ export class AddToCartButton extends Component {
         );
     }
 }
+export var AddToCartButton = withRouter(_AddToCartButton);
+
 
 export class PurchaseButtons extends Component {
     constructor(props) {

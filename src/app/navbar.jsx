@@ -8,7 +8,6 @@ import Icon from './icon';
 import Loading from './loading';
 
 
-import {fetchUser} from '../user/actions';
 import {getToken} from './axios';
 
 const NavToggle = (props) => (
@@ -67,10 +66,6 @@ class NavBar extends Component {
         this.state = {
             showMenu: false
         }
-    }
-
-    componentDidMount() {
-        this.props.dispatch(fetchUser());
     }
 
     render() {

@@ -4,7 +4,8 @@ import StarRating from 'react-star-rating';
 const switchTab = (tabs, tabId) => tabs.setState({current:tabId});
 
 const TabLink = ({current, tabId, children, onClick}) =>
-    console.log(tabId, current, current == tabId) && current == tabId ?
+    // console.log(tabId, current, current == tabId) &&
+    current == tabId ?
       <li className="is-active"><a onClick={onClick}>{children}</a></li>
     : <li><a onClick={onClick}>{children}</a></li>;
 

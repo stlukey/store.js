@@ -10,11 +10,8 @@ import {createUser} from './actions';
 
 import Loading from '../app/loading';
 
-const linkStateFeild = (obj, feildKey) => (key) => (e) => {
-    var state = obj.state;
-    state[feildKey][key] = e.target.value;
-    obj.setState(state);
-}
+import linkStateField from '../helpers/linkStateField';
+
 
 class SignupForm extends Component {
     constructor(props) {
@@ -30,7 +27,7 @@ class SignupForm extends Component {
     }
 
     render() {
-        var details = linkStateFeild(this, 'details');
+        var details = linkStateField(this, 'details');
         return <div>
             <TextFeildGroup label="Email"
                             onChange={details('_id')} />

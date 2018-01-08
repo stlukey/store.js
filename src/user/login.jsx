@@ -14,13 +14,17 @@ import {
 } from '../app/bulma';
 import Loading from '../app/loading';
 
+import linkStateField from '../helpers/linkStateField';
+
+import goToLogin from './goToLogin';
+
 const _RequiresLogin = ({user, dispatch, router, children}) => {
+    if(user.fetching) {
+        return <Loading />;
+    }
+
     if(user.details === null) {
-        dispatch(newMessage(
-            "You must log in to do that!",
-            'danger'
-        ));
-        router.push('/login');
+        goToLogin(router, dispatch);
         return <span />;
     }
 
@@ -34,12 +38,6 @@ const _RequiresLogin = ({user, dispatch, router, children}) => {
 export var RequiresLogin = connect(store => ({
     user: store.user
 }))(withRouter(_RequiresLogin));
-
-const linkStateFeild = (obj, feildKey) => (key) => (e) => {
-    var state = obj.state;
-    state[feildKey][key] = e.target.value;
-    obj.setState(state);
-}
 
 @connect()
 class LoginForm extends Component {
@@ -61,7 +59,7 @@ class LoginForm extends Component {
     }
 
     render() {
-        var credentials = linkStateFeild(this, 'credentials');
+        var credentials = linkStateField(this, 'credentials');
         return <div>
             <TextFeildGroup label="Email"
                             onChange={credentials('email')} />
@@ -84,19 +82,28 @@ class LoginForm extends Component {
     user: store.user
 }))
 class Login extends Component {
-    handleSubmit = (credentials) => {
-        this.props.dispatch(loginUser(credentials));
+    getRedirect() {
+        var url = '/';
+
+        if(!!window.redirect) {
+            url = window.redirect;
+            window.redirect = null;
+        }
+
+        return url;
     }
 
     render() {
-        const {user, router} = this.props;
+        const {user, router, dispatch} = this.props;
         if(user.details !== null)
-            router.push('/');
+            router.push(this.getRedirect());
 
         if(user.fetching)
             return <Loading />;
 
-        return <LoginForm onSubmit={this.handleSubmit}/>;
+        return <LoginForm
+            onSubmit={credentials => dispatch(loginUser(credentials))}
+        />;
     }
 }
 
