@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 
 import SocialLogosSVGs from './socialLogosSvgs';
+import Subscribe from '../subscribe';
 
 const socialLinks = {
     facebook: 'https://www.facebook.com/persianfusioncooking',
@@ -14,17 +15,7 @@ const socialLinks = {
 
 const MailListSignup = () => (
     <div className="mailListSignup">
-      SIGN UP TO OUR EMAIL FOR NEWS & EXCLUSIVES
-      <div className="field has-addons">
-        <p className="control">
-          <input className="input" type="text" placeholder="Add your email here..."/>
-        </p>
-        <p className="control">
-          <a className="button">
-            Subscribe
-          </a>
-        </p>
-      </div>
+      <Subscribe />
     </div>
 );
 

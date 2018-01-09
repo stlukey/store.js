@@ -8,6 +8,7 @@ import users from './users';
 import order from './order';
 import orders from './orders';
 import user from './user';
+import subscriber from './subscriber';
 import admin from '../../admin/reducers';
 
 import { reducer as form } from 'redux-form';
@@ -22,5 +23,6 @@ export default combineReducers({
     order,
     orders,
     admin,
-    user
+    user,
+    subscriber
 })
