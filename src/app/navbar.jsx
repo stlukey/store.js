@@ -79,7 +79,7 @@ class NavBar extends Component {
             <nav className='nav has-shadow' id='top'>
                 <NavToggle onClick={() => this.setState({showMenu:!this.state.showMenu})}/>
 
-                <div className='nav-center'>
+                <div className='nav-center' id='main-label'>
                     <NavItem to='/'>{window.SITE_TITLE}</NavItem>
                 </div>
 

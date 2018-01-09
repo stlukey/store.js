@@ -35,8 +35,7 @@ class _BuyNowButton extends Component {
         if(user.details === null)
             return goToLogin(router, dispatch);
 
-        dispatch(addToCart(productId,
-                                      quantity))
+        dispatch(addToCart(productId, quantity))
                   .then(() => {
                       dispatch(newMessage(
                           "Basket updated.",
@@ -48,7 +47,7 @@ class _BuyNowButton extends Component {
 
     render() {
         return (
-            <a className="button is-default" onClick={this.handleClick}>
+            <a className="button is-default is-primary" onClick={this.handleClick}>
                 Buy now
             </a>
         );
@@ -93,7 +92,7 @@ export class _AddToCartButton extends Component {
 
     render() {
         return (
-            <a className="button is-primary" onClick={this.handleClick}>
+            <a className="button" onClick={this.handleClick}>
                 Add to Basket
             </a>
         );
@@ -126,8 +125,9 @@ export class PurchaseButtons extends Component {
                    onChange={this.onQuantityChange}
                    className="input quantity-input" />
 
-            <BuyNowButton {...this.props} quantity={quantity}/>&nbsp;
             <AddToCartButton {...this.props} quantity={quantity}/>
+            &nbsp;
+            <BuyNowButton {...this.props} quantity={quantity}/>
         </div>;
     }
 }

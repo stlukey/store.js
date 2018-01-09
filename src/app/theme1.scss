@@ -1,0 +1,17 @@
+$orange: #db9f38;
+$brown: #52422a;
+
+nav, .nav-item {
+    background: $brown !important;
+    color: $orange !important;
+}
+
+
+footer {
+    background:  $orange !important;
+    color: $brown !important;
+
+    hr {
+        background: $brown !important;
+    }
+}

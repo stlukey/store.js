@@ -28,7 +28,7 @@ const ProductDetails = (product, preview=false) => (
           </div>
         </div>
         <div className="column is-5 is-offset-1">
-          <div className="title is-2">{product.name}</div>
+          <div className="title is-2 product-title">{product.name}</div>
           <p className="title is-3 has-text-muted">£{product.cost}</p>
           <hr />
           <p>{product.description}</p>

@@ -5,6 +5,11 @@ $family-primary: $family-serif;
 */
 
 @import "~bulma/bulma.sass";
+@import url('https://fonts.googleapis.com/css?family=Lora:400i');
+
+#main-label {
+    font: italic 22px 'Lora', serif;
+}
 
 #root {
     margin: 0 auto;
@@ -24,6 +29,7 @@ $family-primary: $family-serif;
 }
 
 html {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 body {
@@ -79,6 +85,14 @@ body {
     padding: 5px;
 }
 
+.center {
+    text-align: center;
+}
+
+.vCenterContent, .product-title {
+    font-family: 'Lora', serif;
+}
+
 @media (max-width: 900px) {
     html, body {
         max-width: 100% !important;
@@ -88,4 +102,5 @@ body {
 }
 
 
-@import "social"
+@import "social";
+@import "theme1";

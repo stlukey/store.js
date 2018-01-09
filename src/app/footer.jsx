@@ -70,7 +70,7 @@ const Footer = (props) => (
         <Links />
         <hr />
         <center>
-          <p>Copyright &copy; {window.SITE_TITLE} {(new Date()).getFullYear()}</p>
+          <p>Copyright {(new Date()).getFullYear()} &copy; {window.SITE_TITLE} &trade;</p>
           <p>Developed by Luke Southam &lt;luke@devthe.com&gt;</p>
         </center>
     </footer>
