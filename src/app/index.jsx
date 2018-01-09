@@ -29,6 +29,8 @@ class App extends Component {
     }
 
     componentDidMount() {
+        this.props.dispatch(fetchUser());
+
         if(APPENLIGHT_API_KEY) {
             AppEnlight.init({
                 apiKey: APPENLIGHT_API_KEY,
@@ -36,7 +38,6 @@ class App extends Component {
             });
         };
 
-        this.props.dispatch(fetchUser());
         console.log("Application mounted.");
     }
 
