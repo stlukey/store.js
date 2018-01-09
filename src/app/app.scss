@@ -4,6 +4,8 @@ $family-serif: "Georgia", serif;
 $family-primary: $family-serif;
 */
 
+@import "theme1";
+
 @import "~bulma/bulma.sass";
 @import url('https://fonts.googleapis.com/css?family=Lora:400i');
 
@@ -103,4 +105,3 @@ body {
 
 
 @import "social";
-@import "theme1";
