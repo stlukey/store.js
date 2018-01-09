@@ -17,7 +17,7 @@ import Loading from '../app/loading';
 import linkStateField from '../helpers/linkStateField';
 
 import goToLogin from './goToLogin';
-
+import Signup from './signup';
 
 const _RequiresLogin = ({user, dispatch, router, children}) => {
     if(user.fetching) {
@@ -75,7 +75,11 @@ class LoginForm extends Component {
             <a className="button is-primary" onClick={this.onReset}>
                 Reset Password
             </a>
-
+            <br />
+            <br />
+            <br />
+            <h1 className="title is-3">Not Registered? Signup Now.</h1>
+            <Signup/>
         </div>;
     }
 }
@@ -110,4 +114,4 @@ class Login extends Component {
     }
 }
 
-export default LoginForm;
+export default withRouter(Login);
