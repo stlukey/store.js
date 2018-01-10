@@ -1,4 +1,3 @@
-//import localStorage from 'local-storage';
 import {applyMiddleware, createStore} from 'redux';
 
 import logger from 'redux-logger';
@@ -27,16 +26,5 @@ const middleware = applyMiddleware(
 	logger()
 );
 
-const store = createStore(reducer, middleware, /*loadState()*/);
-
-/*store.subscribe(() => {
-	try {
-		const serializedState = JSON.stringify(store.getState());
-		localStorage.state = serializedState;
-		console.log("saving state");
-	} catch (err) {
-		console.error(err);
-	}
-});**/
-
+const store = createStore(reducer, middleware);
 export default store;

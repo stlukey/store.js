@@ -34,7 +34,7 @@ const Links = () => (
       </div>
 
       <div className="column">
-        <a href="http://www.thepersianfusion.com/">The Persian Fusion Blog</a>
+        <a href="http://www.thepersianfusion.com/" target="_blank">The Persian Fusion Blog</a>
         <div id="social">
           <a target="_blank" href={socialLinks['facebook']} className="c-link c-link--facebook c-tooltip" aria-label="Facebook">
               <svg className="c-icon"><use xlinkHref="#icon--facebook"></use></svg>
