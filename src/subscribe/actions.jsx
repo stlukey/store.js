@@ -2,7 +2,7 @@ import newMessage from '../messages/actions';
 import axios, {setToken, removeToken, getToken} from '../app/axios';
 
 export const subscribe = (email) => dispatch => {
-    const url = `${API_URL}/subscriber/${email}`;
+    const url = `${API_URL}/subscribers/${email}`;
 
     dispatch({type: "CREATE_SUBSCRIBER_PENDING"})
     axios().post(url)
@@ -18,11 +18,11 @@ export const subscribe = (email) => dispatch => {
            })
 }
 
-export const unsubscribe = (email) => dispatch => {
-    const url = `${API_URL}/subscriber/${email}`;
+export const unsubscribe = (email, router) => dispatch => {
+    const url = `${API_URL}/subscribers/${email}`;
 
     dispatch({type: "DELETE_SUBSCRIBER_PENDING"})
-    axios().post(url)
+    axios().delete(url)
            .then((resp) => {
                dispatch({
                    type: "DELETE_SUBSCRIBER_FULFILLED",
@@ -33,4 +33,5 @@ export const unsubscribe = (email) => dispatch => {
                dispatch({type: "DELETE_SUBSCRIBER_REJECTED"});
                dispatch(newMessage(err.response.data.message, 'danger'));
            })
+    router.push('/');
 }

@@ -126,6 +126,7 @@ var config = {
                 { from: '/demo', to: '/index.html' },
                 { from: /^\/confirm\/.*$/, to: '/index.html' },
                 { from: /^\/recovery\/.*$/, to: '/index.html' },
+                { from: /^\/unsubscribe\/.*$/, to: '/index.html' },
             ],
         },
     },

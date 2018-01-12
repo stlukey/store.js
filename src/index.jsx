@@ -29,6 +29,7 @@ import Cart from './cart';
 import Account from './account';
 import {AccountDetails, AccountOrders} from './account';
 import Order from './orders';
+import Unsubscribe from './subscribe/unsubscribe';
 
 const history = useRouterHistory(createHistory)({
     basename: '/demo'
@@ -72,6 +73,8 @@ const routes = (
 
         <Route path="confirm/:emailToken" component={ConfirmEmail} />
         <Route path="recovery/:emailToken" component={Recovery} />
+
+        <Route path="unsubscribe/:email" component={Unsubscribe} />
     </Route>
 );
 
