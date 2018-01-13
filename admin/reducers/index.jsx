@@ -6,6 +6,7 @@ import products from './products';
 import orders from './orders';
 import shipments from './shipments';
 import shipment from './shipment';
+import mailingList from './mailingList';
 import messages from '../../src/reducers/messages';
 
 import { reducer as form } from 'redux-form';
@@ -17,5 +18,6 @@ export default combineReducers({
     shipments,
     shipment,
     images,
-    appearance
+    appearance,
+    mailingList
 })

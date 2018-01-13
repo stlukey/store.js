@@ -76,7 +76,7 @@ class NavBar extends Component {
         var apple = false; ///iPad|iPhone|iPo/.test(navigator.userAgent) && !window.MSStream;
 
         return (
-            <nav className='nav has-shadow' id='top'>
+            <nav className='nav has-shadow main-nav' id='top'>
                 <NavToggle onClick={() => this.setState({showMenu:!this.state.showMenu})}/>
 
                 <div className='nav-center' id='main-label'>

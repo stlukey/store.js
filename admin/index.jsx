@@ -39,6 +39,9 @@ import ShipmentsView from './shipments/view';
 
 import Users from './users';
 
+import MailingList from './mailingList';
+import SendMail from './mailingList/send';
+
 import {setToken} from '../src/app/axios';
 
 window.API = ADMIN_API_URL;
@@ -93,6 +96,10 @@ const routes = (
             <IndexRoute component={Orders} />
             <Route path=":orderId" component={OrdersView} />
         </Route>
+
+        <Route path="mailing-list" component={MailingList} />
+        <Route path="mailing-list/send" component={SendMail} />
+
 
     </Route>
 </div>
