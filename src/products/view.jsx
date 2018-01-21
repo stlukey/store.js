@@ -1,10 +1,23 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router';
 import moment from 'moment';
+
 
 import {PurchaseButtons} from '../cart/buttons';
 import LoadProduct from './load';
-import {values} from './index';
+import {values, productsGrid} from './index';
 import ProductTabs from './tabs';
+
+
+function displayRelated(product) {
+  if (product.related.length)
+    return <div className="section">
+      <h2 className="subtitle">Related Products</h2>
+      {productsGrid(product.related)}
+    </div>;
+
+  return <div />
+}
 
 const ProductDetails = (product, preview=false) => (
 <div>
@@ -58,19 +71,37 @@ const ProductDetails = (product, preview=false) => (
   <div className="section">
       <ProductTabs product={product} />
   </div>
+  {displayRelated(product)}
 </div>
 );
 
-const ProductPage = (props) => {
-  var onLoad = (productData) =>
-      ProductDetails(productData, props.preview);
+class ProductPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productId: this.props.params.productId,
+      i: 0
+    };
+  }
 
-  return <LoadProduct productId={props.params.productId}
-                      onLoad={onLoad} />;
+  componentWillReceiveProps() {
+    if (this.props.params.productId != this.state.productId)
+      this.setState({i: this.state.i + 1,
+                     productId: this.props.params.productId});
+  }
+
+
+  render() {
+      var onLoad = (productData) =>
+          ProductDetails(productData, this.props.preview);
+
+      return <LoadProduct productId={this.props.params.productId}
+                          onLoad={onLoad}
+                          key={this.state.i}/>;
+    }
 }
-
 ProductPage.defaultProps = {
   preview: false
 }
 
-export default ProductPage;
+export default withRouter(ProductPage);

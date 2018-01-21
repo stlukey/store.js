@@ -69,6 +69,36 @@ export default function reducer(state={
                 data: action.payload.data
             };
 
+        case "SAVE_RELATED_PENDING":
+            return {...state, saving:true, saved:false};
+        case "SAVE_RELATED_REJECTED":
+            return {...state, saving:false, error:action.payload, saved:false}
+        case "SAVE_RELATED_FULFILLED":
+            return {
+                ...state,
+                data: {},
+                fetching: false,
+                fetched: false,
+                saving: false,
+                saved: true,
+            };
+
+
+        case "DELETE_RELATED_PENDING":
+            return {...state, saving:true, saved:false};
+        case "DELETE_RELATED_REJECTED":
+            return {...state, saving:false, error:action.payload, saved:false}
+        case "DELETE_RELATED_FULFILLED":
+            return {
+                ...state,
+                data: {},
+                fetching: false,
+                fetched: false,
+                saving: false,
+                saved: true,
+            };
+
+
         default:
             return {...state};
     }

@@ -20,3 +20,6 @@ npm-debug.log
 
 # sandbox
 src/sandbox
+
+
+.vscode

@@ -37,7 +37,7 @@ const productsRow = (products, index) => (
     </Columns>
 );
 
-const productsGrid = (products) => {
+export const productsGrid = (products) => {
     var rows = [];
     for (var i = 0; i < products.length; i++) {
         if((i % 4) === 0){

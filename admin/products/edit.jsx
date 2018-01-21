@@ -19,6 +19,7 @@ import newMessage from '../../src/messages/actions';
 import ProductEditCategories from './edit_categories';
 import ProductEditImages from './edit_images';
 import ProductEditRecipes from './edit_recipes';
+import ProductEditRelated from './edit_related';
 
 import './edit.scss';
 
@@ -400,6 +401,8 @@ const ProductEdit = (props) => {
                 <ProductEditRecipes data={productDetails}
                                     dispatch={dispatch}/>
                 <hr />
+                <ProductEditRelated data={productDetails}/>
+                <hr />                
                 <ProductEditStock data={productDetails}
                                   dispatch={dispatch}/>
                 <hr />
