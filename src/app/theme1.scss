@@ -2,7 +2,18 @@ $orange: #db9f38;
 $brown: #52422a;
 
 $primary: $orange;
+$secondary: $brown;
 $dark: $brown;
+
+$info: $orange;
+$success: $orange;
+$warning: $orange;
+$danger: $orange;
+
+.is-secondary {
+    background: $secondary !important;
+    color: $primary !important;
+}
 
 .main-nav, .main-nav .nav-item {
     background: $brown !important;

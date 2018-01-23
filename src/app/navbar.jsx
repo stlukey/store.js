@@ -44,15 +44,10 @@ const LoggedIn = admin => [
     </NavItem>
 ];
 
-const LoggedOut = [
-    <NavItem key={3} to='/login'>
-        <span className="nav-label">Log in{' '}</span>
-        <Icon>account_box</Icon>
-    </NavItem>,
-    <NavItem key={4} to='/signup'>
-        <span className="nav-label">or Sign Up</span>
-    </NavItem>
-];
+const LoggedOut = <NavItem key={3} to='/login'>
+    <span className="nav-label">Log in{' '}</span>
+    <Icon>account_box</Icon>
+</NavItem>;
 
 /* TODO: Make stateful with is-active nav items */
 @connect((store) => {
@@ -99,7 +94,6 @@ class NavBar extends Component {
                         <NavItem to='/about'>About</NavItem>
                         {apple ? <span /> : <br />}
                         <NavItem to='/contact'>Contact</NavItem>
-                        <NavItem to='/signup'>Sign Up</NavItem>
                     </span>
                     ) : userLinks}
                 </div>

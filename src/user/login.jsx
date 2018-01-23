@@ -72,7 +72,7 @@ class LoginForm extends Component {
             <a className="button is-primary" onClick={this.onClick}>
                 Login
             </a> {" "}
-            <a className="button is-primary" onClick={this.onReset}>
+            <a className="button is-secondary" onClick={this.onReset}>
                 Reset Password
             </a>
             <br />

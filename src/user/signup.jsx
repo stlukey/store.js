@@ -11,6 +11,7 @@ import {createUser} from './actions';
 import Loading from '../app/loading';
 
 import linkStateField from '../helpers/linkStateField';
+import Popup from '../helpers/Popup';
 
 
 class SignupForm extends Component {
@@ -55,14 +56,17 @@ class SignupForm extends Component {
             onChange={() => this.setState({agreed: !this.state.agreed})} />
             <span>
                 I have read and agree to the
-                <a target="_blank" href="/terms-and-conditions">Terms and Conditions</a>
+                <Popup to="/terms-and-conditions">Terms and Conditions</Popup>
                 and
-                <a target="_blank" href="/privacy">Privacy Policy</a>.
+                <Popup to="/privacy">Privacy Policy</Popup>.
             </span>
+
+            <br/>
+            <br/>
 
             <button className="button is-primary"
                      onClick={() => onSubmit(details)}
-                     disabled={agreed}>
+                     disabled={!agreed}>
                 Sign Up
             </button>
         </div>;

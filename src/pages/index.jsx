@@ -32,4 +32,4 @@ export default class CMSPage extends Component {
     }
 }
 
-export const CMSRoute = () => ({location}) => <CMSPage key={location.pathname} pageId={location.pathname.substring(1)} />;
+export const CMSRoute = () => ({location}) => <CMSPage key={location.pathname} pageId={location.pathname} />;
