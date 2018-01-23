@@ -80,7 +80,7 @@ class NavBar extends Component {
                 <NavToggle onClick={() => this.setState({showMenu:!this.state.showMenu})}/>
 
                 <div className='nav-center' id='main-label'>
-                    <NavItem to='/'>{window.SITE_TITLE}</NavItem>
+                    <NavItem to='/'>{window.SITE_TITLE} {DEMO ? "(demo)" : null}</NavItem>
                 </div>
 
 
