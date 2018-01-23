@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 import Stripe from './stripe';
 import PayPal from './paypal';
 
+const options = {
+    'paypal': false,
+    'stripe': true
+}
 
 class Payment extends Component {
     constructor(props) {
@@ -21,14 +25,18 @@ class Payment extends Component {
                         tokenReceived={tokenReceived}/>;
 
         return <span className="pull-right" id="payment-options">
-            <PayPal tokenReceived={tokenReceived} total={total}/>
+            {options.paypal ? 
+                <PayPal tokenReceived={tokenReceived} total={total}/>
+            : null}
 
             <span className="space" />
 
-            <a className="button is-primary pull-right"
-               onClick={e => this.setState({goToStripe: true})}>
-                Pay with Card
-            </a>
+            {options.stripe ?
+                <a className="button is-primary pull-right"
+                   onClick={e => this.setState({goToStripe: true})}>
+                    Pay with Card
+                </a>
+            : null}
         </span>;
     }
 }

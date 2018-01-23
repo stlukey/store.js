@@ -129,7 +129,7 @@ class ProductEditRelated extends Component {
         if (this.props.products.error)
             alert(this.props.products.error);
 
-        if (!this.props.products.fetched)
+        if (!this.props.products.fetched || !this.state.related)
             return <Loading />;
 
         window.data = this.props.data;

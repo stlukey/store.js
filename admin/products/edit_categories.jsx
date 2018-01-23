@@ -60,7 +60,6 @@ class ProductEditCategories extends Component {
         for(var i in this.state.tags)
             ids.push(makeCategoryId(this.state.tags[i].name));
         const data = {category_ids: ids};
-        console.log(data);
 
         this.props.dispatch(saveProduct(productId,
                                         data))
