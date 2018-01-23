@@ -18,14 +18,23 @@ class SignupForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            details: {},
+            details: {
+                subscribe: true
+            },
             agreed: false,
         };
         this.onClick = this.onClick.bind(this);
+        this.toggleSubscribe = this.toggleSubscribe.bind(this);
     }
 
     onClick() {
         this.props.onSubmit(this.state.details);
+    }
+
+    toggleSubscribe() {
+        var details = this.state.details;
+        details.subscribe = !details.subscribe;
+        this.setState({details});
     }
 
     render() {
@@ -49,6 +58,10 @@ class SignupForm extends Component {
                             onChange={toDetails('last_name')} />
             <TextFieldGroup label="Contact Number"
                             onChange={toDetails('contact_number')} />
+            <br/>
+            <input type="checkbox" onChange={this.toggleSubscribe}
+            checked={this.state.details.subscribe} />
+            <span>I would like to subscribe to the mailing list.</span>
             
             <br />
 

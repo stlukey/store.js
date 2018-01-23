@@ -35,9 +35,9 @@ class Message extends Component {
                     <div className={classes}>
                         <Icon>error</Icon>
                         {" "}
-                        <pre className="message-content">
+                        <p className="message-content">
                             {this.props.content}
-                        </pre>
+                        </p>
                     </div>
                 </ReactCSSTransitionGroup>
             </Expire>
