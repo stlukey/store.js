@@ -9,6 +9,9 @@ catch (e) {
 }
 
 
+const DEMO = false;
+
+
 var autoprefixer = require('autoprefixer');
 var combineLoaders = require('webpack-combine-loaders');
 
@@ -24,7 +27,7 @@ var ADMIN_DIR = path.resolve(__dirname, 'admin')
 const APPENLIGHT_API_KEY = null;
 const GA_TRACKING_CODE = null;
 
-const STRIPE_KEY = JSON.stringify('pk_test_ouzZ8A7FAfH60YeztLWdbHTp');
+const STRIPE_KEY = JSON.stringify('pk_test_PxE26TYGV29Ozz36BpkYRFe1');
 
 var babelSettings = {
     // @remove-on-eject-begin
@@ -113,17 +116,16 @@ var config = {
         new webpack.DefinePlugin({
             API_URL, ADMIN_API_URL,
             APPENLIGHT_API_KEY, GA_TRACKING_CODE,
-            STRIPE_KEY
+            STRIPE_KEY, DEMO
         })
     ],
     cache: true,
     devServer: {
         port: 3000,
         historyApiFallback: {
-            index: 'cs.html',
+            index: 'index.html',
             rewrites: [
                 { from: '/admin', to: '/admin.html' },
-                { from: '/demo', to: '/index.html' },
                 { from: /^\/confirm\/.*$/, to: '/index.html' },
                 { from: /^\/recovery\/.*$/, to: '/index.html' },
                 { from: /^\/unsubscribe\/.*$/, to: '/index.html' },

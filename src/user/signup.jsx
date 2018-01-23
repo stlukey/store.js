@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router';
+import {withRouter, Link} from 'react-router';
 import {Field, reduxForm} from 'redux-form';
 
 import newMessage from '../messages/actions';
@@ -17,7 +17,8 @@ class SignupForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            details: {}
+            details: {},
+            agreed: false,
         };
         this.onClick = this.onClick.bind(this);
     }
@@ -27,26 +28,43 @@ class SignupForm extends Component {
     }
 
     render() {
-        var details = linkStateField(this, 'details');
+        var toDetails = linkStateField(this, 'details');
+
+        const {details, agreed} = this.state;
+        const {onSubmit} = this.props;
+
         return <div>
             <TextFieldGroup label="Email"
-                            onChange={details('_id')} />
+                            onChange={toDetails('_id')} />
             <TextFieldGroup label="Password"
                             type="password"
-                            onChange={details('password')} />
+                            onChange={toDetails('password')} />
             <TextFieldGroup label="Confirm Password"
                             type="password"
-                            onChange={details('confirm')} />
+                            onChange={toDetails('confirm')} />
             <TextFieldGroup label="First Name"
-                            onChange={details('first_name')} />
+                            onChange={toDetails('first_name')} />
             <TextFieldGroup label="Last Name"
-                            onChange={details('last_name')} />
+                            onChange={toDetails('last_name')} />
             <TextFieldGroup label="Contact Number"
-                            onChange={details('contact_number')} />
+                            onChange={toDetails('contact_number')} />
+            
             <br />
-            <a className="button is-primary" onClick={this.onClick}>
+
+            <input type="checkbox" checked={this.state.agreed}
+            onChange={() => this.setState({agreed: !this.state.agreed})} />
+            <span>
+                I have read and agree to the
+                <a target="_blank" href="/terms-and-conditions">Terms and Conditions</a>
+                and
+                <a target="_blank" href="/privacy">Privacy Policy</a>.
+            </span>
+
+            <button className="button is-primary"
+                     onClick={() => onSubmit(details)}
+                     disabled={agreed}>
                 Sign Up
-            </a>
+            </button>
         </div>;
     }
 }

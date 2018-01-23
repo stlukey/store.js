@@ -140,6 +140,11 @@ class FinalDetails extends Component {
         if (this.state.shippingMethod == null)
             return <span />;
 
+        if (DEMO) {
+            alert("Sorry but you can not order just yet! this site is a demo.")
+            return <span />;
+        }
+
         if (!this.state.goToPayment)
             return <a className="button is-primary pull-right"
                onClick={e => {if(this.checkDetails())

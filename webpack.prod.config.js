@@ -12,6 +12,8 @@ const _API_URL = 'https://maryamspersianpantryapi.herokuapp.com';
 const API_URL = JSON.stringify(_API_URL);
 var ADMIN_DIR = path.resolve(__dirname, 'admin')
 
+const DEMO = true;
+
 //process.env['NODE_ENV'] = ENV;
 //process.env['BABEL_ENV'] = ENV;
 //const NODE_ENV = ENV;
@@ -24,8 +26,8 @@ const APPENLIGHT_API_KEY =
 const GA_TRACKING_CODE =
     JSON.stringify('UA-89576317-1');
 
-// Temporary
-const STRIPE_KEY = JSON.stringify('pk_test_ouzZ8A7FAfH60YeztLWdbHTp');
+
+const STRIPE_KEY = JSON.stringify('pk_live_7lMGM0pt1Vka1OnZdFazxMYM');
 
 var config = {
     entry: {
@@ -94,6 +96,7 @@ var config = {
             ADMIN_API_URL,
             GA_TRACKING_CODE,
             STRIPE_KEY,
+            DEMO,
             //ENV
         })
     ],

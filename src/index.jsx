@@ -32,7 +32,7 @@ import Order from './orders';
 import Unsubscribe from './subscribe/unsubscribe';
 
 const history = useRouterHistory(createHistory)({
-    basename: '/demo'
+    basename: '/'
 });
 
 
@@ -43,7 +43,7 @@ const unlisten = GA_TRACKING_CODE ? history.listen(location => {
 }) : null;
 
 window.API = API_URL;
-window.SITE_TITLE = "Maryam's \nPersian Pantry";
+window.SITE_TITLE = "Maryam's \nPersian Pantry (demo)";
 
 const routes = (
     <Route path="/" component={App}>
