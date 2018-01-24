@@ -19,20 +19,12 @@
     display: none;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 736px) {
     .nav-label {
         display: none;
     }
-    .nav-toggle {
-        display: flex;
-        float: left;
-    }
     .nav-right {
         display: none;
-    }
-    .nav-right-mobile {
-        display: flex;
-        font-size: 12px;
     }
     .nav-item {
         padding: 3px;

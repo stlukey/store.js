@@ -40,7 +40,8 @@ body {
     background: url($APIURL + '/simages/background.jpg');
 }
 
-#main {
+#app {
+    padding: 5px;
 }
 
 .panel-block.vCenterContainer {
@@ -89,18 +90,6 @@ body {
 
 .vCenterContent, .product-title {
     font-family: 'Lora', serif;
-}
-
-@media (max-width: 900px) {
-    html, body {
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-        position: relative;
-    }
-
-    #main {
-        padding: 10px;        
-    }
 }
 
 
