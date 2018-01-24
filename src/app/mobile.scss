@@ -2,7 +2,7 @@
     display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 736px) {
     html, body {
         max-width: 100% !important;
         overflow-x: hidden !important;
@@ -79,10 +79,11 @@
     input[type="time"],
     input[type="url"],
     input[type="week"],
+    input,
     select:focus,
     textarea {
       font-size: 16px;
-      max-width: 150px !important;
+      max-width: 90% !important;
     }
 
     .section {
