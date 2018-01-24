@@ -56,27 +56,17 @@ const LoggedOut = <NavItem key={3} to='/login'>
     }
 })
 class NavBar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showMenu: false
-        }
-    }
-
     render() {
         const {user} = this.props;
 
         var userLinks = user.details !== null && user.token !== null ? LoggedIn(user.details.admin) : LoggedOut;
 
-        var apple = false; ///iPad|iPhone|iPo/.test(navigator.userAgent) && !window.MSStream;
-
         return (
             <nav className='nav has-shadow main-nav' id='top'>
-                <NavToggle onClick={() => this.setState({showMenu:!this.state.showMenu})}/>
-
                 <div className='nav-center' id='main-label'>
                     <NavItem to='/' id="title">{window.SITE_TITLE} {DEMO ? "(demo)" : null}</NavItem>
                 </div>
+                <br />
 
 
 
@@ -87,16 +77,13 @@ class NavBar extends Component {
                     {userLinks}
                 </div>
 
-                <div className="nav-right-mobile">
-                    {this.state.showMenu ? (
-                        <span>
-                        <NavItem to='/products'>Products</NavItem>
-                        <NavItem to='/about'>About</NavItem>
-                        {apple ? <span /> : <br />}
-                        <NavItem to='/contact'>Contact</NavItem>
-                    </span>
-                    ) : userLinks}
+                <div className="nav-mobile">
+                    <NavItem to='/products'>Products</NavItem>
+                    <NavItem to='/about'>About</NavItem>
+                    <NavItem to='/contact'>Contact</NavItem>
+                    <span className="pull-right">{userLinks}</span>                    
                 </div>
+
             </nav>
         )
     }

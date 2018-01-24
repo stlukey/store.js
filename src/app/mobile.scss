@@ -1,0 +1,98 @@
+.nav-mobile {
+    display: none;
+}
+
+@media (max-device-width: 736px){
+
+    .nav-mobile {
+        display: inherit;
+    }
+
+    .nav {
+        display: block;
+        text-align: left;
+        min-height: 70px;
+    }
+
+    .nav-mobile > .nav-item {
+        margin-left: 5px;
+        font-size: 12px;
+    }
+
+    .nav-mobile {
+        margin-top: 16px;
+    }
+
+    .material-icons {
+        font-size: 18px !important;
+    }
+
+    .nav-right {
+        display: none;
+    }
+    
+
+    .homeImg, .homeContainer {
+        width: 100% !important;
+    }
+
+    .homeText {
+        font-size: 38px !important;
+    }
+
+    #main-label {
+        display: block;
+        position: fixed;
+        text-align: center;
+        width: 100%;
+        font-size: 22px;
+        a {
+            margin-left: -25px;
+            padding: 0px;
+        }
+    }
+
+    input[type="color"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="email"],
+    input[type="month"],
+    input[type="number"],
+    input[type="password"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="text"],
+    input[type="time"],
+    input[type="url"],
+    input[type="week"],
+    select:focus,
+    textarea {
+      font-size: 16px;
+      max-width: 150px !important;
+    }
+
+    .section {
+        padding: 10px;
+    }
+
+    .cart-image {
+        display: none;
+    }
+
+}
+@media (max-device-width: 320px) {
+    #main-label a{
+        margin-left: -40px;
+    }
+}
+
+@media only screen 
+    and (min-device-width : 360px) 
+    and (max-device-width : 736px)
+{
+    #main-label {
+        margin-left: -30px !important;
+    }
+
+}

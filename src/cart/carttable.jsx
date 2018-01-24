@@ -83,7 +83,7 @@ class CartItem extends Component {
 
         return (
             <tr>
-                <td><figure className="image is-64x64">
+                <td className="cart-image"><figure className="image is-64x64">
                     <img src={`${API_URL}${product.images[0]}`} />
                 </figure></td>
                 <td>
