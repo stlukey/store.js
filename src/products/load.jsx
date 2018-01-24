@@ -41,24 +41,20 @@ class LoadProduct extends Component {
         this.props.dispatch(fetchProduct(id))
     }
 
-
-    notFound() {
-        let {router, dispatch} = this.props;
-        router.push('/');
-
-        dispatch(newMessage("That product can not be found.", "danger"));
-        return <Loading />;
-    }
-
     render() {
-        if(this.props.product.error)
-            return this.notFound();
+        const {router, dispatch, product, onLoad} = this.props;
 
-        if(!this.props.product.fetched || this.props.product.saving)
+        if(product.error) {
+            dispatch(newMessage(product.error, "danger"))
+            router.push('/')
+            return <Loading />;
+        }
+
+        if(!product.fetched || product.saving)
             return <Loading />;
 
-        return this.props.onLoad(this.props.product.data.data,
-                                 this.props.dispatch);
+        return onLoad(product.data.data,
+                                dispatch);
     }
 }
 export default withRouter(LoadProduct);
