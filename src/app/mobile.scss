@@ -42,10 +42,11 @@
 
     #main-label {
         display: block;
-        position: fixed;
+        position: absolute;
         text-align: center;
         width: 100%;
         font-size: 22px;
+        margin-top: 8px;
         a {
             margin-left: -25px;
             padding: 0px;
@@ -83,7 +84,7 @@
 }
 @media (max-device-width: 320px) {
     #main-label a{
-        margin-left: -40px;
+        //margin-left: -40px;
     }
 }
 
@@ -92,7 +93,7 @@
     and (max-device-width : 736px)
 {
     #main-label {
-        margin-left: -30px !important;
+        //margin-left: -30px !important;
     }
 
 }

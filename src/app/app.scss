@@ -83,10 +83,6 @@ body {
   display: none;
 }
 
-#app {
-    padding: 5px;
-}
-
 .center {
     text-align: center;
 }
@@ -100,7 +96,10 @@ body {
         max-width: 100% !important;
         overflow-x: hidden !important;
         position: relative;
-        padding: 10px;
+    }
+
+    #main {
+        padding: 10px;        
     }
 }
 
