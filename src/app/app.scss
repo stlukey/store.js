@@ -24,6 +24,9 @@ $family-primary: $family-serif;
     background: whitesmoke;
     margin-top: 10px;
     padding-bottom: 10px !important;
+
+    padding: 20px;
+    margin-bottom: 10px;
 }
 
 .is-14 {
@@ -40,8 +43,16 @@ body {
     background: url($APIURL + '/simages/background.jpg');
 }
 
-#app {
-    padding: 5px;
+@media (min-height: 736px) {
+
+    .panel.product {
+        text-align: center;
+        img {
+            max-height: 200px;
+            max-width: 150px;
+        }
+    }
+
 }
 
 .panel-block.vCenterContainer {

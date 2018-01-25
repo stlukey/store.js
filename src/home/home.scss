@@ -45,8 +45,8 @@
     position: relative;
     height: 337.5px;
     width: 900px;
-    margin-top: -5px;
-    margin-left: -5px;
+    margin-top: -20px;
+    margin-left: -20px;
 }
 
 h1.homeUnderline {
@@ -85,18 +85,11 @@ a.no-dec {
 }
 
 .panel.product {
-    height: 213px;
+    height: 250px;
     width: 200px;
     margin-left: auto;
     margin-right: auto;
 }
-
-@media (max-width: 768px) {
-    .latestProducts {
-        margin-bottom: 200px !important;
-    }
-}
-
 
 .latest-title-span {
     position: absolute;
@@ -120,7 +113,6 @@ span.background {
 .homeTitle {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     font-size: 22px;
-    padding-left: 10px;
 }
 
 @media (max-width: 736px) {
@@ -151,7 +143,17 @@ span.background {
         width: 250px;
         height: 250px;
     }
-    .vCenterContent {
-        font-size: 26px;
+
+    .latestProducts {
+        margin-bottom: 200px !important;
+    }
+    .panel.product{
+        img {
+            max-height: 160px;
+        }
+        p {
+            text-align: center;
+            padding-bottom: 10px;
+        }
     }
 }
