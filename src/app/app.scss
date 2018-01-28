@@ -43,7 +43,7 @@ body {
     background: url($APIURL + '/simages/background.jpg');
 }
 
-@media (min-height: 736px) {
+@media (min-width: 736px) {
 
     .panel.product {
         text-align: center;
