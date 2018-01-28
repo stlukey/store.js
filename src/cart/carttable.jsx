@@ -140,7 +140,7 @@ class CartTable extends Component {
             <table className="table cart-table">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th className="cart-image"></th>
                         <th>Name</th>
                         <th>Price</th>
                         <th></th>
