@@ -75,7 +75,9 @@ class Cart extends Component {
         return (
             <Section>
                 <Title>Items in your Basket</Title>
-                <span>Please select a delivery method below.</span>
+                <span className="is-small">(please select a delivery method below)</span>
+                <br />
+                <br />
                 {empty ? (
                     <span>Empty.</span>
                 ) : (
