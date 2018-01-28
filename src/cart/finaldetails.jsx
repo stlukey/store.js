@@ -95,12 +95,11 @@ class FinalDetails extends Component {
     renderShippingMethods() {
         return (
             <span className="pull-right">
-                <b>Shipping: </b>
-                <select onChange={(e) => this.setState({
+                <select className="full-width" onChange={(e) => this.setState({
                     shippingMethod: e.target.value
                 })}>
                     <option disabled selected>
-                        Select a delivery option.
+                        Click to select a delvivery method below.
                     </option>
                     <option value={0}>
                         Royal Mail 1st Class (1 to 2 working days)

@@ -43,6 +43,10 @@ body {
     background: url($APIURL + '/simages/background.jpg');
 }
 
+.full-width {
+    width: 100%;
+}
+
 @media (min-width: 736px) {
 
     .panel.product {
