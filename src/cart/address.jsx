@@ -3,7 +3,7 @@ import {Title} from '../app/bulma';
 
 
 const address = link => <form>
-    <Title>Address Details</Title>
+    <Title>Delivery Address</Title>
     <div className="input-row">
         <input className="input"
                placeholder="Name"
