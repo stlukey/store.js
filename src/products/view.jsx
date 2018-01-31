@@ -53,7 +53,7 @@ const ProductDetails = (product, preview=false) => (
                 <b>Out of Stock</b>
             }
         </p>
-          <br />
+          {/*<br />
           <table className="table">
             <tbody>
               <tr>
@@ -64,6 +64,7 @@ const ProductDetails = (product, preview=false) => (
               </tr>
             </tbody>
           </table>
+          */}
         </div>
       </div>
     </div>
