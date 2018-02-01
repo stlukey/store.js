@@ -7,12 +7,12 @@ var BUILD_DIR = path.resolve(__dirname, 'build');
 var PUBLIC_DIR = path.resolve(__dirname, 'public');
 var APP_DIR = path.resolve(__dirname, 'src');
 
-//const ENV = 'production';
+const ENV = 'production';
 const _API_URL = 'https://maryamspersianpantryapi.herokuapp.com';
 const API_URL = JSON.stringify(_API_URL);
 var ADMIN_DIR = path.resolve(__dirname, 'admin')
 
-const DEMO = true;
+const DEMO = false;
 
 //process.env['NODE_ENV'] = ENV;
 //process.env['BABEL_ENV'] = ENV;
