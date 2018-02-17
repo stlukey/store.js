@@ -3,13 +3,13 @@
 }
 
 .nav {
-  height: 47px;
 
   @import url('https://fonts.googleapis.com/css?family=Ubuntu');
   font-family: 'Ubuntu', sans-serif;
 
 
   box-shadow: 0 2px 20px rgba(10, 10, 10, 0.15)
+
 }
 
 .nav-right {
@@ -18,6 +18,17 @@
 .nav-right-mobile {
     display: none;
 }
+
+
+@media (min-width: 736px) {
+    .nav {
+        height: 80px;        
+    }
+    .nav, .nav-item, i.material-icons{
+        font-size: 40px !important;
+    }
+}
+
 
 @media (max-width: 736px) {
     .nav-label {

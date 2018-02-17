@@ -121,7 +121,7 @@ export default class Home extends Component {
                         <pre className="homeText">{window.SITE_TITLE}</pre>
                     </div>
                 </div>
-                <h1 className="homeTitle homeUnderline">Favourite Products</h1>
+                <h1 className="homeTitle homeUnderline">Maryam&#39;s Favourites</h1>
                 <hr className="homeUnderline" />
                 {popular}
             </div>

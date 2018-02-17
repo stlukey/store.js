@@ -35,8 +35,6 @@ const history = useRouterHistory(createHistory)({
     basename: '/'
 });
 
-
-
 const unlisten = GA_TRACKING_CODE ? history.listen(location => {
     console.log('Connected to GA with tracking code:', GA_TRACKING_CODE);
     ga('send', location);
